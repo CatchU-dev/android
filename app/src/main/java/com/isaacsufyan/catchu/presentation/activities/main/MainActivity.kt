@@ -1,5 +1,6 @@
 package com.isaacsufyan.catchu.presentation.activities.main
 
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -9,7 +10,6 @@ import com.isaacsufyan.catchu.base.BaseActivity
 import com.isaacsufyan.catchu.databinding.ActivityMainBinding
 import com.isaacsufyan.catchu.domain.enum.ELanguage
 import com.isaacsufyan.catchu.presentation.fragments.SharedViewModel
-
 
 class MainActivity : BaseActivity() {
 
@@ -51,5 +51,10 @@ class MainActivity : BaseActivity() {
             }.addOnFailureListener {
                 Log.d("TAG", "handleIncomingDeepLinks: ${it.message}")
             }
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        restartApp()
     }
 }

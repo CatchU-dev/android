@@ -58,19 +58,11 @@ class LaunchFragment : Fragment() {
             repeatMode = ObjectAnimator.REVERSE
             start()
         }
-
-//        Handler(Looper.getMainLooper()).postDelayed({
-//        }, 2000)
     }
 
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        Log.d("TAG", "onDetach: ")
     }
 }

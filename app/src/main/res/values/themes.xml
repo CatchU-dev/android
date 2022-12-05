@@ -35,7 +35,6 @@
         <item name="windowNoTitle">true</item>
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
 
-
     </style>
 
     <style name="CardViewStyle" parent="Widget.Material3.CardView.Filled">
@@ -49,16 +48,16 @@
     </style>
 
     <style name="tvStyleDialogHeader">
-        <item name="android:background">@color/navy_dark</item>
+        <item name="android:background">?attr/colorSecondary</item>
         <item name="android:textSize">20sp</item>
         <item name="android:padding">@dimen/_10sdp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">center</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">?android:colorBackground</item>
     </style>
 
     <style name="MaterialButtonStyleFilled" parent="Widget.Material3.Button">
-        <item name="rippleColor">@color/navy</item>
+        <item name="rippleColor">?attr/colorSecondary</item>
         <item name="android:textAllCaps">true</item>
         <item name="cornerRadius">@dimen/_4sdp</item>
         <item name="android:textStyle">bold</item>
@@ -66,7 +65,7 @@
     </style>
 
     <style name="MaterialButtonStyleOutline" parent="Widget.Material3.Button.OutlinedButton">
-        <item name="rippleColor">@color/navy</item>
+        <item name="rippleColor">?attr/colorSecondary</item>
         <item name="android:textAllCaps">true</item>
         <item name="cornerRadius">@dimen/_4sdp</item>
         <item name="android:textStyle">bold</item>
@@ -74,14 +73,14 @@
     </style>
 
     <style name="TextViewHeadingStyle" parent="TextAppearance.Material3.HeadlineSmall">
-        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:textColor">?attr/colorSecondary</item>
         <item name="android:paddingTop">@dimen/_4sdp</item>
         <item name="android:paddingBottom">@dimen/_4sdp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextViewNormalStyle" parent="TextAppearance.Material3.LabelLarge">
-        <item name="android:textColor">@color/black_dark</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
         <item name="android:paddingTop">@dimen/_4sdp</item>
         <item name="android:paddingBottom">@dimen/_4sdp</item>
     </style>
@@ -110,6 +109,7 @@
         <item name="boxStrokeWidth">0dp</item>
         <item name="boxStrokeWidthFocused">0dp</item>
         <item name="errorEnabled">false</item>
+        <item name="endIconTint">?attr/colorSecondary</item>
         <item name="hintEnabled">false</item>
         <item name="boxBackgroundColor">?attr/colorSurface</item>
     </style>

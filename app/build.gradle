@@ -8,6 +8,9 @@ plugins {
     id 'com.google.gms.google-services'
 }
 
+
+
+
 android {
 
     compileSdk 33
@@ -26,25 +29,6 @@ android {
         viewBinding true
     }
 
-    flavorDimensions "environment"
-    productFlavors {
-        qa {
-            versionCode 1
-            versionName "1.0"
-            buildConfigField "String", "BASE_URL", '"https://qa.catchu.net/"'
-        }
-        stagging {
-            versionCode 1
-            versionName "1.0"
-            buildConfigField "String", "BASE_URL", '"https://stage.catchu.net/"'
-        }
-        prod {
-            versionCode 1
-            versionName "1.0"
-            buildConfigField "String", "BASE_URL", '"https://my.catchu.net"'
-        }
-    }
-
     def keystorePropertiesFile = rootProject.file("app/keystore.properties")
     def keystoreProperties = new Properties()
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
@@ -58,21 +42,47 @@ android {
         }
     }
 
+    flavorDimensions "environment"
+    productFlavors {
+        qa {
+            versionCode 2
+            versionName "1.1"
+            buildConfigField "String", "BASE_URL", '"https://qa.catchu.net/"'
+
+        }
+        stagging {
+            versionCode 1
+            versionName "1.0"
+            buildConfigField "String", "BASE_URL", '"https://stage.catchu.net/"'
+        }
+        prod {
+            versionCode 1
+            versionName "1.0"
+            buildConfigField "String", "BASE_URL", '"https://my.catchu.net"'
+        }
+    }
+
+
     buildTypes {
 
         debug {
-            versionNameSuffix "-debug-VC_" + defaultConfig.versionCode+"-VN_"+defaultConfig.versionName
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
         release {
-            versionNameSuffix "-release-VC_" + defaultConfig.versionCode+"-VN_"+defaultConfig.versionName
             minifyEnabled true
             shrinkResources true
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def file = output.outputFileName
+            output.outputFileName = file.replace(".apk", "-VN_" + productFlavors.versionName + "-VC_" + productFlavors.versionCode + ".apk")
         }
     }
 

@@ -92,4 +92,5 @@ open class BaseActivity : AppCompatActivity(), Thread.UncaughtExceptionHandler {
         )
     }
 
+
 }

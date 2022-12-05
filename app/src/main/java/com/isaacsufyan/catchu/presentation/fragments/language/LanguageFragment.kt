@@ -1,6 +1,9 @@
 package com.isaacsufyan.catchu.presentation.fragments.language
 
+import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
+import android.text.InputFilter
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +26,12 @@ class LanguageFragment : BaseFragment() {
     private var _binding: FragmentLanguageBinding? = null
     private val binding get() = _binding!!
 
-    private var TAG = "TAG"
+    private var TAG = "TAG_Language"
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Log.e(TAG, "onAttach: Language" )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -92,6 +100,7 @@ class LanguageFragment : BaseFragment() {
         binding.edtResearchPurpose.setAdapter(materialAdapter)
         var selectedText = binding.edtResearchPurpose.adapter.getItem(0).toString()
         binding.edtResearchPurpose.setText(selectedText, false)
+        materialAdapter.notifyDataSetChanged()
         materialAdapter.updateColor(selectedText)
 
         binding.edtResearchPurpose.onItemClickListener =
@@ -105,7 +114,5 @@ class LanguageFragment : BaseFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        Log.e(TAG, "onDestroyView: ")
     }
-
 }
