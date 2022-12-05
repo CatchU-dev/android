@@ -1,0 +1,826 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/CardViewStyle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/_4sdp">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvMedicalConditionQuestions"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/doctor_described_medical_conditions"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Hypertension-->
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvHypertension"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:text="@string/hypertension"
+            app:layout_constraintEnd_toStartOf="@+id/tvHypertensionYes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvMedicalConditionQuestions" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvHypertensionYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/yes"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/viewHyperTension"
+            app:layout_constraintEnd_toStartOf="@+id/tvHypertensionNo"
+            app:layout_constraintTop_toBottomOf="@+id/tvMedicalConditionQuestions" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvHypertensionNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/no"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/tvHypertensionYes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvHypertensionYes" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvHypertensionError"
+            style="@style/TextViewError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/tvHypertension"
+            app:layout_constraintTop_toBottomOf="@+id/tvHypertension" />
+
+        <View
+            android:id="@+id/viewHyperTension"
+            style="@style/HorizontalLineStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvHypertension"
+            app:layout_constraintTop_toBottomOf="@+id/tvHypertensionError" />
+
+        <!-- Arthritis-->
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvArthritis"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:text="@string/arthritis"
+            app:layout_constraintEnd_toStartOf="@+id/tvArthritisYes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewHyperTension" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvArthritisYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/yes"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/viewArthritis"
+            app:layout_constraintEnd_toStartOf="@+id/tvArthritisNo"
+            app:layout_constraintTop_toBottomOf="@+id/viewHyperTension" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvArthritisNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/no"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/tvArthritisYes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvArthritisYes" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvArthritisError"
+            style="@style/TextViewError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/tvArthritis"
+            app:layout_constraintTop_toBottomOf="@+id/tvArthritis" />
+
+        <View
+            android:id="@+id/viewArthritis"
+            style="@style/HorizontalLineStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvArthritis"
+            app:layout_constraintTop_toBottomOf="@+id/tvArthritisError" />
+
+        <!-- Diabetes-->
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDiabetes"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:text="@string/diabetes"
+            app:layout_constraintEnd_toStartOf="@+id/tvDiabetesYes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewArthritis" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDiabetesYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/yes"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/viewDiabetes"
+            app:layout_constraintEnd_toStartOf="@+id/tvDiabetesNo"
+            app:layout_constraintTop_toBottomOf="@+id/viewArthritis" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDiabetesNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/no"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/tvDiabetesYes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvDiabetesYes" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDiabetesError"
+            style="@style/TextViewError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/tvDiabetes"
+            app:layout_constraintTop_toBottomOf="@+id/tvDiabetes" />
+
+        <View
+            android:id="@+id/viewDiabetes"
+            style="@style/HorizontalLineStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvDiabetes"
+            app:layout_constraintTop_toBottomOf="@+id/tvDiabetesError" />
+
+        <include
+            android:id="@+id/includeDiabetesSubQuestions"
+            layout="@layout/include_medical_history_questions_segment_1_diabetes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvDiabetes"
+            app:layout_constraintTop_toBottomOf="@+id/viewDiabetes"
+            tools:visibility="visible" />
+
+        <!-- Depression-->
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDepression"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:text="@string/depression"
+            app:layout_constraintEnd_toStartOf="@+id/tvDepressionYes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/includeDiabetesSubQuestions" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDepressionYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/yes"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/viewDepression"
+            app:layout_constraintEnd_toStartOf="@+id/tvDepressionNo"
+            app:layout_constraintTop_toBottomOf="@+id/includeDiabetesSubQuestions" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDepressionNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/no"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/tvDepressionYes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvDepressionYes" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDepressionError"
+            style="@style/TextViewError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/tvDepression"
+            app:layout_constraintTop_toBottomOf="@+id/tvDepression"
+            tools:visibility="gone" />
+
+        <View
+            android:id="@+id/viewDepression"
+            style="@style/HorizontalLineStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvDepression"
+            app:layout_constraintTop_toBottomOf="@+id/tvDepressionError" />
+
+        <!-- Chronic Obstructive Pulmonary -->
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvChronic"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:text="@string/copd"
+            app:layout_constraintEnd_toStartOf="@+id/tvChronicYes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewDepression" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvChronicYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/yes"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@id/viewChronic"
+            app:layout_constraintEnd_toStartOf="@+id/tvChronicNo"
+            app:layout_constraintTop_toBottomOf="@+id/viewDepression" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvChronicNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/no"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/tvChronicYes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvChronicYes" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvChronicError"
+            style="@style/TextViewError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/tvChronic"
+            app:layout_constraintTop_toBottomOf="@+id/tvChronic"
+            tools:visibility="gone" />
+
+        <View
+            android:id="@+id/viewChronic"
+            style="@style/HorizontalLineStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvChronic"
+            app:layout_constraintTop_toBottomOf="@+id/tvChronicError" />
+
+        <!-- Osteoporosis-->
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvOsteoporosis"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:text="@string/osteoporosis"
+            app:layout_constraintEnd_toStartOf="@+id/tvOsteoporosisYes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewChronic" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvOsteoporosisYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/yes"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/viewOsteoporosis"
+            app:layout_constraintEnd_toStartOf="@+id/tvOsteoporosisNo"
+            app:layout_constraintTop_toBottomOf="@+id/viewChronic" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvOsteoporosisNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/no"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/tvOsteoporosisYes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvOsteoporosisYes" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvOsteoporosisError"
+            style="@style/TextViewError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/tvOsteoporosis"
+            app:layout_constraintTop_toBottomOf="@+id/tvOsteoporosis"
+            tools:visibility="gone" />
+
+        <View
+            android:id="@+id/viewOsteoporosis"
+            style="@style/HorizontalLineStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvOsteoporosis"
+            app:layout_constraintTop_toBottomOf="@+id/tvOsteoporosisError" />
+
+        <!-- Anxiety-->
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvAnxiety"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:text="@string/anxiety"
+            app:layout_constraintEnd_toStartOf="@+id/tvAnxietyYes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewOsteoporosis" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvAnxietyYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/yes"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/viewAnxiety"
+            app:layout_constraintEnd_toStartOf="@+id/tvOsteoporosisNo"
+            app:layout_constraintTop_toBottomOf="@+id/viewOsteoporosis" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvAnxietyNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/no"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/tvAnxietyYes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvAnxietyYes" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvAnxietyError"
+            style="@style/TextViewError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/tvAnxiety"
+            app:layout_constraintTop_toBottomOf="@+id/tvAnxiety"
+            tools:visibility="gone" />
+
+        <View
+            android:id="@+id/viewAnxiety"
+            style="@style/HorizontalLineStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvAnxiety"
+            app:layout_constraintTop_toBottomOf="@+id/tvAnxietyError" />
+
+        <!-- Stroke-->
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvStroke"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:text="@string/stroke"
+            app:layout_constraintEnd_toStartOf="@+id/tvStrokeYes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewAnxiety" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvStrokeYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/yes"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/viewStroke"
+            app:layout_constraintEnd_toStartOf="@+id/tvOsteoporosisNo"
+            app:layout_constraintTop_toBottomOf="@+id/viewAnxiety" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvStrokeNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/no"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/tvStrokeYes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvStrokeYes" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvStrokeError"
+            style="@style/TextViewError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/tvStroke"
+            app:layout_constraintTop_toBottomOf="@+id/tvStroke"
+            tools:visibility="gone" />
+
+        <View
+            android:id="@+id/viewStroke"
+            style="@style/HorizontalLineStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvStroke"
+            app:layout_constraintTop_toBottomOf="@+id/tvStrokeError" />
+
+        <!-- Heart Disease-->
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvHeartDisease"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:text="@string/heart_disease"
+            app:layout_constraintEnd_toStartOf="@+id/tvHeartDiseaseYes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewStroke" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvHeartDiseaseYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/yes"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/viewHeartDisease"
+            app:layout_constraintEnd_toStartOf="@+id/tvOsteoporosisNo"
+            app:layout_constraintTop_toBottomOf="@+id/viewStroke" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvHeartDiseaseNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/no"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/tvHeartDiseaseYes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvHeartDiseaseYes" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvHeartDiseaseError"
+            style="@style/TextViewError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/tvHeartDisease"
+            app:layout_constraintTop_toBottomOf="@+id/tvHeartDisease"
+            tools:visibility="gone" />
+
+        <View
+            android:id="@+id/viewHeartDisease"
+            style="@style/HorizontalLineStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvHeartDisease"
+            app:layout_constraintTop_toBottomOf="@+id/tvHeartDiseaseError" />
+
+        <include
+            android:id="@+id/includeHeartDiseasesSubQuestions"
+            layout="@layout/include_medical_history_questions_segment_1_heart_disease"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvHeartDisease"
+            app:layout_constraintTop_toBottomOf="@+id/viewHeartDisease"
+            tools:visibility="visible" />
+
+        <!-- Parkinson`s Disease -->
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvParkinsonDisease"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:text="@string/parkinson"
+            app:layout_constraintEnd_toStartOf="@+id/tvParkinsonDiseaseYes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/includeHeartDiseasesSubQuestions" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvParkinsonDiseaseYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/yes"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/viewParkinsonDisease"
+            app:layout_constraintEnd_toStartOf="@+id/tvOsteoporosisNo"
+            app:layout_constraintTop_toBottomOf="@+id/includeHeartDiseasesSubQuestions" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvParkinsonDiseaseNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/no"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/tvParkinsonDiseaseYes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvParkinsonDiseaseYes" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvParkinsonDiseaseError"
+            style="@style/TextViewError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/tvParkinsonDisease"
+            app:layout_constraintTop_toBottomOf="@+id/tvParkinsonDisease"
+            tools:visibility="gone" />
+
+        <View
+            android:id="@+id/viewParkinsonDisease"
+            style="@style/HorizontalLineStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvParkinsonDisease"
+            app:layout_constraintTop_toBottomOf="@+id/tvParkinsonDiseaseError" />
+
+        <!--        Memory Problem-->
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvMemoryProblem"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:text="@string/memory_problems"
+            app:layout_constraintEnd_toStartOf="@+id/tvMemoryProblemYes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewParkinsonDisease" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvMemoryProblemYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/yes"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/viewMemoryProblem"
+            app:layout_constraintEnd_toStartOf="@+id/tvOsteoporosisNo"
+            app:layout_constraintTop_toBottomOf="@+id/viewParkinsonDisease" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvMemoryProblemNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/no"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/tvMemoryProblemYes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvMemoryProblemYes" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvMemoryProblemError"
+            style="@style/TextViewError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/tvParkinsonDisease"
+            app:layout_constraintTop_toBottomOf="@+id/tvMemoryProblem"
+            tools:visibility="gone" />
+
+        <View
+            android:id="@+id/viewMemoryProblem"
+            style="@style/HorizontalLineStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvMemoryProblem"
+            app:layout_constraintTop_toBottomOf="@+id/tvMemoryProblemError" />
+
+        <include
+            android:id="@+id/includeMemoryProblemSubQuestions"
+            layout="@layout/include_medical_history_questions_segment_1_memory_problems"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvMemoryProblem"
+            app:layout_constraintTop_toBottomOf="@+id/viewMemoryProblem"
+            tools:visibility="visible" />
+
+        <!-- High Cholesterol -->
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvHighCholesterol"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:text="@string/high_cholesterol"
+            app:layout_constraintEnd_toStartOf="@+id/tvHighCholesterolYes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/includeMemoryProblemSubQuestions" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvHighCholesterolYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/yes"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/viewHighCholesterol"
+            app:layout_constraintEnd_toStartOf="@+id/tvHighCholesterolNo"
+            app:layout_constraintTop_toBottomOf="@+id/includeMemoryProblemSubQuestions" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvHighCholesterolNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/no"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/tvHighCholesterolYes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvHighCholesterolYes" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvHighCholesterolError"
+            style="@style/TextViewError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/tvHighCholesterol"
+            app:layout_constraintTop_toBottomOf="@+id/tvHighCholesterol"
+            tools:visibility="gone" />
+
+        <View
+            android:id="@+id/viewHighCholesterol"
+            style="@style/HorizontalLineStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvHighCholesterol"
+            app:layout_constraintTop_toBottomOf="@+id/tvHighCholesterolError" />
+
+        <!-- Seizure -->
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvSeizure"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:text="@string/seizure_disorder"
+            app:layout_constraintEnd_toStartOf="@+id/tvSeizureYes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewHighCholesterol" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvSeizureYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/yes"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/viewSeizure"
+            app:layout_constraintEnd_toStartOf="@+id/tvOsteoporosisNo"
+            app:layout_constraintTop_toBottomOf="@+id/viewHighCholesterol" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvSeizureNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/no"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/tvSeizureYes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvSeizureYes" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvSeizureError"
+            style="@style/TextViewError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/tvSeizure"
+            app:layout_constraintTop_toBottomOf="@+id/tvSeizure"
+            tools:visibility="gone" />
+
+        <View
+            android:id="@+id/viewSeizure"
+            style="@style/HorizontalLineStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvSeizure"
+            app:layout_constraintTop_toBottomOf="@+id/tvSeizureError" />
+
+        <!-- Neuropathy -->
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvNeuropathy"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:text="@string/neuropathy"
+            app:layout_constraintEnd_toStartOf="@+id/tvNeuropathyYes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewSeizure" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvNeuropathyYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/yes"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/viewNeuropathy"
+            app:layout_constraintEnd_toStartOf="@+id/tvNeuropathyNo"
+            app:layout_constraintTop_toBottomOf="@+id/viewSeizure" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvNeuropathyNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/no"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/tvNeuropathyYes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvNeuropathyYes" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvNeuropathyError"
+            style="@style/TextViewError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/tvNeuropathy"
+            app:layout_constraintTop_toBottomOf="@+id/tvNeuropathy"
+            tools:visibility="gone" />
+
+        <View
+            android:id="@+id/viewNeuropathy"
+            style="@style/HorizontalLineStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvNeuropathy"
+            app:layout_constraintTop_toBottomOf="@+id/tvNeuropathyError" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

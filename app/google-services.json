@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "858189275496",
+    "project_id": "catchu-23a8a",
+    "storage_bucket": "catchu-23a8a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:858189275496:android:5b0d66640e2ecbf79cb6dd",
+        "android_client_info": {
+          "package_name": "com.isaacsufyan.catchu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "858189275496-bagf8oenhebese2ok53a5vujk67chn4f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.isaacsufyan.catchu",
+            "certificate_hash": "49f41491b89dbf487f3745645ef7009211eb80d8"
+          }
+        },
+        {
+          "client_id": "858189275496-n9t15d8ubdle8rda0svek63fh4d02umj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJDlsKEeHrscAqk8lNnLZcd3nEkn2SbJI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "858189275496-n9t15d8ubdle8rda0svek63fh4d02umj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

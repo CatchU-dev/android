@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="@dimen/_4sdp"
+    android:background="@drawable/view_bg_rectangle_filled_light_gray">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvDialysis"
+        style="@style/TextViewNormalStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_4sdp"
+        android:text="@string/dialysis"
+        app:layout_constraintEnd_toStartOf="@+id/tvDialysisYes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvDialysisYes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_4sdp"
+        android:background="@drawable/view_bg_round_outline_navy"
+        android:text="@string/yes"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@id/viewDialysis"
+        app:layout_constraintEnd_toStartOf="@+id/tvDialysisNo"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvDialysisNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/view_bg_round_outline_navy"
+        android:text="@string/no"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDialysisYes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvDialysisYes" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvDialysisError"
+        style="@style/TextViewError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/required"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/tvDialysis"
+        app:layout_constraintTop_toBottomOf="@+id/tvDialysis"
+        tools:visibility="visible" />
+
+    <View
+        android:id="@+id/viewDialysis"
+        style="@style/HorizontalLineStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvDialysis"
+        app:layout_constraintTop_toBottomOf="@+id/tvDialysisError" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

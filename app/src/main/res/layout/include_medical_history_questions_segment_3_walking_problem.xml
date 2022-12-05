@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/view_bg_rectangle_filled_light_gray"
+    android:padding="@dimen/_4sdp">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvWalkingProblemCane"
+        style="@style/TextViewNormalStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_4sdp"
+        android:text="@string/is_using_cane_for_walking"
+        app:layout_constraintEnd_toStartOf="@+id/tvWalkingProblemCaneYes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvWalkingProblemCaneYes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_4sdp"
+        android:background="@drawable/view_bg_round_outline_navy"
+        android:text="@string/yes"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/viewWalkingProblemCane"
+        app:layout_constraintEnd_toStartOf="@+id/tvWalkingProblemCaneNo"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvWalkingProblemCaneNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/view_bg_round_outline_navy"
+        android:text="@string/no"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvWalkingProblemCaneYes" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvWalkingProblemCaneError"
+        style="@style/TextViewError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/required"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/tvWalkingProblemCane"
+        app:layout_constraintTop_toBottomOf="@+id/tvWalkingProblemCane"
+        tools:visibility="visible" />
+
+    <View
+        android:id="@+id/viewWalkingProblemCane"
+        style="@style/HorizontalLineStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvWalkingProblemCane"
+        app:layout_constraintTop_toBottomOf="@+id/tvWalkingProblemCaneError" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvWalkingProblemWalker"
+        style="@style/TextViewNormalStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginEnd="@dimen/_4sdp"
+        android:text="@string/is_using_walker_for_walking"
+        app:layout_constraintEnd_toStartOf="@+id/tvWalkingProblemWalkerYes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewWalkingProblemCane" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvWalkingProblemWalkerYes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_4sdp"
+        android:background="@drawable/view_bg_round_outline_navy"
+        android:text="@string/yes"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/viewWalkingProblemWalker"
+        app:layout_constraintEnd_toStartOf="@+id/tvWalkingProblemWalkerNo"
+        app:layout_constraintTop_toBottomOf="@+id/viewWalkingProblemCane" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvWalkingProblemWalkerNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/view_bg_round_outline_navy"
+        android:text="@string/no"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvWalkingProblemWalkerYes" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvWalkingProblemWalkerError"
+        style="@style/TextViewError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/required"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/tvWalkingProblemWalker"
+        app:layout_constraintTop_toBottomOf="@+id/tvWalkingProblemWalker"
+        tools:visibility="visible" />
+
+    <View
+        android:id="@+id/viewWalkingProblemWalker"
+        style="@style/HorizontalLineStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvWalkingProblemWalker"
+        app:layout_constraintTop_toBottomOf="@+id/tvWalkingProblemWalkerError" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

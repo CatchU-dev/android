@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/view_bg_rectangle_filled_light_gray"
+    android:padding="@dimen/_4sdp">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvFallInPastFiveYearFracture"
+        style="@style/TextViewNormalStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_4sdp"
+        android:text="@string/result_in_fracture"
+        app:layout_constraintEnd_toStartOf="@+id/tvFallInPastFiveYearFractureYes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvFallInPastFiveYearFractureYes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_4sdp"
+        android:background="@drawable/view_bg_round_outline_navy"
+        android:text="@string/yes"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/viewFallInPastFiveYearFracture"
+        app:layout_constraintEnd_toStartOf="@+id/tvFallInPastFiveYearFractureNo"
+        app:layout_constraintTop_toTopOf="@+id/tvFallInPastFiveYearFracture" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvFallInPastFiveYearFractureNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/view_bg_round_outline_navy"
+        android:text="@string/no"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvFallInPastFiveYearFractureYes" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvFallInPastFiveYearFractureError"
+        style="@style/TextViewError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/required"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/tvFallInPastFiveYearFracture"
+        app:layout_constraintTop_toBottomOf="@+id/tvFallInPastFiveYearFracture"
+        tools:visibility="visible" />
+
+    <View
+        android:id="@+id/viewFallInPastFiveYearFracture"
+        style="@style/HorizontalLineStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvFallInPastFiveYearFracture"
+        app:layout_constraintTop_toBottomOf="@+id/tvFallInPastFiveYearFractureError" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

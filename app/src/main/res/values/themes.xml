@@ -1,0 +1,132 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="colorPrimary">@color/navy_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/navy</item>
+        <item name="colorOnPrimaryContainer">@color/navy</item>
+
+        <item name="colorSecondary">@color/navy_dark</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondaryContainer">@color/white</item>
+        <item name="colorOnSecondaryContainer">@color/white</item>
+
+        <item name="colorTertiary">@color/red</item>
+        <item name="colorOnTertiary">@color/white</item>
+        <item name="colorTertiaryContainer">@color/white</item>
+        <item name="colorOnTertiaryContainer">@color/white</item>
+
+        <item name="android:colorBackground">@color/white</item>
+        <item name="colorOnBackground">@color/black_dark</item>
+
+        <item name="colorSurface">@color/white_gray</item>
+        <item name="colorOnSurface">@color/black_dark</item>
+        <item name="colorSurfaceVariant">@color/white_gray</item>
+        <item name="colorOnSurfaceVariant">@color/black_dark</item>
+
+        <item name="colorError">@color/red</item>
+        <item name="colorOnError">@color/white</item>
+        <item name="colorErrorContainer">@color/white</item>
+        <item name="colorOnErrorContainer">@color/white</item>
+
+        <item name="fontFamily">@string/default_font</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+
+
+    </style>
+
+    <style name="CardViewStyle" parent="Widget.Material3.CardView.Filled">
+        <item name="cardElevation">@dimen/_2sdp</item>
+        <item name="elevationOverlayEnabled">false</item>
+    </style>
+
+    <style name="ImageViewRound">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/_8sdp</item>
+    </style>
+
+    <style name="tvStyleDialogHeader">
+        <item name="android:background">@color/navy_dark</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:padding">@dimen/_10sdp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="MaterialButtonStyleFilled" parent="Widget.Material3.Button">
+        <item name="rippleColor">@color/navy</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="cornerRadius">@dimen/_4sdp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_height">@dimen/_45sdp</item>
+    </style>
+
+    <style name="MaterialButtonStyleOutline" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="rippleColor">@color/navy</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="cornerRadius">@dimen/_4sdp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_height">@dimen/_45sdp</item>
+    </style>
+
+    <style name="TextViewHeadingStyle" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:paddingTop">@dimen/_4sdp</item>
+        <item name="android:paddingBottom">@dimen/_4sdp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextViewNormalStyle" parent="TextAppearance.Material3.LabelLarge">
+        <item name="android:textColor">@color/black_dark</item>
+        <item name="android:paddingTop">@dimen/_4sdp</item>
+        <item name="android:paddingBottom">@dimen/_4sdp</item>
+    </style>
+
+    <style name="TextViewError" parent="TextAppearance.Material3.LabelSmall">
+        <item name="android:textColor">@color/red</item>
+    </style>
+
+    <style name="TextInputLayout">
+        <item name="boxCornerRadiusBottomEnd">@dimen/_4sdp</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/_4sdp</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/_4sdp</item>
+        <item name="boxCornerRadiusTopStart">@dimen/_4sdp</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="errorEnabled">false</item>
+        <item name="hintEnabled">false</item>
+        <item name="boxBackgroundColor">?attr/colorSurface</item>
+    </style>
+
+    <style name="DropDownStyle" parent="Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu">
+        <item name="boxCornerRadiusTopStart">@dimen/_4sdp</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/_4sdp</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/_4sdp</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/_4sdp</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="errorEnabled">false</item>
+        <item name="hintEnabled">false</item>
+        <item name="boxBackgroundColor">?attr/colorSurface</item>
+    </style>
+
+    <style name="EditTextStyle">
+        <item name="android:paddingTop">@dimen/_10sdp</item>
+        <item name="android:paddingBottom">@dimen/_10sdp</item>
+        <item name="android:paddingLeft">@dimen/_16sdp</item>
+        <item name="android:paddingRight">@dimen/_16sdp</item>
+    </style>
+
+    <style name="HorizontalLineStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/_1sdp</item>
+        <item name="android:background">@color/gray</item>
+        <item name="android:layout_marginTop">@dimen/_4sdp</item>
+    </style>
+
+
+</resources>

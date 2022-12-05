@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/CardViewStyle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/_4sdp">
+
+        <!-- Chronic Kidney-->
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvChronicKidney"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:text="@string/chronic_kidney_disease"
+            app:layout_constraintEnd_toStartOf="@+id/tvChronicKidneyYes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvChronicKidneyYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/yes"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/viewChronicKidney"
+            app:layout_constraintEnd_toStartOf="@+id/tvChronicKidneyNo"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvChronicKidneyNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/no"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/tvChronicKidneyYes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvChronicKidneyYes" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvChronicKidneyError"
+            style="@style/TextViewError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/tvChronicKidney"
+            app:layout_constraintTop_toBottomOf="@+id/tvChronicKidney"
+            tools:visibility="gone" />
+
+        <View
+            android:id="@+id/viewChronicKidney"
+            style="@style/HorizontalLineStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvChronicKidney"
+            app:layout_constraintTop_toBottomOf="@+id/tvChronicKidneyError" />
+
+        <include
+            android:id="@+id/includeKidneyDiseaseSubQuestions"
+            layout="@layout/include_medical_history_questions_segment_2_kidney_disease"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvChronicKidney"
+            app:layout_constraintTop_toBottomOf="@+id/viewChronicKidney"
+            tools:visibility="visible" />
+
+        <!-- Vision Problem-->
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvVision"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:text="@string/vision_problems"
+            app:layout_constraintEnd_toStartOf="@+id/tvVisionYes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/includeKidneyDiseaseSubQuestions" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvVisionYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/yes"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/viewVision"
+            app:layout_constraintEnd_toStartOf="@+id/tvVisionNo"
+            app:layout_constraintTop_toBottomOf="@+id/includeKidneyDiseaseSubQuestions" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvVisionNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/no"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/tvVisionYes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvVisionYes" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvVisionError"
+            style="@style/TextViewError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/tvVision"
+            app:layout_constraintTop_toBottomOf="@+id/tvVision"
+            tools:visibility="visible" />
+
+        <View
+            android:id="@+id/viewVision"
+            style="@style/HorizontalLineStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvVision"
+            app:layout_constraintTop_toBottomOf="@+id/tvVisionError" />
+
+        <include
+            android:id="@+id/includeVisionProblems"
+            layout="@layout/include_medical_history_questions_segment_2_vision_problem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/viewVision"
+            tools:visibility="visible" />
+
+        <!-- Hearing Problem-->
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvHearingProblem"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:text="@string/hearing_loss"
+            app:layout_constraintEnd_toStartOf="@+id/tvHearingProblemYes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/includeVisionProblems" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvHearingProblemYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/yes"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/viewHearingProblem"
+            app:layout_constraintEnd_toStartOf="@+id/tvHearingProblemNo"
+            app:layout_constraintTop_toBottomOf="@+id/includeVisionProblems" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvHearingProblemNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/no"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvHearingProblemYes" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvHearingProblemError"
+            style="@style/TextViewError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/tvHearingProblem"
+            app:layout_constraintTop_toBottomOf="@+id/tvHearingProblem"
+            tools:visibility="visible" />
+
+        <View
+            android:id="@+id/viewHearingProblem"
+            style="@style/HorizontalLineStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvHearingProblem"
+            app:layout_constraintTop_toBottomOf="@+id/tvHearingProblemError" />
+
+        <include
+            android:id="@+id/includeHearingProblems"
+            layout="@layout/include_medical_history_questions_segment_2_hearing_problem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/viewHearingProblem"
+            tools:visibility="visible" />
+
+        <!-- Fall in Past (One Year) -->
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvFallInPastOneYear"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:text="@string/fall_past_one_year"
+            app:layout_constraintEnd_toStartOf="@+id/tvFallInPastOneYearYes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/includeHearingProblems" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvFallInPastOneYearYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/yes"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/viewFallInPastOneYear"
+            app:layout_constraintEnd_toStartOf="@+id/tvFallInPastOneYearNo"
+            app:layout_constraintTop_toBottomOf="@+id/includeHearingProblems" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvFallInPastOneYearNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/no"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvFallInPastOneYearYes" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvFallInPastOneYearError"
+            style="@style/TextViewError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/tvHearingProblem"
+            app:layout_constraintTop_toBottomOf="@+id/tvFallInPastOneYear"
+            tools:visibility="visible" />
+
+        <View
+            android:id="@+id/viewFallInPastOneYear"
+            style="@style/HorizontalLineStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvFallInPastOneYear"
+            app:layout_constraintTop_toBottomOf="@+id/tvFallInPastOneYearError" />
+
+        <include
+            android:id="@+id/includeFallInPastOneYearSubQuestions"
+            layout="@layout/include_medical_history_questions_segment_2_past_one_year"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvFallInPastOneYear"
+            app:layout_constraintTop_toBottomOf="@+id/viewFallInPastOneYear"
+            tools:visibility="visible" />
+
+        <!-- Fall in Past (Five Year) -->
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvFallInPastFiveYear"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:text="@string/fall_past_five_year"
+            app:layout_constraintEnd_toStartOf="@+id/tvFallInPastFiveYearYes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/includeFallInPastOneYearSubQuestions" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvFallInPastFiveYearYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/yes"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/viewFallInPastFiveYear"
+            app:layout_constraintEnd_toStartOf="@+id/tvFallInPastFiveYearNo"
+            app:layout_constraintTop_toBottomOf="@+id/includeFallInPastOneYearSubQuestions" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvFallInPastFiveYearNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/no"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvFallInPastFiveYearYes" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvFallInPastFiveYearError"
+            style="@style/TextViewError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/tvHearingProblem"
+            app:layout_constraintTop_toBottomOf="@+id/tvFallInPastFiveYear"
+            tools:visibility="visible" />
+
+        <View
+            android:id="@+id/viewFallInPastFiveYear"
+            style="@style/HorizontalLineStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvFallInPastFiveYear"
+            app:layout_constraintTop_toBottomOf="@+id/tvFallInPastFiveYearError" />
+
+        <include
+            android:id="@+id/includeFallInPastFiveYearSubQuestions"
+            layout="@layout/include_medical_history_questions_segment_2_past_five_years"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvFallInPastFiveYear"
+            app:layout_constraintTop_toBottomOf="@+id/viewFallInPastFiveYear"
+            tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

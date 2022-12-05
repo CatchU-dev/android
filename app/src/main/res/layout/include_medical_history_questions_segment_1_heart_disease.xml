@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/view_bg_rectangle_filled_light_gray"
+    android:padding="@dimen/_4sdp">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvHeartFailure"
+        style="@style/TextViewNormalStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_4sdp"
+        android:text="@string/heart_failure"
+        app:layout_constraintEnd_toStartOf="@+id/tvHeartFailureYes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvHeartFailureYes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_4sdp"
+        android:background="@drawable/view_bg_round_outline_navy"
+        android:text="@string/yes"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/viewHeartFailure"
+        app:layout_constraintEnd_toStartOf="@+id/tvHeartFailureNo"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvHeartFailureNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/view_bg_round_outline_navy"
+        android:text="@string/no"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/tvHeartFailureYes"
+        app:layout_constraintTop_toTopOf="@+id/tvHeartFailureYes" />
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvHeartFailureError"
+        style="@style/TextViewError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/required"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/tvHeartFailure"
+        app:layout_constraintTop_toBottomOf="@+id/tvHeartFailure"
+        tools:visibility="visible" />
+
+
+    <View
+        android:id="@+id/viewHeartFailure"
+        style="@style/HorizontalLineStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvHeartFailure"
+        app:layout_constraintTop_toBottomOf="@+id/tvHeartFailureError" />
+
+    <!-- Heart Failure Sub Section Show/Hide -->
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvMyocardial"
+        style="@style/TextViewNormalStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginEnd="@dimen/_4sdp"
+        android:text="@string/myocardial_infarction"
+        app:layout_constraintEnd_toStartOf="@+id/tvMyocardialYes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewHeartFailure" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvMyocardialYes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_4sdp"
+        android:background="@drawable/view_bg_round_outline_navy"
+        android:text="@string/yes"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@id/viewMyocardial"
+        app:layout_constraintEnd_toStartOf="@+id/tvMyocardialNo"
+        app:layout_constraintTop_toBottomOf="@+id/viewHeartFailure" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvMyocardialNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/view_bg_round_outline_navy"
+        android:text="@string/no"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/tvMyocardialYes"
+        app:layout_constraintTop_toTopOf="@+id/tvMyocardialYes" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvMyocardialError"
+        style="@style/TextViewError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/required"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/tvMyocardial"
+        app:layout_constraintTop_toBottomOf="@+id/tvMyocardial"
+        tools:visibility="visible" />
+
+    <View
+        android:id="@+id/viewMyocardial"
+        style="@style/HorizontalLineStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvMyocardial"
+        app:layout_constraintTop_toBottomOf="@+id/tvMyocardialError" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

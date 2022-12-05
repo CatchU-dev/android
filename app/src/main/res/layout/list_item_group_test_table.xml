@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.isaacsufyan.catchu.domain.model.TestHistoryModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clColumnHeading"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        app:layout_constraintTop_toBottomOf="@+id/tvScreenTitle">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvFirstName"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/view_bg_rectangle_outline_light_gray"
+            android:gravity="center_vertical"
+            android:text="@{model.patientFirstName}"
+            app:layout_constraintEnd_toStartOf="@+id/tvLastName"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Sufyan" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvLastName"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/view_bg_rectangle_outline_light_gray"
+            android:gravity="center_vertical"
+            android:text="@{model.patientLastName}"
+            app:layout_constraintEnd_toStartOf="@+id/tvDOB"
+            app:layout_constraintStart_toEndOf="@+id/tvFirstName"
+            tools:text="Sattar" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDOB"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/view_bg_rectangle_outline_light_gray"
+            android:gravity="center_vertical"
+            android:text="@{model.dob}"
+            app:layout_constraintEnd_toStartOf="@+id/tvStatus"
+            app:layout_constraintStart_toEndOf="@+id/tvLastName"
+            tools:text="14-08-1947" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvStatus"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/view_bg_rectangle_outline_light_gray"
+            android:gravity="center_vertical"
+            android:text="@{model.status}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvDOB"
+            tools:text="Initiated" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

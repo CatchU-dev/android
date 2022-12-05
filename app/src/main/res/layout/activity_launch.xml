@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivTopImage"
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_75sdp"
+        android:src="@drawable/app_icon_full"
+        app:layout_constraintBottom_toTopOf="@+id/ivBackgroundDesign"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.336" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivBackgroundDesign"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_design"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/viewLeft"
+        android:layout_width="@dimen/_16sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:background="@color/blue_light"
+        app:layout_constraintBottom_toBottomOf="@+id/ivBackgroundDesign"
+        app:layout_constraintEnd_toStartOf="@+id/viewRight"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ivBackgroundDesign"
+        app:layout_constraintVertical_bias="0.50"
+        app:shapeAppearanceOverlay="@style/ImageViewRound" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/viewRight"
+        android:layout_width="@dimen/_16sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:background="@color/blue_dark"
+        app:layout_constraintBottom_toBottomOf="@+id/ivBackgroundDesign"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/viewLeft"
+        app:layout_constraintTop_toTopOf="@id/ivBackgroundDesign"
+        app:layout_constraintVertical_bias="0.5"
+        app:shapeAppearanceOverlay="@style/ImageViewRound" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

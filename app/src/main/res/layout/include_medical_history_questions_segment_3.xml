@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/CardViewStyle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_4sdp">
+
+        <!-- Fear of Falling -->
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvFearOfFalling"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:text="@string/fear_of_falling"
+            app:layout_constraintEnd_toStartOf="@+id/tvFearOfFallingYes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvFearOfFallingYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/yes"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/viewFearOfFalling"
+            app:layout_constraintEnd_toStartOf="@+id/tvFearOfFallingNo"
+            app:layout_constraintTop_toTopOf="@+id/tvFearOfFalling" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvFearOfFallingNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/no"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvFearOfFallingYes" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvFearOfFallingError"
+            style="@style/TextViewError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/tvFearOfFalling"
+            app:layout_constraintTop_toBottomOf="@+id/tvFearOfFalling"
+            tools:visibility="visible" />
+
+        <View
+            android:id="@+id/viewFearOfFalling"
+            style="@style/HorizontalLineStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvFearOfFalling"
+            app:layout_constraintTop_toBottomOf="@+id/tvFearOfFallingError" />
+
+        <!-- Walk Without Break-->
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvWalkWithoutBreak"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:text="@string/walk_more_than_mile_without_break"
+            app:layout_constraintEnd_toStartOf="@+id/tvWalkWithoutBreakYes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewFearOfFalling" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvWalkWithoutBreakYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/yes"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/viewWalkWithoutBreak"
+            app:layout_constraintEnd_toStartOf="@+id/tvWalkWithoutBreakNo"
+            app:layout_constraintTop_toBottomOf="@+id/viewFearOfFalling" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvWalkWithoutBreakNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/no"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvWalkWithoutBreakYes" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvWalkWithoutBreakError"
+            style="@style/TextViewError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/tvWalkWithoutBreak"
+            app:layout_constraintTop_toBottomOf="@+id/tvWalkWithoutBreak"
+            tools:visibility="visible" />
+
+        <View
+            android:id="@+id/viewWalkWithoutBreak"
+            style="@style/HorizontalLineStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvWalkWithoutBreak"
+            app:layout_constraintTop_toBottomOf="@+id/tvWalkWithoutBreakError" />
+
+        <!-- Walking Problem-->
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvWalkingProblem"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:text="@string/problems_walking"
+            app:layout_constraintEnd_toStartOf="@+id/tvWalkingProblemYes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewWalkWithoutBreak" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvWalkingProblemYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/yes"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/viewWalkingProblem"
+            app:layout_constraintEnd_toStartOf="@+id/tvWalkingProblemNo"
+            app:layout_constraintTop_toBottomOf="@+id/viewWalkWithoutBreak" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvWalkingProblemNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/no"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvWalkingProblemYes" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvWalkingProblemError"
+            style="@style/TextViewError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/tvWalkingProblem"
+            app:layout_constraintTop_toBottomOf="@+id/tvWalkingProblem"
+            tools:visibility="visible" />
+
+        <View
+            android:id="@+id/viewWalkingProblem"
+            style="@style/HorizontalLineStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvWalkingProblem"
+            app:layout_constraintTop_toBottomOf="@+id/tvWalkingProblemError" />
+
+        <include
+            android:id="@+id/includeWalkingProblem"
+            layout="@layout/include_medical_history_questions_segment_3_walking_problem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvWalkingProblem"
+            app:layout_constraintTop_toBottomOf="@+id/viewWalkingProblem"
+            tools:visibility="visible" />
+
+        <!-- Low Chair Difficulty-->
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvLowChairDifficulty"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:text="@string/problems_getting_up_from_low_chair_couch"
+            app:layout_constraintEnd_toStartOf="@+id/tvLowChairDifficultyYes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/includeWalkingProblem" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvLowChairDifficultyYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/yes"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/viewLowChairDifficulty"
+            app:layout_constraintEnd_toStartOf="@+id/tvLowChairDifficultyNo"
+            app:layout_constraintTop_toTopOf="@+id/tvLowChairDifficulty" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvLowChairDifficultyNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/no"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvLowChairDifficultyYes" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvLowChairDifficultyError"
+            style="@style/TextViewError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/tvLowChairDifficulty"
+            app:layout_constraintTop_toBottomOf="@+id/tvLowChairDifficulty"
+            tools:visibility="visible" />
+
+        <View
+            android:id="@+id/viewLowChairDifficulty"
+            style="@style/HorizontalLineStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvLowChairDifficulty"
+            app:layout_constraintTop_toBottomOf="@+id/tvLowChairDifficultyError" />
+
+        <!-- Hold Furniture/Wall while Walking-->
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvHoldWallWhileWalk"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:text="@string/hold_onto_walls_furniture_while_walking"
+            app:layout_constraintEnd_toStartOf="@+id/tvHoldWallWhileWalkYes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewLowChairDifficulty" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvHoldWallWhileWalkYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/yes"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/viewHoldWallWhileWalk"
+            app:layout_constraintEnd_toStartOf="@+id/tvHoldWallWhileWalkNo"
+            app:layout_constraintTop_toBottomOf="@+id/viewLowChairDifficulty" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvHoldWallWhileWalkNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/no"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvHoldWallWhileWalkYes" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvHoldWallWhileWalkError"
+            style="@style/TextViewError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/tvHoldWallWhileWalk"
+            app:layout_constraintTop_toBottomOf="@+id/tvHoldWallWhileWalk"
+            tools:visibility="visible" />
+
+        <View
+            android:id="@+id/viewHoldWallWhileWalk"
+            style="@style/HorizontalLineStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvHoldWallWhileWalk"
+            app:layout_constraintTop_toBottomOf="@+id/tvHoldWallWhileWalkError" />
+
+        <!-- Difficulty With Your Balance -->
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDifficultyWithBalance"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:text="@string/difficulty_with_balance"
+            app:layout_constraintEnd_toStartOf="@+id/tvDifficultyWithBalanceYes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewHoldWallWhileWalk" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDifficultyWithBalanceYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/yes"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/viewDifficultyWithBalance"
+            app:layout_constraintEnd_toStartOf="@+id/tvDifficultyWithBalanceNo"
+            app:layout_constraintTop_toBottomOf="@+id/viewHoldWallWhileWalk" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDifficultyWithBalanceNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/no"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvDifficultyWithBalanceYes" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDifficultyWithBalanceError"
+            style="@style/TextViewError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/tvDifficultyWithBalance"
+            app:layout_constraintTop_toBottomOf="@+id/tvDifficultyWithBalance"
+            tools:visibility="visible" />
+
+        <View
+            android:id="@+id/viewDifficultyWithBalance"
+            style="@style/HorizontalLineStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvDifficultyWithBalance"
+            app:layout_constraintTop_toBottomOf="@+id/tvDifficultyWithBalanceError" />
+
+        <!-- Regularly Medicine -->
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvRegularlyMedicine"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:text="@string/regularly_scheduled_medications"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewDifficultyWithBalance" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edtRegularlyMedicineLayout"
+            style="@style/TextInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvRegularlyMedicine">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtRegularlyMedicine"
+                style="@style/EditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

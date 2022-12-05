@@ -1,0 +1,95 @@
+package com.isaacsufyan.catchu.base
+
+import android.app.Dialog
+import android.content.res.Configuration
+import android.content.res.Resources
+import android.graphics.drawable.ColorDrawable
+import android.os.Bundle
+import android.util.Log
+import android.view.WindowManager
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import com.isaacsufyan.catchu.R
+import com.isaacsufyan.catchu.interfaces.IDialogOnClickListener
+import com.isaacsufyan.catchu.utils.showDialog
+import com.isaacsufyan.catchu.utils.writeTextFileToSDCard
+import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
+
+
+@AndroidEntryPoint
+open class BaseActivity : AppCompatActivity(), Thread.UncaughtExceptionHandler {
+
+    private var progressDialog: Dialog? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Thread.setDefaultUncaughtExceptionHandler(this)
+        if (progressDialog == null) {
+            progressDialog = Dialog(this)
+            progressDialog?.window?.setBackgroundDrawable(ColorDrawable(0))
+            progressDialog?.window?.setFlags(
+                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE)
+            progressDialog?.setContentView(R.layout.progress_dialog)
+        }
+    }
+
+    override fun uncaughtException(p0: Thread, p1: Throwable) {
+        writeTextFileToSDCard("uncaughtCrashLogFile", Log.getStackTraceString(p1))
+    }
+
+    fun showProgress(show: Boolean) {
+        when {
+            show -> {
+                if (!isFinishing && !progressDialog!!.isShowing) {
+                    progressDialog?.setCanceledOnTouchOutside(false)
+                    progressDialog?.show()
+                }
+            }
+            else -> {
+                if (!isFinishing && progressDialog!!.isShowing) {
+                    progressDialog?.dismiss()
+                }
+            }
+        }
+    }
+
+    fun hideSystemBars() {
+        val windowInsetsController =
+            ViewCompat.getWindowInsetsController(window.decorView) ?: return
+        windowInsetsController.systemBarsBehavior =
+            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
+    }
+
+    fun restartApp() {
+        val pm = packageManager
+        val intent = pm.getLaunchIntentForPackage(packageName)
+        finishAffinity()
+        startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_right)
+    }
+
+    fun setLocale(language: String) {
+        updateResourcesLegacy(language)
+    }
+
+    private fun updateResourcesLegacy(language: String) {
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+        val resources: Resources = resources
+        val configuration: Configuration = resources.configuration
+        configuration.locale = locale
+        configuration.setLayoutDirection(locale)
+        resources.updateConfiguration(configuration, resources.displayMetrics)
+        baseContext.resources.updateConfiguration(
+            configuration,
+            baseContext.resources.displayMetrics
+        )
+    }
+
+}

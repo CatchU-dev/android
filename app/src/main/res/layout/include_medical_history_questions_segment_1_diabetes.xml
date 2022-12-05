@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="@dimen/_4sdp"
+    android:background="@drawable/view_bg_rectangle_filled_light_gray">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvDiabetesYear"
+        style="@style/TextViewNormalStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/how_long_diabetes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edtDiabetesYearLayout"
+        style="@style/TextInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:boxBackgroundColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDiabetesYear">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtDiabetesYear"
+            style="@style/EditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:id="@+id/viewDiabetesYear"
+        style="@style/HorizontalLineStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvDiabetesYear"
+        app:layout_constraintTop_toBottomOf="@+id/edtDiabetesYearLayout" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvDiabetesAffectedQuestion"
+        style="@style/TextViewNormalStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:text="@string/diabetes_affected_any_of_the_following"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewDiabetesYear" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvDiabetesVision"
+        style="@style/TextViewNormalStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginEnd="@dimen/_4sdp"
+        android:text="@string/vision"
+        app:layout_constraintEnd_toStartOf="@+id/tvDiabetesVisionYes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDiabetesAffectedQuestion" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvDiabetesVisionYes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_4sdp"
+        android:background="@drawable/view_bg_round_outline_navy"
+        android:text="@string/yes"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/viewDiabetesVision"
+        app:layout_constraintEnd_toStartOf="@+id/tvDiabetesVisionNo"
+        app:layout_constraintTop_toBottomOf="@+id/tvDiabetesAffectedQuestion" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvDiabetesVisionNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/view_bg_round_outline_navy"
+        android:text="@string/no"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDiabetesVisionYes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvDiabetesVisionYes" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvDiabetesVisionError"
+        style="@style/TextViewError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/required"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/tvDiabetesVision"
+        app:layout_constraintTop_toBottomOf="@+id/tvDiabetesVision" />
+
+    <View
+        android:id="@+id/viewDiabetesVision"
+        style="@style/HorizontalLineStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvDiabetesVision"
+        app:layout_constraintTop_toBottomOf="@+id/tvDiabetesVisionError" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvDiabetesKidney"
+        style="@style/TextViewNormalStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginEnd="@dimen/_4sdp"
+        android:text="@string/kidneys"
+        app:layout_constraintEnd_toStartOf="@+id/tvDiabetesKidneyYes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewDiabetesVision" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvDiabetesKidneyYes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_4sdp"
+        android:background="@drawable/view_bg_round_outline_navy"
+        android:text="@string/yes"
+        android:textColor="?attr/colorPrimary"
+
+        app:layout_constraintBottom_toTopOf="@+id/viewDiabetesKidney"
+        app:layout_constraintEnd_toStartOf="@+id/tvDiabetesKidneyNo"
+        app:layout_constraintTop_toBottomOf="@+id/viewDiabetesVision" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvDiabetesKidneyNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/view_bg_round_outline_navy"
+        android:text="@string/no"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDiabetesKidneyYes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvDiabetesKidneyYes" />
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvDiabetesKidneyError"
+        style="@style/TextViewError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/required"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/tvDiabetesKidney"
+        app:layout_constraintTop_toBottomOf="@+id/tvDiabetesKidney" />
+
+    <View
+        android:id="@+id/viewDiabetesKidney"
+        style="@style/HorizontalLineStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvDiabetesKidney"
+        app:layout_constraintTop_toBottomOf="@+id/tvDiabetesKidneyError" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvDiabetesNerve"
+        style="@style/TextViewNormalStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginEnd="@dimen/_4sdp"
+        android:text="@string/nerves"
+        app:layout_constraintEnd_toStartOf="@+id/tvDiabetesNerveYes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewDiabetesKidney" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvDiabetesNerveYes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_4sdp"
+        android:background="@drawable/view_bg_round_outline_navy"
+        android:text="@string/yes"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/viewDiabetesNerve"
+        app:layout_constraintEnd_toStartOf="@+id/tvDiabetesNerveNo"
+        app:layout_constraintTop_toBottomOf="@+id/viewDiabetesKidney" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvDiabetesNerveNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/view_bg_round_outline_navy"
+        android:text="@string/no"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDiabetesNerveYes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvDiabetesNerveYes" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvDiabetesNerveError"
+        style="@style/TextViewError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/required"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/tvDiabetesNerve"
+        app:layout_constraintTop_toBottomOf="@+id/tvDiabetesNerve" />
+
+    <View
+        android:id="@+id/viewDiabetesNerve"
+        style="@style/HorizontalLineStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvDiabetesNerve"
+        app:layout_constraintTop_toBottomOf="@+id/tvDiabetesNerveError" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvDiabetesTakingMedicine"
+        style="@style/TextViewNormalStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginEnd="@dimen/_4sdp"
+        android:text="@string/medication_for_diabetes"
+        app:layout_constraintEnd_toStartOf="@+id/tvDiabetesTakingMedicineYes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewDiabetesNerve" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvDiabetesTakingMedicineYes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_4sdp"
+        android:background="@drawable/view_bg_round_outline_navy"
+        android:text="@string/yes"
+        android:textColor="?attr/colorPrimary"
+
+        app:layout_constraintBottom_toTopOf="@+id/viewDiabetesTakingMedicine"
+        app:layout_constraintEnd_toStartOf="@+id/tvDiabetesTakingMedicineNo"
+        app:layout_constraintTop_toBottomOf="@+id/viewDiabetesNerve" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvDiabetesTakingMedicineNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/view_bg_round_outline_navy"
+        android:text="@string/no"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDiabetesTakingMedicineYes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvDiabetesTakingMedicineYes" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvDiabetesTakingMedicineError"
+        style="@style/TextViewError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/required"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/tvDiabetesTakingMedicine"
+        app:layout_constraintTop_toBottomOf="@+id/tvDiabetesTakingMedicine" />
+
+    <View
+        android:id="@+id/viewDiabetesTakingMedicine"
+        style="@style/HorizontalLineStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvDiabetesTakingMedicine"
+        app:layout_constraintTop_toBottomOf="@+id/tvDiabetesTakingMedicineError" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clDiabetesTakingMedicine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:padding="@dimen/_4sdp"
+        android:background="@drawable/view_bg_rectangle_filled_white"
+        app:layout_constraintTop_toBottomOf="@+id/viewDiabetesTakingMedicine">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDiabetesOralMedicine"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:text="@string/oral_medication"
+            app:layout_constraintEnd_toStartOf="@+id/tvDiabetesOralMedicineYes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDiabetesOralMedicineYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/yes"
+            android:textColor="?attr/colorPrimary"
+
+            app:layout_constraintBottom_toTopOf="@+id/viewDiabetesOralMedicine"
+            app:layout_constraintEnd_toStartOf="@+id/tvDiabetesOralMedicineNo"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDiabetesOralMedicineNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/no"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/tvDiabetesOralMedicineYes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvDiabetesOralMedicineYes" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDiabetesOralMedicineError"
+            style="@style/TextViewError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/tvDiabetesOralMedicine"
+            app:layout_constraintTop_toBottomOf="@+id/tvDiabetesOralMedicine" />
+
+        <View
+            android:id="@+id/viewDiabetesOralMedicine"
+            style="@style/HorizontalLineStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvDiabetesOralMedicine"
+            app:layout_constraintTop_toBottomOf="@+id/tvDiabetesOralMedicineError" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDiabetesInsulin"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:text="@string/taking_insulin"
+            app:layout_constraintEnd_toStartOf="@+id/tvDiabetesInsulinYes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewDiabetesOralMedicine" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDiabetesInsulinYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/yes"
+            android:textColor="?attr/colorPrimary"
+
+            app:layout_constraintBottom_toTopOf="@+id/viewDiabetesInsulin"
+            app:layout_constraintEnd_toStartOf="@+id/tvDiabetesInsulinNo"
+            app:layout_constraintTop_toBottomOf="@+id/viewDiabetesOralMedicine" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDiabetesInsulinNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/no"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/tvDiabetesInsulinYes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvDiabetesInsulinYes" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDiabetesInsulinError"
+            style="@style/TextViewError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/tvDiabetesInsulin"
+            app:layout_constraintTop_toBottomOf="@+id/tvDiabetesInsulin" />
+
+        <View
+            android:id="@+id/viewDiabetesInsulin"
+            style="@style/HorizontalLineStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvDiabetesInsulin"
+            app:layout_constraintTop_toBottomOf="@+id/tvDiabetesInsulinError" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDiabetesInjection"
+            style="@style/TextViewNormalStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:text="@string/injections"
+            app:layout_constraintEnd_toStartOf="@+id/tvDiabetesInjectionYes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewDiabetesInsulin" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDiabetesInjectionYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/yes"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/viewDiabetesInjection"
+            app:layout_constraintEnd_toStartOf="@+id/tvDiabetesInjectionNo"
+            app:layout_constraintTop_toBottomOf="@+id/viewDiabetesInsulin" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDiabetesInjectionNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/view_bg_round_outline_navy"
+            android:text="@string/no"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/tvDiabetesInjectionYes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvDiabetesInjectionYes" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDiabetesInjectionError"
+            style="@style/TextViewError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/tvDiabetesInjection"
+            app:layout_constraintTop_toBottomOf="@+id/tvDiabetesInjection" />
+
+        <View
+            android:id="@+id/viewDiabetesInjection"
+            style="@style/HorizontalLineStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvDiabetesInjection"
+            app:layout_constraintTop_toBottomOf="@+id/tvDiabetesInjectionError" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
