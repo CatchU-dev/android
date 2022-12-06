@@ -3,6 +3,7 @@ package com.isaacsufyan.catchu.adapter
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.RippleDrawable
@@ -46,9 +47,14 @@ class MaterialArrayAdapter<T>(
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = super.getView(position, convertView, parent)
         if (view is TextView) {
-            val textView = view
-            val isSelectedItem = selectedText.contentEquals(textView.text)
-            ViewCompat.setBackground(textView, if (isSelectedItem) selectedItemDrawable else null)
+            val isSelectedItem = selectedText.contentEquals(view.text)
+            if (isSelectedItem) {
+                view.setTypeface(null, Typeface.BOLD)
+                ViewCompat.setBackground(view, selectedItemDrawable)
+            } else {
+                view.setTypeface(null, Typeface.NORMAL)
+                ViewCompat.setBackground(view, null)
+            }
         }
         return view
     }

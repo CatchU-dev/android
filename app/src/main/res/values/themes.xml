@@ -2,7 +2,7 @@
 
     <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
 
-        <item name="colorPrimary">@color/navy_dark</item>
+        <item name="colorPrimary">@color/navy</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorPrimaryContainer">@color/navy</item>
         <item name="colorOnPrimaryContainer">@color/navy</item>
@@ -66,6 +66,8 @@
 
     <style name="MaterialButtonStyleOutline" parent="Widget.Material3.Button.OutlinedButton">
         <item name="rippleColor">?attr/colorSecondary</item>
+        <item name="strokeWidth">@dimen/_2sdp</item>
+        <item name="strokeColor">?attr/colorSecondary</item>
         <item name="android:textAllCaps">true</item>
         <item name="cornerRadius">@dimen/_4sdp</item>
         <item name="android:textStyle">bold</item>
@@ -115,6 +117,7 @@
     </style>
 
     <style name="EditTextStyle">
+        <item name="android:textColor">?attr/colorOnSurface</item>
         <item name="android:paddingTop">@dimen/_10sdp</item>
         <item name="android:paddingBottom">@dimen/_10sdp</item>
         <item name="android:paddingLeft">@dimen/_16sdp</item>

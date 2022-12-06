@@ -20,6 +20,7 @@ import com.isaacsufyan.catchu.domain.model.ProviderModel
 import com.isaacsufyan.catchu.domain.state.DataState
 import com.isaacsufyan.catchu.presentation.fragments.SharedViewModel
 import com.isaacsufyan.catchu.utils.isNullOrEmpty
+import com.isaacsufyan.catchu.utils.parseDateFormat
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.text.SimpleDateFormat
@@ -36,7 +37,6 @@ class GroupTestDetailsFragment : BaseFragment() {
     private var batchCode: Int? = null
     private var providerId: Int? = null
     private var billeeId: Int? = null
-    private var expireDate: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,7 +56,7 @@ class GroupTestDetailsFragment : BaseFragment() {
 
             stateEvent = StateEvent.GetCreateGroupTestData(backend_community_Id = it)
             viewModel.setStateEvent(stateEvent as StateEvent.GetCreateGroupTestData)
-        }?: run {
+        } ?: run {
             showOkDialog(resources.getString(R.string.something_get_wrong_contact_support_engineer))
         }
 
@@ -84,9 +84,11 @@ class GroupTestDetailsFragment : BaseFragment() {
             if (validationBeforeCreateGroupTest()) {
                 val groupName = binding.edtGroupName.text.toString()
                 val noOfTest = binding.edtNoOfTest.text.toString()
+                val expireDate = parseDateFormat(binding.edtExpiryDate.text.toString(), "MM-dd-yyyy hh:mm:ss","yyyy-MM-dd hh:mm:ss")
                 val timeZoneId = TimeZone.getDefault().id
 
-                val communityIdParam = viewModel.communityId.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+                val communityIdParam = viewModel.communityId.toString()
+                    .toRequestBody("multipart/form-data".toMediaTypeOrNull())
                 val groupNameParam =
                     groupName.toRequestBody("multipart/form-data".toMediaTypeOrNull())
                 val batchCodeParam =
@@ -100,7 +102,7 @@ class GroupTestDetailsFragment : BaseFragment() {
                 val timeZoneIdParam =
                     timeZoneId.toRequestBody("multipart/form-data".toMediaTypeOrNull())
                 val expireDateParam =
-                    expireDate!!.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+                    expireDate.toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
                 stateEvent = StateEvent.CreateGroupTest(
                     community_id = communityIdParam,
@@ -121,8 +123,8 @@ class GroupTestDetailsFragment : BaseFragment() {
         calendar.set(Calendar.YEAR, year)
         calendar.set(Calendar.MONTH, month)
         calendar.set(Calendar.DAY_OF_MONTH, day)
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault())
-        expireDate = dateFormat.format(calendar.time)
+        val dateFormat = SimpleDateFormat("MM-dd-yyyy hh:mm:ss", Locale.getDefault())
+        val expireDate = dateFormat.format(calendar.time)
         binding.edtExpiryDate.setText(expireDate)
     }
 
@@ -145,7 +147,7 @@ class GroupTestDetailsFragment : BaseFragment() {
         } else if (billeeId == null) {
             showOkDialog("Select Billee Id or Contact with Support Engineer")
             return false
-        } else if (expireDate.isNullOrBlank()) {
+        } else if (binding.edtExpiryDate.isNullOrEmpty()) {
             binding.edtExpiryDateLayout.error = "Required"
             return false
         }
@@ -228,34 +230,39 @@ class GroupTestDetailsFragment : BaseFragment() {
     }
 
     private fun populateActiveGroupDropdown(activeGroupTestList: List<ActiveGroupTest>?) {
-        val materialAdapter = MaterialArrayAdapter(
-            requireContext(),
-            R.layout.simple_list_item,
-            activeGroupTestList ?: emptyList(),
-            binding.edtGroupTestDetails.simpleItemSelectedColor,
-            binding.edtGroupTestDetails.simpleItemSelectedRippleColor
-        )
+        if (!activeGroupTestList.isNullOrEmpty()) {
+            val materialAdapter = MaterialArrayAdapter(
+                requireContext(),
+                R.layout.simple_list_item,
+                activeGroupTestList,
+                binding.edtGroupTestDetails.simpleItemSelectedColor,
+                binding.edtGroupTestDetails.simpleItemSelectedRippleColor
+            )
 
-        binding.edtGroupTestDetails.setAdapter(materialAdapter)
-        var selectedText = binding.edtGroupTestDetails.adapter.getItem(0).toString()
-        viewModel.groupId = activeGroupTestList?.get(0)?.groupId
-        binding.edtGroupTestDetails.setText(selectedText, false)
-        materialAdapter.updateColor(selectedText)
+            binding.edtGroupTestDetails.setAdapter(materialAdapter)
+            var selectedText = binding.edtGroupTestDetails.adapter.getItem(0).toString()
+            viewModel.groupId = activeGroupTestList[0].groupId
+            binding.edtGroupTestDetails.setText(selectedText, false)
+            materialAdapter.updateColor(selectedText)
 
 
-        binding.edtGroupTestDetails.onItemClickListener =
-            AdapterView.OnItemClickListener { _, _, position, _ ->
-                selectedText = binding.edtGroupTestDetails.adapter.getItem(position).toString()
-                viewModel.groupId = activeGroupTestList?.get(position)?.groupId
-                materialAdapter.updateColor(selectedText)
-            }
+            binding.edtGroupTestDetails.onItemClickListener =
+                AdapterView.OnItemClickListener { _, _, position, _ ->
+                    selectedText = binding.edtGroupTestDetails.adapter.getItem(position).toString()
+                    viewModel.groupId = activeGroupTestList[position].groupId
+                    materialAdapter.updateColor(selectedText)
+                }
+        } else {
+            binding.edtGroupTestDetailsLayout.isEnabled = false
+            binding.edtGroupTestDetails.hint = "List Empty - Create New Group Test"
+        }
     }
 
     private fun populateGroupCode() {
         batchCode?.let {
             binding.edtGroupCode.setText(it.toString())
             binding.edtGroupCodeLayout.isEnabled = false
-            val color = ResourcesCompat.getColor(resources, R.color.white_blue, null)
+            val color = ResourcesCompat.getColor(resources, R.color.blue_light, null)
             binding.edtGroupCodeLayout.boxBackgroundColor = color
         }
     }
@@ -280,7 +287,7 @@ class GroupTestDetailsFragment : BaseFragment() {
         binding.edtProvider.onItemClickListener =
             AdapterView.OnItemClickListener { _, _, position, _ ->
                 selectedText = binding.edtProvider.adapter.getItem(position).toString()
-                providerId = providerList[0].id ?: providerList[0].providerId
+                providerId = providerList[position].id ?: providerList[position].providerId
 
                 providerDropDownAdapter.updateColor(selectedText)
                 getBilleeOfProvider(providerId)

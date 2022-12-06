@@ -7,14 +7,11 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.isaacsufyan.catchu.R
-import com.isaacsufyan.catchu.interfaces.IDialogOnClickListener
-import com.isaacsufyan.catchu.utils.showDialog
 import com.isaacsufyan.catchu.utils.writeTextFileToSDCard
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*

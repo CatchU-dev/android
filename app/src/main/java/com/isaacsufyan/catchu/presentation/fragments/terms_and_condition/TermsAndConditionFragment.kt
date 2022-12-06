@@ -3,6 +3,7 @@ package com.isaacsufyan.catchu.presentation.fragments.terms_and_condition
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.webkit.*
 import androidx.appcompat.app.AlertDialog
@@ -13,9 +14,10 @@ import com.isaacsufyan.catchu.base.BaseFragment
 import com.isaacsufyan.catchu.databinding.FragmentTermsAndConditionBinding
 import com.isaacsufyan.catchu.domain.event.StateEvent
 import com.isaacsufyan.catchu.domain.state.DataState
-import com.isaacsufyan.catchu.interfaces.IDialogOnClickListener
+import com.isaacsufyan.catchu.framework.interfaces.IDialogOnClickListener
 import com.isaacsufyan.catchu.presentation.fragments.SharedViewModel
 import com.isaacsufyan.catchu.utils.showDialog
+
 
 class TermsAndConditionFragment : BaseFragment() {
 
@@ -73,15 +75,14 @@ class TermsAndConditionFragment : BaseFragment() {
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun loadTermAndCondition(url: String) {
+        Log.d("TAG", "loadTermAndCondition: $url")
+        val webSettings = binding.webView.settings
+        webSettings.javaScriptEnabled = true
+        webSettings.loadWithOverviewMode = true
+        webSettings.useWideViewPort = true
+        webSettings.builtInZoomControls = true
+
         binding.webView.loadUrl(url)
-        binding.webView.settings.javaScriptEnabled = true
-        binding.webView.settings.loadWithOverviewMode = true
-        binding.webView.settings.useWideViewPort = true
-        binding.webView.settings.allowFileAccess = true
-        binding.webView.settings.allowContentAccess = true
-        binding.webView.settings.allowFileAccessFromFileURLs = true
-        binding.webView.settings.allowUniversalAccessFromFileURLs = true
-        binding.webView.settings.domStorageEnabled = true
         binding.webView.webChromeClient = WebChromeClient()
         binding.webView.webViewClient = object : WebViewClient() {
 
@@ -99,7 +100,7 @@ class TermsAndConditionFragment : BaseFragment() {
                 view: WebView?,
                 request: WebResourceRequest?
             ): Boolean {
-                return true
+                return false
             }
 
             override fun onReceivedError(
@@ -107,8 +108,8 @@ class TermsAndConditionFragment : BaseFragment() {
                 request: WebResourceRequest?,
                 error: WebResourceError?
             ) {
-                mainActivity.showProgress(false)
                 super.onReceivedError(view, request, error)
+                mainActivity.showProgress(false)
             }
         }
 
@@ -133,11 +134,6 @@ class TermsAndConditionFragment : BaseFragment() {
                     dialog.dismiss()
                     isTerminateDialogDisplay = true
                 }
-
-                override fun onCancel(dialog: AlertDialog) {
-                    dialog.dismiss()
-                }
-
             })
     }
 

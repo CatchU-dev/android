@@ -16,7 +16,7 @@ import com.isaacsufyan.catchu.domain.model.ResponseModel
 import com.isaacsufyan.catchu.domain.state.DataState
 import com.isaacsufyan.catchu.presentation.fragments.SharedViewModel
 import com.isaacsufyan.catchu.utils.isNullOrEmpty
-import com.isaacsufyan.catchu.utils.parseDateToddMMyyyy
+import com.isaacsufyan.catchu.utils.parseDateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -59,7 +59,7 @@ class PatientDetailsFragment : BaseFragment() {
 
                 if (stateEvent != null && stateEvent is StateEvent.ValidatePatientToken) {
 
-                    val newDob = parseDateToddMMyyyy(dob)
+                    val newDob = parseDateFormat(dob, "MM-dd-yyyy", "dd-MM-yyyy")
 
 
                     if (this.firstName?.trim().equals(firstName.trim(), ignoreCase = true) &&
@@ -75,7 +75,8 @@ class PatientDetailsFragment : BaseFragment() {
                         showOkDialog("Patient Details InValid")
                     }
                 } else {
-                    callValidatePersonApi(firstName, lastName, dob)
+                    val newDob = parseDateFormat(dob, "MM-dd-yyyy", "yyyy-dd-MM")
+                    callValidatePersonApi(firstName, lastName, newDob)
                 }
             }
         }
@@ -252,14 +253,13 @@ class PatientDetailsFragment : BaseFragment() {
             datePicker.maxDate = System.currentTimeMillis()
             show()
         }
-
     }
 
     private val date = DatePickerDialog.OnDateSetListener { _, year, month, day ->
         calendar.set(Calendar.YEAR, year)
         calendar.set(Calendar.MONTH, month)
         calendar.set(Calendar.DAY_OF_MONTH, day)
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("MM-dd-yyyy", Locale.getDefault())
         val dob = dateFormat.format(calendar.time)
         binding.edtDOB.setText(dob)
         RawMeasurements.selectedYear = year

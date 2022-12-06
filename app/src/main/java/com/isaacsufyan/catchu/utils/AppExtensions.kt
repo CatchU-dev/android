@@ -16,7 +16,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.isaacsufyan.catchu.R
 import com.isaacsufyan.catchu.databinding.DialogAlertBinding
 import com.isaacsufyan.catchu.domain.model.ProviderModel
-import com.isaacsufyan.catchu.interfaces.IDialogOnClickListener
+import com.isaacsufyan.catchu.framework.interfaces.IDialogOnClickListener
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStreamWriter
@@ -98,19 +98,14 @@ fun AppCompatActivity.writeTextFileToSDCard(fileName: String, request: String?) 
     fOut.close()
 }
 
-fun parseDateToddMMyyyy(time: String): String? {
-    val inputPattern = "yyyy-MM-dd"
-    val outputPattern = "dd-MM-yyyy"
+fun parseDateFormat(time: String, inputPattern:String, outputPattern: String): String {
     val inputFormat = SimpleDateFormat(inputPattern, Locale.getDefault())
     val outputFormat = SimpleDateFormat(outputPattern, Locale.getDefault())
-    val date = time.let {
-        inputFormat.parse(it)
-    }
+    val date = inputFormat.parse(time)
     val dateString = date?.let {
         outputFormat.format(it)
     }
-    return dateString
-
+    return dateString?:""
 }
 
 fun isBothListsEqualIgnoreOrder(list1: List<ProviderModel>?, list2: List<ProviderModel>?) =

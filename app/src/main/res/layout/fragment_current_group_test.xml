@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:padding="@dimen/_10sdp"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="@dimen/_10sdp">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvScreenTitle"
@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:text="@string/current_group_test"
-        app:layout_constraintBottom_toTopOf="@+id/clColumnHeading"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,7 +22,6 @@
         android:layout_height="@dimen/_40sdp"
         android:layout_marginTop="@dimen/_20sdp"
         android:background="@color/white_blue"
-        app:layout_constraintBottom_toTopOf="@+id/rvCurrentGroupTestTable"
         app:layout_constraintTop_toBottomOf="@+id/tvScreenTitle">
 
         <com.google.android.material.textview.MaterialTextView
@@ -80,23 +78,33 @@
         app:layout_constraintBottom_toTopOf="@+id/btnResumeGroupTest"
         app:layout_constraintTop_toBottomOf="@+id/clColumnHeading"
         app:spanCount="1"
-        tools:itemCount="5"
+        android:visibility="gone"
+        tools:itemCount="15"
         tools:listitem="@layout/list_item_group_test_table" />
+
+    <TextView
+        android:id="@+id/tvNoPatientRecordFound"
+        style="@style/TextViewNormalStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="@string/no_patient_record_found"
+        app:layout_constraintBottom_toTopOf="@+id/btnResumeGroupTest"
+        app:layout_constraintTop_toBottomOf="@+id/clColumnHeading" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnResumeGroupTest"
         style="@style/MaterialButtonStyleFilled"
         android:layout_width="match_parent"
         android:text="@string/resume_group_test"
-        app:layout_constraintBottom_toTopOf="@+id/btnTerminateGroupTest"
-        app:layout_constraintTop_toBottomOf="@+id/rvCurrentGroupTestTable" />
+        app:layout_constraintBottom_toTopOf="@+id/btnTerminateGroupTest" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnTerminateGroupTest"
         style="@style/MaterialButtonStyleOutline"
         android:layout_width="match_parent"
         android:text="@string/terminate_group_test"
-        app:layout_constraintTop_toBottomOf="@+id/btnResumeGroupTest"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

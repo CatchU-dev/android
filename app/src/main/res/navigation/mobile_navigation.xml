@@ -186,15 +186,15 @@
         android:name="com.isaacsufyan.catchu.presentation.fragments.demo_graphic.DemoGraphicAndMedicalHistoryFragment"
         tools:layout="@layout/fragment_demo_graphic_and_medical_history">
 
-        <action
-            android:id="@+id/action_demo_to_test"
-            app:destination="@id/testFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            app:popUpTo="@+id/demoGraphicAndMedicalHistory"
-            app:popUpToInclusive="true" />
+<!--        <action-->
+<!--            android:id="@+id/action_demo_to_test"-->
+<!--            app:destination="@id/testFragment"-->
+<!--            app:enterAnim="@anim/slide_in_right"-->
+<!--            app:exitAnim="@anim/slide_out_left"-->
+<!--            app:popEnterAnim="@anim/slide_in_left"-->
+<!--            app:popExitAnim="@anim/slide_out_right"-->
+<!--            app:popUpTo="@+id/demoGraphicAndMedicalHistory"-->
+<!--            app:popUpToInclusive="true" />-->
 
     </fragment>
 

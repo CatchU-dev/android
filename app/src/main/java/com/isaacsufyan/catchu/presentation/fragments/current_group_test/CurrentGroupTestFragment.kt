@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -15,10 +14,9 @@ import com.isaacsufyan.catchu.databinding.FragmentCurrentGroupTestBinding
 import com.isaacsufyan.catchu.domain.event.StateEvent
 import com.isaacsufyan.catchu.domain.model.TestHistoryModel
 import com.isaacsufyan.catchu.domain.state.DataState
-import com.isaacsufyan.catchu.interfaces.IDialogOnClickListener
+import com.isaacsufyan.catchu.framework.interfaces.IDialogOnClickListener
 import com.isaacsufyan.catchu.presentation.fragments.SharedViewModel
 import com.isaacsufyan.catchu.utils.showDialog
-import com.isaacsufyan.catchu.utils.showSnackBar
 
 class CurrentGroupTestFragment : BaseFragment() {
 
@@ -41,10 +39,10 @@ class CurrentGroupTestFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.resetResponseModel()
 
-        viewModel.groupId?.let{ id ->
+        viewModel.groupId?.let { id ->
             stateEvent = StateEvent.GetGroupTestDetails(groupId = id)
             viewModel.setStateEvent(stateEvent)
-        }?:run {
+        } ?: run {
             showOkDialog(resources.getString(R.string.something_get_wrong_contact_support_engineer))
         }
 
@@ -53,7 +51,7 @@ class CurrentGroupTestFragment : BaseFragment() {
             viewModel.groupId?.let {
                 stateEvent = StateEvent.ResumeBatchTest(it)
                 viewModel.setStateEvent(stateEvent)
-            }?:run {
+            } ?: run {
                 showOkDialog("This group is not exist - Try Again Later or Contact with Support Engineer")
             }
         }
@@ -93,19 +91,14 @@ class CurrentGroupTestFragment : BaseFragment() {
                     mainActivity.showProgress(false)
 
                     if (stateEvent is StateEvent.GetGroupTestDetails) {
-                        it.data.data?.testHistory?.let { it1 ->
-                            populateTable(it1)
-                        } ?: run {
-                            mainActivity.showSnackBar("No Record Found")
-                        }
+                        populateTable(it.data.data?.testHistory)
                     } else if (stateEvent is StateEvent.ResumeBatchTest) {
                         if (it.data.data?.resumeBatchTest == true) {
                             val action =
                                 CurrentGroupTestFragmentDirections.actionCurrentGroupToPatientProfile()
                             findNavController().navigate(action)
                         }
-                    }
-                    else if (stateEvent is StateEvent.TerminateGroupTest) {
+                    } else if (stateEvent is StateEvent.TerminateGroupTest) {
                         if (it.data.status) {
                             val action =
                                 CurrentGroupTestFragmentDirections.actionCurrentGroupToCommunityInd()
@@ -130,10 +123,17 @@ class CurrentGroupTestFragment : BaseFragment() {
         }
     }
 
-    private fun populateTable(testHistory: List<TestHistoryModel>) {
-        adapter = CurrentGroupTestAdapter()
-        adapter.setList(testHistory)
-        binding.rvCurrentGroupTestTable.adapter = adapter
+    private fun populateTable(testHistory: List<TestHistoryModel>?) {
+        if (!testHistory.isNullOrEmpty()) {
+            binding.rvCurrentGroupTestTable.visibility = View.VISIBLE
+            binding.tvNoPatientRecordFound.visibility = View.GONE
+            adapter = CurrentGroupTestAdapter()
+            adapter.setList(testHistory)
+            binding.rvCurrentGroupTestTable.adapter = adapter
+        } else {
+            binding.rvCurrentGroupTestTable.visibility = View.GONE
+            binding.tvNoPatientRecordFound.visibility = View.VISIBLE
+        }
     }
 
     override fun onDestroyView() {

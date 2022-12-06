@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.isaacsufyan.catchu.R
-import com.isaacsufyan.catchu.interfaces.IDialogOnClickListener
+import com.isaacsufyan.catchu.framework.interfaces.IDialogOnClickListener
 import com.isaacsufyan.catchu.presentation.activities.main.MainActivity
 import com.isaacsufyan.catchu.utils.showDialog
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,10 +33,6 @@ open class BaseFragment : Fragment() {
             resources.getString(R.string.okay),
             object : IDialogOnClickListener {
                 override fun onOk(dialog: AlertDialog) {
-                    dialog.dismiss()
-                }
-
-                override fun onCancel(dialog: AlertDialog) {
                     dialog.dismiss()
                 }
             })

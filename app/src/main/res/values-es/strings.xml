@@ -155,7 +155,9 @@
     <string name="test_purpose_question">Esta prueba es con fines de investigación?</string>
     <string name="research_study_id">ID del sitio de investigación</string>
 
+    <string name="select">Select</string>
     <string name="something_get_wrong_contact_support_engineer">Something Get Wrong - Contact Support Engineer</string>
     <string name="required">Required</string>
+    <string name="no_patient_record_found">No Patient Record Found</string>
 
 </resources>
