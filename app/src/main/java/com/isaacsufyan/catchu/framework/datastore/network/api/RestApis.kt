@@ -97,7 +97,6 @@ interface RestApis {
         @Field("patient_id") patientId: Int
     ): Response<ResponseModel>
 
-    @FormUrlEncoded
     @POST("api/test/create_raw_measurements/")
     suspend fun createRawMeasurement(
         @Body rawMeasurementModel: RawMeasurementModel

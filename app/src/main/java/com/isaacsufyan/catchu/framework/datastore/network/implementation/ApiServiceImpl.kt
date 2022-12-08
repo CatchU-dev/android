@@ -2,6 +2,7 @@ package com.isaacsufyan.catchu.framework.datastore.network.implementation
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.isaacsufyan.catchu.domain.model.RawMeasurementModel
 import com.isaacsufyan.catchu.domain.model.ResponseModel
 import com.isaacsufyan.catchu.framework.datastore.network.abstraction.ApiService
 import com.isaacsufyan.catchu.framework.datastore.network.api.RestApis
@@ -144,6 +145,16 @@ class ApiServiceImpl @Inject constructor(private val restApis: RestApis) : ApiSe
         val response = restApis.termsAndConditionsDecline(
             patientId = patientId
         )
+        return if (response.isSuccessful) {
+            response.body()!!
+        } else {
+            val type = object : TypeToken<ResponseModel>() {}.type
+            Gson().fromJson(response.errorBody()!!.charStream(), type)
+        }
+    }
+
+    override suspend fun createRawMeasurement(rawMeasurementModel: RawMeasurementModel): ResponseModel {
+        val response = restApis.createRawMeasurement(rawMeasurementModel)
         return if (response.isSuccessful) {
             response.body()!!
         } else {

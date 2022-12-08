@@ -23,7 +23,7 @@ class SharedViewModel @Inject constructor(
     var communityId: Int? = null
     var groupId: Int? = null
     var patientId: Int? = null
-    var testId: String? = null
+    var testId: Int? = 10307
     var termsAndConditionUrl: String? = null
 
     val getLanguage: LiveData<String> = prefService.getLanguage().asLiveData()
@@ -164,6 +164,13 @@ class SharedViewModel @Inject constructor(
                 repository.termsAndConditionsDecline(
                     patientId = stateEvent.patientId
                 )
+                    .onEach { _responseModel.value = it }
+                    .catch { DataState.Error(it as Exception) }
+                    .launchIn(viewModelScope)
+            }
+
+            is StateEvent.CreateRawMeasurement -> {
+                repository.createRawMeasurement(rawMeasurementModel = stateEvent.rawMeasurementModel)
                     .onEach { _responseModel.value = it }
                     .catch { DataState.Error(it as Exception) }
                     .launchIn(viewModelScope)

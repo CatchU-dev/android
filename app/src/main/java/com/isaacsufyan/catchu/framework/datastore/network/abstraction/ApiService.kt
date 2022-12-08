@@ -1,5 +1,6 @@
 package com.isaacsufyan.catchu.framework.datastore.network.abstraction
 
+import com.isaacsufyan.catchu.domain.model.RawMeasurementModel
 import com.isaacsufyan.catchu.domain.model.ResponseModel
 import okhttp3.RequestBody
 
@@ -57,5 +58,9 @@ interface ApiService {
 
     suspend fun termsAndConditionsDecline(
         patientId: Int
+    ): ResponseModel
+
+    suspend fun createRawMeasurement(
+        rawMeasurementModel: RawMeasurementModel
     ): ResponseModel
 }

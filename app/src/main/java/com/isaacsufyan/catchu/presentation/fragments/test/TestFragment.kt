@@ -13,12 +13,19 @@ import androidx.navigation.fragment.findNavController
 import com.isaacsufyan.catchu.R
 import com.isaacsufyan.catchu.base.BaseFragment
 import com.isaacsufyan.catchu.databinding.FragmentTestBinding
+import com.isaacsufyan.catchu.domain.*
 import com.isaacsufyan.catchu.domain.enum.EStimulusType
+import com.isaacsufyan.catchu.domain.event.StateEvent
+import com.isaacsufyan.catchu.domain.model.RawMeasurementModel
+import com.isaacsufyan.catchu.domain.model.RawMeasurements
 import com.isaacsufyan.catchu.domain.model.Stimulus
+import com.isaacsufyan.catchu.domain.state.DataState
 import com.isaacsufyan.catchu.framework.interfaces.IDialogOnClickListener
 import com.isaacsufyan.catchu.presentation.fragments.SharedViewModel
+import com.isaacsufyan.catchu.utils.indexExists
 import com.isaacsufyan.catchu.utils.showDialog
 import java.util.*
+
 
 class TestFragment : BaseFragment() {
 
@@ -32,7 +39,7 @@ class TestFragment : BaseFragment() {
     private var stims = mutableListOf<Stimulus>()
     private var trailStims = mutableListOf<Stimulus>()
 
-    var currentStim = 0
+    var currentStim = 14
     var introShown = false
     var displayTimeStamp = 0.0
     var removeDisplayTimeStamp = 0.0
@@ -41,6 +48,7 @@ class TestFragment : BaseFragment() {
     var isPaused = false
     var breakOneTaken = false
     var breakTwoTaken = false
+
     var answersVis = mutableListOf<Double>()
     var answersSoma = mutableListOf<Double>()
     var answersVisAndSoma = mutableListOf<Double>()
@@ -52,12 +60,11 @@ class TestFragment : BaseFragment() {
 
     var canAnswer = false
     var mainInstructionShown = false
-    var demoAnswers = ""
 
     var handler: Handler? = null
     var runnable: Runnable? = null
 
-    var practiceRetried: Boolean = false
+    var practiceRetried: Boolean = true
 
     var accuracyThreshold = 0.7 // 70%
 
@@ -88,11 +95,13 @@ class TestFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.resetResponseModel()
         generateStimuli()
         showInitialAlert()
         binding.tvStartText.setOnClickListener {
             recordResponse()
         }
+        subscriber()
     }
 
     private fun recordResponse() {
@@ -120,7 +129,9 @@ class TestFragment : BaseFragment() {
         currentStim += 1
         resetTimeStamps()
 
+        Log.e("TAG", "proceedToNextStimulus: ${stims.size}")
         if (currentStim < stims.size) {
+            Log.d("TAG", "Currently On Stim: $currentStim")
             val randomWaitTime = kotlin.random.Random.nextDouble(1.0, 4.0)
             Handler(Looper.getMainLooper()).postDelayed({
                 handleStimPresentation()
@@ -177,21 +188,16 @@ class TestFragment : BaseFragment() {
             return
         }
         trialMode = true
-        Log.d("TAG", "Currently On Stim: $currentStim")
         if (currentStim == 0 && !introShown) {
             showInitialAlert()
         } else if (currentStim == 15 && !mainInstructionShown && verifySuccessfulPracticeTrails()) {
             if (mediaPlayer.isPlaying) mediaPlayer.pause()
-            showOkDialog(
-                "ShowPracticeTestCompletedScreen. Response when you feel within time. Its your next test going to start ",
-                object : IDialogOnClickListener {
-                    override fun onOk(dialog: AlertDialog) {
-                        dialog.dismiss()
-                        binding.tvStartText.text = resources.getString(R.string.click_here_to_start)
-                        trialMode = false
-                        mainInstructionShown = true
-                    }
-                })
+            val action = TestFragmentDirections.actionPracticeTestCompleteDialog()
+            findNavController().navigate(action)
+
+            binding.tvStartText.text = resources.getString(R.string.click_here_to_start)
+            trialMode = false
+            mainInstructionShown = true
         } else if (currentStim == 15 && !mainInstructionShown && !verifySuccessfulPracticeTrails()) {
             currentStim = 0
             introShown = !introShown
@@ -199,8 +205,6 @@ class TestFragment : BaseFragment() {
             if (practiceRetried) {
                 uploadResultsToServer()
                 mediaPlayer.stop()
-                val action = TestFragmentDirections.actionTestToComplete()
-                findNavController().navigate(action)
                 return
             }
 
@@ -272,9 +276,6 @@ class TestFragment : BaseFragment() {
         val trailAnswerVisAndSomaPercentage =
             trailAnswerVisAndSomaCount.toDouble() / trialAnswersVisAndSoma.size.toDouble()
 
-
-        //Handle 2nd practice attempt
-
         return if (practiceRetried && (trailAnswerVisPercentage < accuracyThreshold) || (trailAnswerSomaPercentage < accuracyThreshold) || (trailAnswerVisAndSomaPercentage < accuracyThreshold)) {
             false
         } else {
@@ -295,10 +296,8 @@ class TestFragment : BaseFragment() {
 
         showOkDialog(message, object : IDialogOnClickListener {
             override fun onOk(dialog: AlertDialog) {
-                Handler(Looper.getMainLooper()).postDelayed({
-                    dialog.dismiss()
-                    handleStimPresentation()
-                }, 20000)
+                dialog.dismiss()
+                handleStimPresentation()
             }
         })
     }
@@ -371,13 +370,41 @@ class TestFragment : BaseFragment() {
     }
 
     private fun uploadResultsToServer() {
-        var answerVis = 0.0
-        var answerSoma = 0.0
-        var answerVisSoma = 0.0
-        var answerNone = 0.0
+        sortAnswerArrays()
+        var answerNone: Double
+        var answerVis: Double
+        var answerVisSoma: Double
+        var answerSoma: Double
+
+        for (i in 0 until 45) {
+            if (answersNone.indexExists(i)) {
+                answerNone = answersNone[i]
+                rawMeasurements.javaClass.getField("c$i")
+                    .set(rawMeasurements, (answerNone * 1000).toInt())
+            }
+            if (answersVis.indexExists(i)) {
+                answerVis = answersVis[i]
+                rawMeasurements.javaClass.getField("v$i")
+                    .set(rawMeasurements, (answerVis * 1000).toInt())
+            }
+            if (answersVisAndSoma.indexExists(i)) {
+                answerVisSoma = answersVisAndSoma[i]
+                rawMeasurements.javaClass.getField("vs$i")
+                    .set(rawMeasurements, (answerVisSoma * 1000).toInt())
+            }
+            if (answersSoma.indexExists(i)) {
+                answerSoma = answersSoma[i]
+                rawMeasurements.javaClass.getField("s$i")
+                    .set(rawMeasurements, (answerSoma * 1000).toInt())
+            }
+        }
+        val rawMeasurementModel = RawMeasurementModel()
+        rawMeasurementModel.test = viewModel.testId
+        rawMeasurementModel.rawMeasurements = rawMeasurements
+        viewModel.setStateEvent(StateEvent.CreateRawMeasurement(rawMeasurementModel))
     }
 
-    private fun sortAnswerArrays(){
+    private fun sortAnswerArrays() {
         answersNone.sort()
         answersSoma.sort()
         answersVis.sort()
@@ -423,6 +450,35 @@ class TestFragment : BaseFragment() {
             )
         }
 
+    }
+
+    private fun subscriber() {
+        viewModel.responseModel.observe(viewLifecycleOwner) {
+            when (it) {
+                is DataState.Loading -> {
+                    mainActivity.showProgress(true)
+                }
+                is DataState.Success -> {
+                    mainActivity.showProgress(false)
+                    if (it.data.status) {
+                        val action = TestFragmentDirections.actionTestToComplete()
+                        findNavController().navigate(action)
+                    }
+                }
+                is DataState.Failure -> {
+                    mainActivity.showProgress(false)
+                    showOkDialog("Code: ${it.code} Message: ${it.message}")
+                }
+                is DataState.Error -> {
+                    mainActivity.showProgress(false)
+                    showOkDialog(it.exception.message.toString())
+                }
+
+                is DataState.Idle -> {
+                    mainActivity.showProgress(false)
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {

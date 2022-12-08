@@ -3,7 +3,6 @@ package com.isaacsufyan.catchu.presentation.fragments.demo_graphic
 import android.view.View
 import com.isaacsufyan.catchu.R
 import com.isaacsufyan.catchu.domain.enum.EAnswer
-import com.isaacsufyan.catchu.domain.model.RawMeasurements
 import com.isaacsufyan.catchu.utils.isNullOrEmpty
 
 class DemoGraphicAndMedicalHistoryValidation constructor(
@@ -31,11 +30,11 @@ class DemoGraphicAndMedicalHistoryValidation constructor(
                 context.resources.getString(R.string.required)
             giveAllAns = false
         }
-        if (RawMeasurements.isHispanicOrLatin == null) {
+        if (fragment.rawMeasurements.isHispanicOrLatin == null) {
             binding.includeSeg0.tvHispanicLatinoError.visibility = View.VISIBLE
             giveAllAns = false
         }
-        if (RawMeasurements.selectedRace == null) {
+        if (fragment.rawMeasurements.selectedRace == null) {
             binding.includeSeg0.edtRadicalCategoryLayout.error =
                 context.resources.getString(R.string.required)
             giveAllAns = false
@@ -47,43 +46,43 @@ class DemoGraphicAndMedicalHistoryValidation constructor(
         binding.includeSeg1.includeDiabetesSubQuestions.edtDiabetesYearLayout.error = null
         var giveAllAns = true
 
-        if (RawMeasurements.hasHypertension == null) {
+        if (fragment.rawMeasurements.hasHypertension == null) {
             binding.includeSeg1.tvHypertensionError.visibility = View.VISIBLE
             giveAllAns = false
         }
 
-        if (RawMeasurements.hasArthritis == null) {
+        if (fragment.rawMeasurements.hasArthritis == null) {
             binding.includeSeg1.tvArthritisError.visibility = View.VISIBLE
             giveAllAns = false
         }
 
-        if (RawMeasurements.hasDiabetes == null) {
+        if (fragment.rawMeasurements.hasDiabetes == null) {
             binding.includeSeg1.tvDiabetesError.visibility = View.VISIBLE
             giveAllAns = false
         }
 
-        if (RawMeasurements.hasDiabetes == EAnswer.YES.value) {
+        if (fragment.rawMeasurements.hasDiabetes == EAnswer.YES.value) {
             val view = binding.includeSeg1.includeDiabetesSubQuestions
-            if (RawMeasurements.hasDiabetesVision == null) {
+            if (fragment.rawMeasurements.hasDiabetesVision == null) {
                 view.tvDiabetesVisionError.visibility = View.VISIBLE
             }
-            if (RawMeasurements.hasDiabetesKidney == null) {
+            if (fragment.rawMeasurements.hasDiabetesKidney == null) {
                 view.tvDiabetesKidneyError.visibility = View.VISIBLE
             }
-            if (RawMeasurements.hasDiabetesNerve == null) {
+            if (fragment.rawMeasurements.hasDiabetesNerve == null) {
                 view.tvDiabetesNerveError.visibility = View.VISIBLE
             }
-            if (RawMeasurements.hasDiabetesTakMedicine == null) {
+            if (fragment.rawMeasurements.hasDiabetesTakMedicine == null) {
                 view.tvDiabetesTakingMedicineError.visibility = View.VISIBLE
             }
-            if (RawMeasurements.hasDiabetesTakMedicine == EAnswer.YES.value) {
-                if (RawMeasurements.hasDiabetesTakOralMedicine == null) {
+            if (fragment.rawMeasurements.hasDiabetesTakMedicine == EAnswer.YES.value) {
+                if (fragment.rawMeasurements.hasDiabetesTakOralMedicine == null) {
                     view.tvDiabetesOralMedicineError.visibility = View.VISIBLE
                 }
-                if (RawMeasurements.hasDiabetesTakInsulin == null) {
+                if (fragment.rawMeasurements.hasDiabetesTakInsulin == null) {
                     view.tvDiabetesInsulinError.visibility = View.VISIBLE
                 }
-                if (RawMeasurements.hasDiabetesTakInjection == null) {
+                if (fragment.rawMeasurements.hasDiabetesTakInjection == null) {
                     view.tvDiabetesInjectionError.visibility = View.VISIBLE
                 }
             }
@@ -91,78 +90,78 @@ class DemoGraphicAndMedicalHistoryValidation constructor(
             giveAllAns = false
         }
 
-        if (RawMeasurements.hasDepression == null) {
+        if (fragment.rawMeasurements.hasDepression == null) {
             binding.includeSeg1.tvDepressionError.visibility = View.VISIBLE
             giveAllAns = false
         }
 
-        if (RawMeasurements.hasCOPD == null) {
+        if (fragment.rawMeasurements.hasCOPD == null) {
             binding.includeSeg1.tvChronicError.visibility = View.VISIBLE
             giveAllAns = false
         }
 
-        if (RawMeasurements.hasOsteoporosis == null) {
+        if (fragment.rawMeasurements.hasOsteoporosis == null) {
             binding.includeSeg1.tvOsteoporosisError.visibility = View.VISIBLE
             giveAllAns = false
         }
 
-        if (RawMeasurements.hasAnxiety == null) {
+        if (fragment.rawMeasurements.hasAnxiety == null) {
             binding.includeSeg1.tvAnxietyError.visibility = View.VISIBLE
             giveAllAns = false
         }
 
-        if (RawMeasurements.hasStroke == null) {
+        if (fragment.rawMeasurements.hasStroke == null) {
             binding.includeSeg1.tvStrokeError.visibility = View.VISIBLE
             giveAllAns = false
         }
 
-        if (RawMeasurements.hasHeartDisease == null) {
+        if (fragment.rawMeasurements.hasHeartDisease == null) {
             binding.includeSeg1.tvHeartDiseaseError.visibility = View.VISIBLE
             giveAllAns = false
         }
 
-        if (RawMeasurements.hasHeartDisease == EAnswer.YES.value) {
-            if (RawMeasurements.hasHeartFailure == null) {
+        if (fragment.rawMeasurements.hasHeartDisease == EAnswer.YES.value) {
+            if (fragment.rawMeasurements.hasHeartFailure == null) {
                 binding.includeSeg1.includeHeartDiseasesSubQuestions.tvHeartFailureError.visibility =
                     View.VISIBLE
                 giveAllAns = false
             }
-            if (RawMeasurements.hasMI == null) {
+            if (fragment.rawMeasurements.hasMI == null) {
                 binding.includeSeg1.includeHeartDiseasesSubQuestions.tvMyocardialError.visibility =
                     View.VISIBLE
                 giveAllAns = false
             }
         }
 
-        if (RawMeasurements.hasPD == null) {
+        if (fragment.rawMeasurements.hasPD == null) {
             binding.includeSeg1.tvParkinsonDiseaseError.visibility = View.VISIBLE
             giveAllAns = false
         }
 
-        if (RawMeasurements.hasMemoryProblems == null) {
+        if (fragment.rawMeasurements.hasMemoryProblems == null) {
             binding.includeSeg1.tvMemoryProblemError.visibility = View.VISIBLE
             giveAllAns = false
         }
 
-        if (RawMeasurements.hasMemoryProblems == EAnswer.YES.value) {
-            if (RawMeasurements.hasDementia == null) {
+        if (fragment.rawMeasurements.hasMemoryProblems == EAnswer.YES.value) {
+            if (fragment.rawMeasurements.hasDementia == null) {
                 binding.includeSeg1.includeMemoryProblemSubQuestions.tvDementiaError.visibility =
                     View.VISIBLE
                 giveAllAns = false
             }
         }
 
-        if (RawMeasurements.hasHighCholesterol == null) {
+        if (fragment.rawMeasurements.hasHighCholesterol == null) {
             binding.includeSeg1.tvHighCholesterolError.visibility = View.VISIBLE
             giveAllAns = false
         }
 
-        if (RawMeasurements.hasSeizure == null) {
+        if (fragment.rawMeasurements.hasSeizure == null) {
             binding.includeSeg1.tvSeizureError.visibility = View.VISIBLE
             giveAllAns = false
         }
 
-        if (RawMeasurements.hasNeuropathy == null) {
+        if (fragment.rawMeasurements.hasNeuropathy == null) {
             binding.includeSeg1.tvNeuropathyError.visibility = View.VISIBLE
             giveAllAns = false
         }
@@ -175,64 +174,64 @@ class DemoGraphicAndMedicalHistoryValidation constructor(
         binding.includeSeg2.includeVisionProblems.edtVisionRateLayout.error = null
 
 
-        if (RawMeasurements.hasChronicKidney == null) {
+        if (fragment.rawMeasurements.hasChronicKidney == null) {
             binding.includeSeg2.tvChronicKidneyError.visibility = View.VISIBLE
             giveAllAns = false
         }
-        if(RawMeasurements.hasChronicKidney == EAnswer.YES.value){
-            if (RawMeasurements.onDialysis == null) {
+        if(fragment.rawMeasurements.hasChronicKidney == EAnswer.YES.value){
+            if (fragment.rawMeasurements.onDialysis == null) {
                 binding.includeSeg2.includeKidneyDiseaseSubQuestions.tvDialysisError.visibility = View.VISIBLE
                 giveAllAns = false
             }
         }
 
-        if (RawMeasurements.hasVisionProblem == null) {
+        if (fragment.rawMeasurements.hasVisionProblem == null) {
             binding.includeSeg2.tvVisionError.visibility = View.VISIBLE
             giveAllAns = false
         }
 
-        if (RawMeasurements.hasVisionProblem == EAnswer.YES.value) {
+        if (fragment.rawMeasurements.hasVisionProblem == EAnswer.YES.value) {
             if (binding.includeSeg2.includeVisionProblems.edtVisionRate.isNullOrEmpty()) {
                 binding.includeSeg2.includeVisionProblems.edtVisionRateLayout.error =
                     context.resources.getString(R.string.required)
                 giveAllAns = false
             }
-            if (RawMeasurements.hasCorrectiveLenses == null) {
+            if (fragment.rawMeasurements.hasCorrectiveLenses == null) {
                 binding.includeSeg2.includeVisionProblems.tvVisionGlassesError.visibility = View.VISIBLE
                 giveAllAns = false
             }
         }
 
-        if (RawMeasurements.hasSevereHearingLoss == null) {
+        if (fragment.rawMeasurements.hasSevereHearingLoss == null) {
             binding.includeSeg2.tvHearingProblemError.visibility = View.VISIBLE
             giveAllAns = false
         }
 
-        if (RawMeasurements.hasSevereHearingLoss == EAnswer.YES.value) {
-            if (RawMeasurements.hasHearingAid == null) {
+        if (fragment.rawMeasurements.hasSevereHearingLoss == EAnswer.YES.value) {
+            if (fragment.rawMeasurements.hasHearingAid == null) {
                 binding.includeSeg2.includeHearingProblems.tvHearingAidError.visibility = View.VISIBLE
                 giveAllAns = false
             }
         }
 
-        if (RawMeasurements.hasHadAFall == null) {
+        if (fragment.rawMeasurements.hasHadAFall == null) {
             binding.includeSeg2.tvFallInPastOneYearError.visibility = View.VISIBLE
             giveAllAns = false
         }
-        if(RawMeasurements.hasHadAFall ==  EAnswer.YES.value){
-            if (RawMeasurements.hasHadAFracture == null) {
+        if(fragment.rawMeasurements.hasHadAFall ==  EAnswer.YES.value){
+            if (fragment.rawMeasurements.hasHadAFracture == null) {
                 binding.includeSeg2.includeFallInPastOneYearSubQuestions.tvFallInPastOneYearFractureError.visibility = View.VISIBLE
                 giveAllAns = false
             }
         }
 
-        if (RawMeasurements.hasHadAFallPastFiveYears == null) {
+        if (fragment.rawMeasurements.hasHadAFallPastFiveYears == null) {
             binding.includeSeg2.tvFallInPastFiveYearError.visibility =
                 View.VISIBLE
             giveAllAns = false
         }
-        if (RawMeasurements.hasHadAFallPastFiveYears == EAnswer.YES.value) {
-            if (RawMeasurements.hasHadAFracturePastFiveYears == null) {
+        if (fragment.rawMeasurements.hasHadAFallPastFiveYears == EAnswer.YES.value) {
+            if (fragment.rawMeasurements.hasHadAFracturePastFiveYears == null) {
                 binding.includeSeg2.includeFallInPastFiveYearSubQuestions.tvFallInPastFiveYearFractureError.visibility =
                     View.VISIBLE
                 giveAllAns = false
@@ -251,37 +250,37 @@ class DemoGraphicAndMedicalHistoryValidation constructor(
                 context.resources.getString(R.string.required)
             giveAllAns = false
         }
-        if (RawMeasurements.hasFearOfFalling == null) {
+        if (fragment.rawMeasurements.hasFearOfFalling == null) {
             binding.includeSeg3.tvFearOfFallingError.visibility = View.VISIBLE
             giveAllAns = false
         }
-        if (RawMeasurements.canWalkWithoutBreak == null) {
+        if (fragment.rawMeasurements.canWalkWithoutBreak == null) {
             binding.includeSeg3.tvWalkWithoutBreakError.visibility = View.VISIBLE
             giveAllAns = false
         }
-        if (RawMeasurements.hasDifficultyWalking == null) {
+        if (fragment.rawMeasurements.hasDifficultyWalking == null) {
             binding.includeSeg3.tvWalkingProblemError.visibility = View.VISIBLE
             giveAllAns = false
         }
-        if (RawMeasurements.hasDifficultyWalking == EAnswer.YES.value) {
-            if (RawMeasurements.hasDifficultyWalkingUseCane == null) {
+        if (fragment.rawMeasurements.hasDifficultyWalking == EAnswer.YES.value) {
+            if (fragment.rawMeasurements.hasDifficultyWalkingUseCane == null) {
                 binding.includeSeg3.includeWalkingProblem.tvWalkingProblemCaneError.visibility = View.VISIBLE
                 giveAllAns = false
             }
-            if (RawMeasurements.hasDifficultyWalkingUseWalker == null) {
+            if (fragment.rawMeasurements.hasDifficultyWalkingUseWalker == null) {
                 binding.includeSeg3.includeWalkingProblem.tvWalkingProblemWalkerError.visibility = View.VISIBLE
                 giveAllAns = false
             }
         }
-        if (RawMeasurements.hasDifficultyGettingUp == null) {
+        if (fragment.rawMeasurements.hasDifficultyGettingUp == null) {
             binding.includeSeg3.tvLowChairDifficultyError.visibility = View.VISIBLE
             giveAllAns = false
         }
-        if (RawMeasurements.hasToHoldOntoWalls == null) {
+        if (fragment.rawMeasurements.hasToHoldOntoWalls == null) {
             binding.includeSeg3.tvHoldWallWhileWalkError.visibility = View.VISIBLE
             giveAllAns = false
         }
-        if (RawMeasurements.hasDifficultyWithBalance == null) {
+        if (fragment.rawMeasurements.hasDifficultyWithBalance == null) {
             binding.includeSeg3.tvDifficultyWithBalanceError.visibility = View.VISIBLE
             giveAllAns = false
         }

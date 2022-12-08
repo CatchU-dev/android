@@ -46,7 +46,7 @@ class LanguageFragment : BaseFragment() {
         setupLanguageDropDown()
         setupResearchPurpose()
         binding.btnContinue.setOnClickListener {
-            RawMeasurements.researchPurpose = binding.edtResearchPurpose.text.toString()
+            rawMeasurements.researchPurpose = binding.edtResearchPurpose.text.toString()
             val action =
                 if (viewModel.token == null) LanguageFragmentDirections.actionLanguageToCommunityInd()
                 else LanguageFragmentDirections.actionLanguageToProfileDetails()

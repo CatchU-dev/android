@@ -1,6 +1,5 @@
 package com.isaacsufyan.catchu.presentation.fragments.demo_graphic
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -13,7 +12,6 @@ import com.isaacsufyan.catchu.R
 import com.isaacsufyan.catchu.base.BaseFragment
 import com.isaacsufyan.catchu.databinding.FragmentDemoGraphicAndMedicalHistoryBinding
 import com.isaacsufyan.catchu.domain.model.RawMeasurements
-import com.isaacsufyan.catchu.utils.showSnackBar
 import com.isaacsufyan.catchu.utils.textToString
 import java.text.SimpleDateFormat
 import java.util.*
@@ -29,9 +27,7 @@ class DemoGraphicAndMedicalHistoryFragment : BaseFragment() {
     private var seg3: DemoGraphicAndMedicalHistorySeg3? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDemoGraphicAndMedicalHistoryBinding.inflate(inflater, container, false)
         return binding.root
@@ -40,7 +36,6 @@ class DemoGraphicAndMedicalHistoryFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getCurrentDateAndSet()
-
         seg0 = DemoGraphicAndMedicalHistorySeg0(this)
         seg1 = DemoGraphicAndMedicalHistorySeg1(this)
         seg2 = DemoGraphicAndMedicalHistorySeg2(this)
@@ -49,9 +44,9 @@ class DemoGraphicAndMedicalHistoryFragment : BaseFragment() {
 
         binding.btnStartTrail.setOnClickListener {
 //            if (validation.validate()) {
-//                getInputValueAndSet()
-                val action = DemoGraphicAndMedicalHistoryFragmentDirections.actionDemoToTest()
-                findNavController().navigate(action)
+            getInputValueAndSet()
+            val action = DemoGraphicAndMedicalHistoryFragmentDirections.actionDemoToTest()
+            findNavController().navigate(action)
 //            } else {
 //                mainActivity.showSnackBar("All field are Required")
 //            }
@@ -63,15 +58,17 @@ class DemoGraphicAndMedicalHistoryFragment : BaseFragment() {
         val edtDiabetesYear =
             binding.includeSeg1.includeDiabetesSubQuestions.edtDiabetesYear.textToString()
         val edtRegularlyMedicine = binding.includeSeg3.edtRegularlyMedicine.textToString()
-        RawMeasurements.educationYear = educationYear
-        RawMeasurements.hasDiabetesYears = edtDiabetesYear
-        RawMeasurements.regularlyScheduledMedicines = edtRegularlyMedicine
+        rawMeasurements.educationYear = educationYear
+        rawMeasurements.hasDiabetesYears = edtDiabetesYear
+        rawMeasurements.regularlyScheduledMedicines = edtRegularlyMedicine
+        rawMeasurements.subjectid = Random().nextInt(5)
     }
 
     private fun getCurrentDateAndSet() {
         val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-        RawMeasurements.testdate = date
-        val age = (Calendar.getInstance(Locale.ENGLISH)[Calendar.YEAR] - RawMeasurements.selectedYear)
+        rawMeasurements.testdate = date
+        val age =
+            (Calendar.getInstance(Locale.ENGLISH)[Calendar.YEAR] - rawMeasurements.selectedYear)
         binding.includeSeg0.edtDOB.setText(age.toString())
         binding.includeSeg0.edtDOB.isEnabled = false
         val color = ResourcesCompat.getColor(resources, R.color.white_blue, null)
@@ -81,20 +78,13 @@ class DemoGraphicAndMedicalHistoryFragment : BaseFragment() {
     fun getPrimaryColor(): Int {
         val value = TypedValue()
         requireContext().theme.resolveAttribute(
-            com.google.android.material.R.attr.colorPrimary,
-            value,
-            true
+            com.google.android.material.R.attr.colorPrimary, value, true
         )
         return value.data
     }
 
-    fun getBackground(drawable: Int): Drawable? {
-        return ContextCompat.getDrawable(requireContext(), drawable)
-    }
-
-    fun getColor(color: Int): Int {
-        return ResourcesCompat.getColor(resources, color, null)
-    }
+    fun getBackground(drawable: Int) = ContextCompat.getDrawable(requireContext(), drawable)
+    fun getColor(color: Int) = ResourcesCompat.getColor(resources, color, null)
 
     override fun onDestroyView() {
         super.onDestroyView()

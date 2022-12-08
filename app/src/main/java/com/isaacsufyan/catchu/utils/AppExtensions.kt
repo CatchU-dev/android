@@ -50,6 +50,7 @@ fun AppCompatActivity.showDialog(
     val binding = DialogAlertBinding.inflate(layoutInflater)
     dialog.setView(binding.root)
     dialog.setCancelable(false)
+    dialog.setCanceledOnTouchOutside(false)
 
     binding.tvDialogMessage.text = message
     binding.ivDialogHeader.setImageResource(image)
@@ -112,6 +113,10 @@ fun parseDateFormat(time: String, inputPattern: String, outputPattern: String): 
         outputFormat.format(it)
     }
     return dateString ?: ""
+}
+
+fun List<Any>.indexExists(index: Int): Boolean {
+    return index in indices
 }
 
 fun isBothListsEqualIgnoreOrder(list1: List<ProviderModel>?, list2: List<ProviderModel>?) =
