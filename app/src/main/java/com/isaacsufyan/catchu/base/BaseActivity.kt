@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.drawable.ColorDrawable
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
@@ -25,6 +26,7 @@ open class BaseActivity : AppCompatActivity(), Thread.UncaughtExceptionHandler {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Thread.setDefaultUncaughtExceptionHandler(this)
+
         if (progressDialog == null) {
             progressDialog = Dialog(this)
             progressDialog?.window?.setBackgroundDrawable(ColorDrawable(0))

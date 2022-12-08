@@ -148,7 +148,7 @@
     <string name="research_study_site">Research Study Site:</string>
     <string name="practice_test_complete">Practice Test Completed!</string>
     <string name="test_completed">Test Completed!</string>
-    <string name="test_completed_message">Your results are being sent directly to your doctor.Thank you, please hand the phone back to the staff member now.</string>
+    <string name="test_completed_message">Your results are being sent directly to your doctor. Thank you, please hand the phone back to the staff member now.</string>
     <string name="second_practice_test_message">Let’s try that again.  Remember, as soon as you feel, see, or feel and see a stimulus, please be sure to press the gray response button as quickly as possible.  When you are ready to try the practice test again, press the gray response area.</string>
     <string name="language">Language</string>
     <string name="test_purpose_question">Is this test for research purposes?</string>

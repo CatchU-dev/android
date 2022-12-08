@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.isaacsufyan.catchu.base.BaseFragment
 import com.isaacsufyan.catchu.databinding.FragmentTestCompletedBinding
 
@@ -23,7 +24,10 @@ class TestCompletedFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.btnStaffMemberClickHere.setOnClickListener {
+            val action = TestCompletedFragmentDirections.actionTestCompleteToPatientProfile()
+            findNavController().navigate(action)
+        }
     }
 
     override fun onDestroyView() {

@@ -48,13 +48,13 @@ class DemoGraphicAndMedicalHistoryFragment : BaseFragment() {
         val validation = DemoGraphicAndMedicalHistoryValidation(this)
 
         binding.btnStartTrail.setOnClickListener {
-            if (validation.validate()) {
-                getInputValueAndSet()
-//                val action = DemoGraphicAndMedicalHistoryFragmentDirections.actionDemoToTest()
-//                findNavController().navigate(action)
-            } else {
-                mainActivity.showSnackBar("All field are Required")
-            }
+//            if (validation.validate()) {
+//                getInputValueAndSet()
+                val action = DemoGraphicAndMedicalHistoryFragmentDirections.actionDemoToTest()
+                findNavController().navigate(action)
+//            } else {
+//                mainActivity.showSnackBar("All field are Required")
+//            }
         }
     }
 

@@ -38,6 +38,17 @@ open class BaseFragment : Fragment() {
             })
     }
 
+    fun showOkDialog(title: String, listener: IDialogOnClickListener) {
+        mainActivity.showDialog(
+            true,
+            message = title,
+            R.drawable.practice_icon,
+            null,
+            resources.getString(R.string.okay),
+            listener
+        )
+    }
+
     fun showDialogAndNavigateScreen(message: String, action: NavDirections) {
         mainActivity.showDialog(
             false,
