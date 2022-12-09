@@ -75,7 +75,7 @@ class PatientDetailsFragment : BaseFragment() {
                         showOkDialog("Patient Details InValid")
                     }
                 } else {
-                    val newDob = parseDateFormat(dob, "MM-dd-yyyy", "yyyy-dd-MM")
+                    val newDob = parseDateFormat(dob, "MM-dd-yyyy", "yyyy-MM-dd")
                     callValidatePersonApi(firstName, lastName, newDob)
                 }
             }
