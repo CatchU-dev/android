@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.isaacsufyan.catchu.BuildConfig
 import com.isaacsufyan.catchu.R
 import com.isaacsufyan.catchu.base.BaseFragment
 import com.isaacsufyan.catchu.databinding.FragmentTestBinding
@@ -17,7 +18,6 @@ import com.isaacsufyan.catchu.domain.*
 import com.isaacsufyan.catchu.domain.enum.EStimulusType
 import com.isaacsufyan.catchu.domain.event.StateEvent
 import com.isaacsufyan.catchu.domain.model.RawMeasurementModel
-import com.isaacsufyan.catchu.domain.model.RawMeasurements
 import com.isaacsufyan.catchu.domain.model.Stimulus
 import com.isaacsufyan.catchu.domain.state.DataState
 import com.isaacsufyan.catchu.framework.interfaces.IDialogOnClickListener
@@ -67,6 +67,7 @@ class TestFragment : BaseFragment() {
     var practiceRetried: Boolean = true
 
     var accuracyThreshold = 0.7 // 70%
+    val params = HashMap<String, Any>()
 
     //TODO after completing the batch, api return this value and redirect screen according to true/false - Move to community_screen and patient_details screens
     var batchCompleted = false
@@ -255,33 +256,6 @@ class TestFragment : BaseFragment() {
         }
     }
 
-    private fun verifySuccessfulPracticeTrails(): Boolean {
-
-        val trailAnswerVisCount: Int = trialAnswersVis.filter {
-            it > 0.0
-        }.size
-
-        val trailAnswerSomaCount: Int = trialAnswersSoma.filter {
-            it > 0.0
-        }.size
-
-        val trailAnswerVisAndSomaCount: Int = trialAnswersVisAndSoma.filter {
-            it > 0.0
-        }.size
-
-        val trailAnswerVisPercentage =
-            trailAnswerVisCount.toDouble() / trialAnswersVis.size.toDouble()
-        val trailAnswerSomaPercentage =
-            trailAnswerSomaCount.toDouble() / trialAnswersSoma.size.toDouble()
-        val trailAnswerVisAndSomaPercentage =
-            trailAnswerVisAndSomaCount.toDouble() / trialAnswersVisAndSoma.size.toDouble()
-
-        return if (practiceRetried && (trailAnswerVisPercentage < accuracyThreshold) || (trailAnswerSomaPercentage < accuracyThreshold) || (trailAnswerVisAndSomaPercentage < accuracyThreshold)) {
-            false
-        } else {
-            (trailAnswerVisPercentage >= accuracyThreshold) && (trailAnswerSomaPercentage >= accuracyThreshold) && (trailAnswerVisAndSomaPercentage >= accuracyThreshold)
-        }
-    }
 
     private fun showBreakAlert(breakNumber: Int) {
         val message: String
@@ -461,8 +435,14 @@ class TestFragment : BaseFragment() {
                 is DataState.Success -> {
                     mainActivity.showProgress(false)
                     if (it.data.status) {
-                        val action = TestFragmentDirections.actionTestToComplete()
-                        findNavController().navigate(action)
+                        val result = if (practiceRetried) {
+                            verifySuccessfulPracticeTrails()
+                        } else {
+                            !verifySuccessfulTest()
+                        }
+                        verifyGroupTestAlgo(result)
+//                        val action = TestFragmentDirections.actionTestToComplete()
+//                        findNavController().navigate(action)
                     }
                 }
                 is DataState.Failure -> {
@@ -479,6 +459,85 @@ class TestFragment : BaseFragment() {
                 }
             }
         }
+    }
+
+    private fun verifySuccessfulPracticeTrails(): Boolean {
+
+        val trailAnswerVisCount: Int = trialAnswersVis.filter {
+            it > 0.0
+        }.size
+
+        val trailAnswerSomaCount: Int = trialAnswersSoma.filter {
+            it > 0.0
+        }.size
+
+        val trailAnswerVisAndSomaCount: Int = trialAnswersVisAndSoma.filter {
+            it > 0.0
+        }.size
+
+        val trailAnswerVisPercentage =
+            trailAnswerVisCount.toDouble() / trialAnswersVis.size.toDouble()
+        val trailAnswerSomaPercentage =
+            trailAnswerSomaCount.toDouble() / trialAnswersSoma.size.toDouble()
+        val trailAnswerVisAndSomaPercentage =
+            trailAnswerVisAndSomaCount.toDouble() / trialAnswersVisAndSoma.size.toDouble()
+
+        return if (practiceRetried && (trailAnswerVisPercentage < accuracyThreshold) || (trailAnswerSomaPercentage < accuracyThreshold) || (trailAnswerVisAndSomaPercentage < accuracyThreshold)) {
+            false
+        } else {
+            (trailAnswerVisPercentage >= accuracyThreshold) && (trailAnswerSomaPercentage >= accuracyThreshold) && (trailAnswerVisAndSomaPercentage >= accuracyThreshold)
+        }
+    }
+
+    private fun verifySuccessfulTest(): Boolean {
+
+        val answerVisCount: Int = answersVis.filter {
+            it > 0.0
+        }.size
+
+        val answersSomaCount: Int = answersSoma.filter {
+            it > 0.0
+        }.size
+
+        val answersVisAndSomaCount: Int = answersVisAndSoma.filter {
+            it > 0.0
+        }.size
+
+        val answerVisPercentage =
+            answerVisCount.toDouble() / 45.toDouble()
+        val answersSomaPercentage =
+            answersSomaCount.toDouble() / 45.toDouble()
+        val answersVisAndSomaPercentage =
+            answersVisAndSomaCount.toDouble() / 45.toDouble()
+
+
+        params["trialAnswersVisCount"] = trialAnswersVis.size
+
+        params["answerVisCount"] = answerVisCount
+        params["answersSomaCount"] = answersSomaCount
+        params["answersVisAndSomaCount"] = answersVisAndSomaCount
+
+        params["accuracyThreshold"] = accuracyThreshold
+
+        params["answerVisPercentage"] = answerVisPercentage
+        params["answersSomaPercentage"] = answersSomaPercentage
+        params["answersVisAndSomaPercentage"] = answersVisAndSomaPercentage
+
+        return (answerVisPercentage >= accuracyThreshold && answersSomaPercentage >= accuracyThreshold && answersVisAndSomaPercentage >= accuracyThreshold)
+    }
+
+    private fun verifyGroupTestAlgo(invalidReport: Boolean) {
+        val uploadEndpoint =
+            "https://5ioxsjwd31.execute-api.us-east-1.amazonaws.com/algorithm/algorithm"
+        val args = HashMap<String, Any>()
+        viewModel.testId?.let {
+            args["testId"] = it
+            args["debug"] = params
+            args["test_status"] = if (invalidReport) "Failed" else "Success"
+            args["invalidReport"] = invalidReport
+            args["environment"] = BuildConfig.Environment
+        }
+
     }
 
     override fun onDestroyView() {

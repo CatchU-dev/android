@@ -23,7 +23,7 @@ class SharedViewModel @Inject constructor(
     var communityId: Int? = null
     var groupId: Int? = null
     var patientId: Int? = null
-    var testId: Int? = 10307
+    var testId: Int? = null
     var termsAndConditionUrl: String? = null
 
     val getLanguage: LiveData<String> = prefService.getLanguage().asLiveData()

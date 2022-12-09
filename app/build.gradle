@@ -46,17 +46,20 @@ android {
             versionCode 3
             versionName "1.1"
             buildConfigField "String", "BASE_URL", '"https://qa.catchu.net/"'
+            buildConfigField "String", "Environment", '"QA"'
 
         }
         stagging {
             versionCode 1
             versionName "1.0"
             buildConfigField "String", "BASE_URL", '"https://stage.catchu.net/"'
+            buildConfigField "String", "Environment", '"Staging"'
         }
         prod {
             versionCode 1
             versionName "1.0"
             buildConfigField "String", "BASE_URL", '"https://my.catchu.net"'
+            buildConfigField "String", "Environment", '"Production"'
         }
     }
 

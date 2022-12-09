@@ -102,6 +102,12 @@ interface RestApis {
         @Body rawMeasurementModel: RawMeasurementModel
     ): Response<ResponseModel>
 
+    @POST
+    suspend fun verifyGroupTestAlgo(
+        @Url url: String,
+        @Body hashMap: HashMap<String, Any>
+    ): Response<ResponseModel>
+
     @GET("api/community/batch_test_status/{id}")
     suspend fun batchTestStatus(
         @Path("Id") groupTestId: Int
