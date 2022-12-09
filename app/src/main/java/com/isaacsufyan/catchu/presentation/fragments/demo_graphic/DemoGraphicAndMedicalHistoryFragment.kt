@@ -6,6 +6,7 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.fragment.findNavController
@@ -50,6 +51,7 @@ class DemoGraphicAndMedicalHistoryFragment : BaseFragment() {
         binding.btnStartTrail.setOnClickListener {
             if (validation.validate()) {
                 getInputValueAndSet()
+                Toast.makeText(requireContext(), "Project will start - Under Development", Toast.LENGTH_SHORT).show()
 //                val action = DemoGraphicAndMedicalHistoryFragmentDirections.actionDemoToTest()
 //                findNavController().navigate(action)
             } else {

@@ -1,5 +1,6 @@
 package com.isaacsufyan.catchu.presentation.fragments.demo_graphic
 
+import android.util.Log
 import android.view.View
 import com.isaacsufyan.catchu.R
 import com.isaacsufyan.catchu.domain.enum.EAnswer
@@ -18,6 +19,7 @@ class DemoGraphicAndMedicalHistoryValidation constructor(
         val giveAllAns1 = includeSegment1Validation()
         val giveAllAns2 = includeSegment2Validation()
         val giveAllAns3 = includeSegment3Validation()
+        Log.d("TAG", "validate: $giveAllAns0 - $giveAllAns1 - $giveAllAns2 - $giveAllAns3")
         return giveAllAns0 && giveAllAns1 && giveAllAns2 && giveAllAns3
     }
 
@@ -64,31 +66,40 @@ class DemoGraphicAndMedicalHistoryValidation constructor(
 
         if (RawMeasurements.hasDiabetes == EAnswer.YES.value) {
             val view = binding.includeSeg1.includeDiabetesSubQuestions
+            if (view.edtDiabetesYear.isNullOrEmpty()) {
+                view.edtDiabetesYearLayout.error = context.resources.getString(R.string.required)
+                giveAllAns = false
+            }
             if (RawMeasurements.hasDiabetesVision == null) {
                 view.tvDiabetesVisionError.visibility = View.VISIBLE
+                giveAllAns = false
             }
             if (RawMeasurements.hasDiabetesKidney == null) {
                 view.tvDiabetesKidneyError.visibility = View.VISIBLE
+                giveAllAns = false
             }
             if (RawMeasurements.hasDiabetesNerve == null) {
                 view.tvDiabetesNerveError.visibility = View.VISIBLE
+                giveAllAns = false
             }
             if (RawMeasurements.hasDiabetesTakMedicine == null) {
                 view.tvDiabetesTakingMedicineError.visibility = View.VISIBLE
+                giveAllAns = false
             }
             if (RawMeasurements.hasDiabetesTakMedicine == EAnswer.YES.value) {
                 if (RawMeasurements.hasDiabetesTakOralMedicine == null) {
                     view.tvDiabetesOralMedicineError.visibility = View.VISIBLE
+                    giveAllAns = false
                 }
                 if (RawMeasurements.hasDiabetesTakInsulin == null) {
                     view.tvDiabetesInsulinError.visibility = View.VISIBLE
+                    giveAllAns = false
                 }
                 if (RawMeasurements.hasDiabetesTakInjection == null) {
                     view.tvDiabetesInjectionError.visibility = View.VISIBLE
+                    giveAllAns = false
                 }
             }
-
-            giveAllAns = false
         }
 
         if (RawMeasurements.hasDepression == null) {
