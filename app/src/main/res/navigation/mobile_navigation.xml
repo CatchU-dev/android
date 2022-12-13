@@ -196,10 +196,6 @@
             app:popUpTo="@+id/demoGraphicAndMedicalHistory"
             app:popUpToInclusive="true" >
 
-<!--            <argument-->
-<!--                android:name="rawMeasurement"-->
-<!--                app:argType="com.isaacsufyan.catchu.domain.model.RawMeasurements"/>-->
-
         </action>
 
     </fragment>
@@ -209,34 +205,14 @@
         android:name="com.isaacsufyan.catchu.presentation.fragments.test.TestFragment"
         tools:layout="@layout/fragment_test" >
 
-<!--        <argument-->
-<!--            android:name="rawMeasurement"-->
-<!--            app:argType="com.isaacsufyan.catchu.domain.model.RawMeasurements"/>-->
 
         <action
-            android:id="@+id/action_test_to_complete"
-            app:destination="@id/testCompleteFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            app:popUpTo="@+id/testFragment"
-            app:popUpToInclusive="true" />
-
-        <action
-            android:id="@+id/action_practice_test_complete_dialog"
-            app:destination="@id/practiceTestCompleteFragment"
+            android:id="@+id/action_test_to_practice_complete_dialog_fragment"
+            app:destination="@id/practiceTestCompleteDialogFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
-
-    </fragment>
-
-    <fragment
-        android:id="@+id/testCompleteFragment"
-        android:name="com.isaacsufyan.catchu.presentation.fragments.test_completed.TestCompletedFragment"
-        tools:layout="@layout/fragment_test_completed">
 
         <action
             android:id="@+id/action_test_complete_to_patient_profile"
@@ -245,13 +221,23 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
-            app:popUpTo="@+id/testCompleteFragment"
+            app:popUpTo="@+id/testFragment"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_test_complete_to_community_id"
+            app:destination="@id/communityIdentificationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@+id/testFragment"
             app:popUpToInclusive="true" />
 
     </fragment>
 
     <dialog
-        android:id="@+id/practiceTestCompleteFragment"
+        android:id="@+id/practiceTestCompleteDialogFragment"
         android:name="com.isaacsufyan.catchu.presentation.fragments.practice_test_completed.PracticeTestCompletedFragment"
         tools:layout="@layout/fragment_practice_test_completed"/>
 

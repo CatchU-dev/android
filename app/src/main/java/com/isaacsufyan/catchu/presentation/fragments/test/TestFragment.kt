@@ -1,12 +1,11 @@
 package com.isaacsufyan.catchu.presentation.fragments.test
 
 import android.content.Context
+import android.content.DialogInterface
 import android.media.MediaPlayer
 import android.os.*
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -22,10 +21,10 @@ import com.isaacsufyan.catchu.domain.model.Stimulus
 import com.isaacsufyan.catchu.domain.state.DataState
 import com.isaacsufyan.catchu.framework.interfaces.IDialogOnClickListener
 import com.isaacsufyan.catchu.presentation.fragments.SharedViewModel
+import com.isaacsufyan.catchu.presentation.fragments.test_completed.TestCompletedFragment
 import com.isaacsufyan.catchu.utils.indexExists
 import com.isaacsufyan.catchu.utils.showDialog
 import java.util.*
-
 
 class TestFragment : BaseFragment() {
 
@@ -39,38 +38,38 @@ class TestFragment : BaseFragment() {
     private var stims = mutableListOf<Stimulus>()
     private var trailStims = mutableListOf<Stimulus>()
 
-    var currentStim = 14
-    var introShown = false
-    var displayTimeStamp = 0.0
-    var removeDisplayTimeStamp = 0.0
-    var responseTimeStamp = 0.0
-    var trialMode = false
-    var isPaused = false
-    var breakOneTaken = false
-    var breakTwoTaken = false
+    private var currentStim = 0
+    private var introShown = false
+    private var displayTimeStamp = 0.0
+    private var removeDisplayTimeStamp = 0.0
+    private var responseTimeStamp = 0.0
+    private var trialMode = false
+    private var isPaused = false
+    private var breakOneTaken = false
+    private var breakTwoTaken = false
 
-    var answersVis = mutableListOf<Double>()
-    var answersSoma = mutableListOf<Double>()
-    var answersVisAndSoma = mutableListOf<Double>()
-    var answersNone = mutableListOf<Double>()
-    var trialAnswersVis = mutableListOf<Double>()
+    private var answersVis = mutableListOf<Double>()
+    private var answersSoma = mutableListOf<Double>()
+    private var answersVisAndSoma = mutableListOf<Double>()
+    private var answersNone = mutableListOf<Double>()
+    private var trialAnswersVis = mutableListOf<Double>()
     private var trialAnswersSoma = mutableListOf<Double>()
-    var trialAnswersVisAndSoma = mutableListOf<Double>()
-    var currentType: EStimulusType? = null
+    private var trialAnswersVisAndSoma = mutableListOf<Double>()
+    private var currentType: EStimulusType? = null
 
-    var canAnswer = false
-    var mainInstructionShown = false
+    private var canAnswer = false
+    private var mainInstructionShown = false
 
-    var handler: Handler? = null
-    var runnable: Runnable? = null
+    private var handler: Handler? = null
+    private var runnable: Runnable? = null
 
-    var practiceRetried: Boolean = true
+    private var practiceRetried: Boolean = false
 
-    var accuracyThreshold = 0.7 // 70%
-    val params = HashMap<String, Any>()
+    private var accuracyThreshold = 0.7 // 70%
+    private val params = HashMap<String, Any>()
+    private var stateEvent: StateEvent? = null
 
-    //TODO after completing the batch, api return this value and redirect screen according to true/false - Move to community_screen and patient_details screens
-    var batchCompleted = false
+    private var batchCompleted = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -193,7 +192,7 @@ class TestFragment : BaseFragment() {
             showInitialAlert()
         } else if (currentStim == 15 && !mainInstructionShown && verifySuccessfulPracticeTrails()) {
             if (mediaPlayer.isPlaying) mediaPlayer.pause()
-            val action = TestFragmentDirections.actionPracticeTestCompleteDialog()
+            val action = TestFragmentDirections.actionTestToPracticeCompleteDialogFragment()
             findNavController().navigate(action)
 
             binding.tvStartText.text = resources.getString(R.string.click_here_to_start)
@@ -255,7 +254,6 @@ class TestFragment : BaseFragment() {
             }
         }
     }
-
 
     private fun showBreakAlert(breakNumber: Int) {
         val message: String
@@ -375,7 +373,8 @@ class TestFragment : BaseFragment() {
         val rawMeasurementModel = RawMeasurementModel()
         rawMeasurementModel.test = viewModel.testId
         rawMeasurementModel.rawMeasurements = rawMeasurements
-        viewModel.setStateEvent(StateEvent.CreateRawMeasurement(rawMeasurementModel))
+        stateEvent = StateEvent.CreateRawMeasurement(rawMeasurementModel)
+        viewModel.setStateEvent(stateEvent as StateEvent.CreateRawMeasurement)
     }
 
     private fun sortAnswerArrays() {
@@ -434,15 +433,29 @@ class TestFragment : BaseFragment() {
                 }
                 is DataState.Success -> {
                     mainActivity.showProgress(false)
-                    if (it.data.status) {
-                        val result = if (practiceRetried) {
-                            verifySuccessfulPracticeTrails()
+                    if (stateEvent is StateEvent.CreateRawMeasurement) {
+                        if (it.data.status) {
+                            val result = if (practiceRetried) {
+                                verifySuccessfulPracticeTrails()
+                            } else {
+                                !verifySuccessfulTest()
+                            }
+                            verifyGroupTestAlgo(result)
                         } else {
-                            !verifySuccessfulTest()
+                            showCompleteTestScreen()
                         }
-                        verifyGroupTestAlgo(result)
-//                        val action = TestFragmentDirections.actionTestToComplete()
-//                        findNavController().navigate(action)
+                    } else if (stateEvent is StateEvent.VerifyGroupTestAlgo) {
+                        if (it.data.status) {
+                            if (viewModel.isSingleTest) showCompleteTestScreen()
+                            else batchTestStatus()
+                        }
+                    } else if (stateEvent is StateEvent.BatchTestStatus) {
+                        if (it.data.status) {
+                            batchCompleted = it.data.data?.batchCompleted ?: false
+                            showCompleteTestScreen()
+                        } else {
+                            showOkDialog(it.data.message.toString())
+                        }
                     }
                 }
                 is DataState.Failure -> {
@@ -527,8 +540,7 @@ class TestFragment : BaseFragment() {
     }
 
     private fun verifyGroupTestAlgo(invalidReport: Boolean) {
-        val uploadEndpoint =
-            "https://5ioxsjwd31.execute-api.us-east-1.amazonaws.com/algorithm/algorithm"
+        val url = "https://5ioxsjwd31.execute-api.us-east-1.amazonaws.com/algorithm/algorithm"
         val args = HashMap<String, Any>()
         viewModel.testId?.let {
             args["testId"] = it
@@ -537,12 +549,43 @@ class TestFragment : BaseFragment() {
             args["invalidReport"] = invalidReport
             args["environment"] = BuildConfig.Environment
         }
+        stateEvent = StateEvent.VerifyGroupTestAlgo(url = url, args)
+        viewModel.setStateEvent(stateEvent as StateEvent.VerifyGroupTestAlgo)
+    }
 
+    private fun batchTestStatus() {
+        viewModel.communityId?.let {
+            stateEvent = StateEvent.BatchTestStatus(it)
+            viewModel.setStateEvent(stateEvent as StateEvent.BatchTestStatus)
+        }
+    }
+
+    private fun showCompleteTestScreen() {
+        mediaPlayer.stop()
+        val dialogListener = object : DialogInterface {
+            override fun cancel() {
+            }
+
+            override fun dismiss() {
+                handleCompleteTest()
+            }
+        }
+        val dialog = TestCompletedFragment(dialogListener)
+        dialog.show(childFragmentManager, "TestCompletedFragment")
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
         mediaPlayer.stop()
+    }
+
+    private fun handleCompleteTest() {
+        val action = if (batchCompleted) {
+            TestFragmentDirections.actionTestCompleteToCommunityId()
+        } else {
+            TestFragmentDirections.actionTestCompleteToPatientProfile()
+        }
+        findNavController().navigate(action)
     }
 }

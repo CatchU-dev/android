@@ -106,9 +106,9 @@ interface RestApis {
     suspend fun verifyGroupTestAlgo(
         @Url url: String,
         @Body hashMap: HashMap<String, Any>
-    ): Response<ResponseModel>
+    ): Response<String>
 
-    @GET("api/community/batch_test_status/{id}")
+    @GET("api/community/batch_test_status/{Id}")
     suspend fun batchTestStatus(
         @Path("Id") groupTestId: Int
     ): Response<ResponseModel>

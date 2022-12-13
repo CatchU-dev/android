@@ -66,6 +66,7 @@ class PatientDetailsFragment : BaseFragment() {
                         this.lastName?.trim().equals(lastName.trim(), ignoreCase = true) &&
                         this.dob == newDob
                     ) {
+                        viewModel.isSingleTest = true
                         viewModel.patientId?.let { it1 ->
                             checkTermsAndConditionAgreeAPI(
                                 patientID = it1

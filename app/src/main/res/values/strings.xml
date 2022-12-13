@@ -158,5 +158,11 @@
     <string name="required">Required</string>
     <string name="select">Select</string>
     <string name="no_patient_record_found">No Patient Record Found</string>
+    <string name="prepare_your_phone_for_testing">Prepare Your Phone For Testing</string>
+    <string name="step_1">Step 1: Place your phone on Silent Mode</string>
+    <string name="step_2">Step 2: Ensure Volume is audible</string>
+    <string name="step_1_info_1">• Swipe down from the top of your screen with your finger</string>
+    <string name="step_1_info_2">• Under the navigation bar or your current option, tap the silent button</string>
+    <string name="step_2_info_1">• Press Volume up button to adjust volume</string>
 
 </resources>

@@ -102,5 +102,11 @@ data class Data(
 
     @SerializedName("iframe_url")
     @Expose
-    var termAndConditionURL: String? = null
+    var termAndConditionURL: String? = null,
+
+    //Batch Test Status Api
+
+    @SerializedName("batch_completed")
+    @Expose
+    var batchCompleted: Boolean = false
 )

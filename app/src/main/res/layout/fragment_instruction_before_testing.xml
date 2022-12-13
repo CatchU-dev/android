@@ -5,15 +5,66 @@
     android:layout_height="match_parent"
     android:padding="@dimen/_20sdp">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/ivPreparePhone"
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvScreenTitle"
+        style="@style/TextViewHeadingStyle"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:src="@drawable/instruction_before_test"
-        app:layout_constraintBottom_toTopOf="@+id/btnContinue"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="wrap_content"
+        android:text="@string/prepare_your_phone_for_testing"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvStep1"
+        style="@style/TextViewNormalStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:text="@string/step_1"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvScreenTitle" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvStep1Info1"
+        style="@style/TextViewNormalStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:text="@string/step_1_info_1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvStep1" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvStep1Info2"
+        style="@style/TextViewNormalStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:text="@string/step_1_info_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvStep1Info1" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvStep2"
+        style="@style/TextViewNormalStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:text="@string/step_2"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvStep1Info2" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvStep2Info1"
+        style="@style/TextViewNormalStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:text="@string/step_2_info_1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvStep2" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnContinue"
@@ -22,7 +73,7 @@
         android:layout_marginEnd="@dimen/_5sdp"
         android:text="@string/continues"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivPreparePhone"
+        app:layout_constraintTop_toBottomOf="@+id/tvStep2Info1"
         app:layout_constraintVertical_bias="1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

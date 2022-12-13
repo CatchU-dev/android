@@ -52,4 +52,9 @@ sealed class StateEvent {
 
     class CreateRawMeasurement(var rawMeasurementModel: RawMeasurementModel) : StateEvent()
 
+    class VerifyGroupTestAlgo(var url: String, var args: HashMap<String, Any>) : StateEvent()
+
+    class BatchTestStatus(var groupTestId: Int) : StateEvent()
+
+
 }

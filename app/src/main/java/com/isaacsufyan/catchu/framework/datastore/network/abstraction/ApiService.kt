@@ -3,6 +3,9 @@ package com.isaacsufyan.catchu.framework.datastore.network.abstraction
 import com.isaacsufyan.catchu.domain.model.RawMeasurementModel
 import com.isaacsufyan.catchu.domain.model.ResponseModel
 import okhttp3.RequestBody
+import retrofit2.Response
+import retrofit2.http.GET
+import retrofit2.http.Path
 
 
 interface ApiService {
@@ -62,5 +65,14 @@ interface ApiService {
 
     suspend fun createRawMeasurement(
         rawMeasurementModel: RawMeasurementModel
+    ): ResponseModel
+
+    suspend fun verifyGroupTestAlgo(
+        url: String,
+        args: HashMap<String, Any>
+    ): ResponseModel
+
+    suspend fun batchTestStatus(
+        groupTestId: Int
     ): ResponseModel
 }

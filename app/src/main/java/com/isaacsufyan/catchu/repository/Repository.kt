@@ -353,4 +353,47 @@ class Repository(
             emit(DataState.Error(e))
         }
     }
+
+    fun verifyGroupTestAlgo(
+        url: String,
+        args: HashMap<String, Any>
+    ) = flow {
+        emit(DataState.Loading)
+        try {
+            val response = apiService.verifyGroupTestAlgo(url, args)
+            if (response.status) {
+                emit(DataState.Success(response))
+            } else {
+                emit(
+                    DataState.Failure(
+                        response.code ?: -1,
+                        response.message ?: "No Message from Server"
+                    )
+                )
+            }
+        } catch (e: Exception) {
+            emit(DataState.Error(e))
+        }
+    }
+
+    fun batchTestStatus(
+        groupTestId: Int
+    ) = flow {
+        emit(DataState.Loading)
+        try {
+            val response = apiService.batchTestStatus(groupTestId)
+            if (response.status) {
+                emit(DataState.Success(response))
+            } else {
+                emit(
+                    DataState.Failure(
+                        response.code ?: -1,
+                        response.message ?: "No Message from Server"
+                    )
+                )
+            }
+        } catch (e: Exception) {
+            emit(DataState.Error(e))
+        }
+    }
 }
