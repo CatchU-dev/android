@@ -97,13 +97,18 @@ interface RestApis {
         @Field("patient_id") patientId: Int
     ): Response<ResponseModel>
 
-    @FormUrlEncoded
     @POST("api/test/create_raw_measurements/")
     suspend fun createRawMeasurement(
         @Body rawMeasurementModel: RawMeasurementModel
     ): Response<ResponseModel>
 
-    @GET("api/community/batch_test_status/{id}")
+    @POST
+    suspend fun verifyGroupTestAlgo(
+        @Url url: String,
+        @Body hashMap: HashMap<String, Any>
+    ): Response<String>
+
+    @GET("api/community/batch_test_status/{Id}")
     suspend fun batchTestStatus(
         @Path("Id") groupTestId: Int
     ): Response<ResponseModel>

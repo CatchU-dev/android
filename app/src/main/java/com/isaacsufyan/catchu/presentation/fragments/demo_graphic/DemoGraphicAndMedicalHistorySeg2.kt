@@ -6,7 +6,6 @@ import android.widget.AdapterView
 import com.isaacsufyan.catchu.R
 import com.isaacsufyan.catchu.adapter.MaterialArrayAdapter
 import com.isaacsufyan.catchu.domain.enum.EAnswer
-import com.isaacsufyan.catchu.domain.model.RawMeasurements
 
 class DemoGraphicAndMedicalHistorySeg2 constructor(
     var fragment: DemoGraphicAndMedicalHistoryFragment
@@ -37,7 +36,7 @@ class DemoGraphicAndMedicalHistorySeg2 constructor(
         binding.includeVisionProblems.edtVisionRate.onItemClickListener =
             AdapterView.OnItemClickListener { _, _, position, _ ->
                 val selectedText = vpRate[position]
-                RawMeasurements.hasVisionLoss = position + 1
+                fragment.rawMeasurements.hasVisionLoss = position + 1
                 materialAdapter.updateColor(selectedText)
             }
     }
@@ -149,7 +148,7 @@ class DemoGraphicAndMedicalHistorySeg2 constructor(
     }
 
     private fun setChronicDisease(eAnswer: EAnswer) {
-        RawMeasurements.hasChronicKidney = eAnswer.value
+        fragment.rawMeasurements.hasChronicKidney = eAnswer.value
         binding.tvChronicKidneyError.visibility = View.GONE
         val view = binding.includeKidneyDiseaseSubQuestions.root
         when (eAnswer) {
@@ -198,7 +197,7 @@ class DemoGraphicAndMedicalHistorySeg2 constructor(
     }
 
     private fun setOnDialysis(eAnswer: EAnswer) {
-        RawMeasurements.onDialysis = eAnswer.value
+        fragment.rawMeasurements.onDialysis = eAnswer.value
         binding.includeKidneyDiseaseSubQuestions.tvDialysisError.visibility = View.GONE
         when (eAnswer) {
             EAnswer.NO -> {
@@ -232,7 +231,7 @@ class DemoGraphicAndMedicalHistorySeg2 constructor(
     }
 
     private fun setVisionProblem(eAnswer: EAnswer) {
-        RawMeasurements.hasVisionProblem = eAnswer.value
+        fragment.rawMeasurements.hasVisionProblem = eAnswer.value
         binding.tvVisionError.visibility = View.GONE
         val view = binding.includeVisionProblems.root
         when (eAnswer) {
@@ -279,7 +278,7 @@ class DemoGraphicAndMedicalHistorySeg2 constructor(
     }
 
     private fun setVisionGlasses(eAnswer: EAnswer) {
-        RawMeasurements.hasCorrectiveLenses = eAnswer.value
+        fragment.rawMeasurements.hasCorrectiveLenses = eAnswer.value
         binding.includeVisionProblems.tvVisionGlassesError.visibility = View.GONE
         when (eAnswer) {
             EAnswer.NO -> {
@@ -312,7 +311,7 @@ class DemoGraphicAndMedicalHistorySeg2 constructor(
     }
 
     private fun setHearingProblem(eAnswer: EAnswer) {
-        RawMeasurements.hasSevereHearingLoss = eAnswer.value
+        fragment.rawMeasurements.hasSevereHearingLoss = eAnswer.value
         binding.tvHearingProblemError.visibility = View.GONE
         val view = binding.includeHearingProblems.root
         when (eAnswer) {
@@ -359,7 +358,7 @@ class DemoGraphicAndMedicalHistorySeg2 constructor(
     }
 
     private fun setHearingAid(eAnswer: EAnswer) {
-        RawMeasurements.hasHearingAid = eAnswer.value
+        fragment.rawMeasurements.hasHearingAid = eAnswer.value
         binding.includeHearingProblems.tvHearingAidError.visibility = View.GONE
         when (eAnswer) {
             EAnswer.NO -> {
@@ -392,7 +391,7 @@ class DemoGraphicAndMedicalHistorySeg2 constructor(
     }
 
     private fun setFallInOneYear(eAnswer: EAnswer) {
-        RawMeasurements.hasHadAFall = eAnswer.value
+        fragment.rawMeasurements.hasHadAFall = eAnswer.value
         binding.tvFallInPastOneYearError.visibility = View.GONE
         val view = binding.includeFallInPastOneYearSubQuestions.root
         when (eAnswer) {
@@ -439,7 +438,7 @@ class DemoGraphicAndMedicalHistorySeg2 constructor(
     }
 
     private fun setFallInOneYearFracture(eAnswer: EAnswer) {
-        RawMeasurements.hasHadAFracture = eAnswer.value
+        fragment.rawMeasurements.hasHadAFracture = eAnswer.value
         binding.includeFallInPastOneYearSubQuestions.tvFallInPastOneYearFractureError.visibility =
             View.GONE
         when (eAnswer) {
@@ -477,7 +476,7 @@ class DemoGraphicAndMedicalHistorySeg2 constructor(
     }
 
     private fun setFallInFiveYear(eAnswer: EAnswer) {
-        RawMeasurements.hasHadAFallPastFiveYears = eAnswer.value
+        fragment.rawMeasurements.hasHadAFallPastFiveYears = eAnswer.value
         binding.tvFallInPastFiveYearError.visibility = View.GONE
         val view = binding.includeFallInPastFiveYearSubQuestions.root
         when (eAnswer) {
@@ -524,7 +523,7 @@ class DemoGraphicAndMedicalHistorySeg2 constructor(
     }
 
     private fun setFallInFiveYearFracture(eAnswer: EAnswer) {
-        RawMeasurements.hasHadAFracturePastFiveYears = eAnswer.value
+        fragment.rawMeasurements.hasHadAFracturePastFiveYears = eAnswer.value
         binding.includeFallInPastFiveYearSubQuestions.tvFallInPastFiveYearFractureError.visibility =
             View.GONE
         when (eAnswer) {

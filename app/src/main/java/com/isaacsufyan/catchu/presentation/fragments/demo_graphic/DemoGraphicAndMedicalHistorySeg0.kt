@@ -4,11 +4,8 @@ import android.view.View
 import android.widget.AdapterView
 import com.isaacsufyan.catchu.R
 import com.isaacsufyan.catchu.adapter.MaterialArrayAdapter
-import com.isaacsufyan.catchu.databinding.FragmentDemoGraphicAndMedicalHistoryBinding
-import com.isaacsufyan.catchu.databinding.IncludeMedicalHistoryQuestionsSegment1Binding
 import com.isaacsufyan.catchu.domain.enum.EAnswer
 import com.isaacsufyan.catchu.domain.enum.EGender
-import com.isaacsufyan.catchu.domain.model.RawMeasurements
 
 class DemoGraphicAndMedicalHistorySeg0(
     var fragment: DemoGraphicAndMedicalHistoryFragment
@@ -53,7 +50,7 @@ class DemoGraphicAndMedicalHistorySeg0(
     }
 
     private fun selectGender(eGender: EGender) {
-        RawMeasurements.selectedGender = eGender.value
+        fragment.rawMeasurements.selectedGender = eGender.value
         when (eGender) {
             EGender.MALE -> {
                 binding.tvGenderMale.background =
@@ -116,13 +113,13 @@ class DemoGraphicAndMedicalHistorySeg0(
         binding.edtRadicalCategory.onItemClickListener =
             AdapterView.OnItemClickListener { _, _, position, _ ->
                 val selectedText = radicaCatList[position]
-                RawMeasurements.selectedRace = position + 1
+                fragment.rawMeasurements.selectedRace = position + 1
                 materialAdapter.updateColor(selectedText)
             }
     }
 
     private fun setHispanicOrLatina(eAnswer: EAnswer) {
-        RawMeasurements.isHispanicOrLatin = eAnswer.value
+        fragment.rawMeasurements.isHispanicOrLatin = eAnswer.value
         binding.tvHispanicLatinoError.visibility = View.GONE
         when (eAnswer) {
             EAnswer.NO -> {

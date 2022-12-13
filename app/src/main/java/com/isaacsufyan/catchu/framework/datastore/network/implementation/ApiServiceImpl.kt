@@ -1,7 +1,9 @@
 package com.isaacsufyan.catchu.framework.datastore.network.implementation
 
+import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.isaacsufyan.catchu.domain.model.RawMeasurementModel
 import com.isaacsufyan.catchu.domain.model.ResponseModel
 import com.isaacsufyan.catchu.framework.datastore.network.abstraction.ApiService
 import com.isaacsufyan.catchu.framework.datastore.network.api.RestApis
@@ -101,7 +103,6 @@ class ApiServiceImpl @Inject constructor(private val restApis: RestApis) : ApiSe
     }
 
 
-
     override suspend fun checkPatientTestWithinGroup(groupId: Int, patientId: Int): ResponseModel {
         val response = restApis.createPatientTestWithInGroup(groupId, patientId)
         return if (response.isSuccessful) {
@@ -144,6 +145,40 @@ class ApiServiceImpl @Inject constructor(private val restApis: RestApis) : ApiSe
         val response = restApis.termsAndConditionsDecline(
             patientId = patientId
         )
+        return if (response.isSuccessful) {
+            response.body()!!
+        } else {
+            val type = object : TypeToken<ResponseModel>() {}.type
+            Gson().fromJson(response.errorBody()!!.charStream(), type)
+        }
+    }
+
+    override suspend fun createRawMeasurement(rawMeasurementModel: RawMeasurementModel): ResponseModel {
+        val response = restApis.createRawMeasurement(rawMeasurementModel)
+        return if (response.isSuccessful) {
+            response.body()!!
+        } else {
+            val type = object : TypeToken<ResponseModel>() {}.type
+            Gson().fromJson(response.errorBody()!!.charStream(), type)
+        }
+    }
+
+    override suspend fun verifyGroupTestAlgo(
+        url: String,
+        args: HashMap<String, Any>
+    ): ResponseModel {
+        val response = restApis.verifyGroupTestAlgo(url, args)
+        Log.d("TAG", "verifyGroupTestAlgo: ${response.body()}")
+        return if (response.isSuccessful) {
+            ResponseModel(code = response.code(), message = response.body(), status = true )
+        } else {
+            val type = object : TypeToken<ResponseModel>() {}.type
+            Gson().fromJson(response.errorBody()!!.charStream(), type)
+        }
+    }
+
+    override suspend fun batchTestStatus(groupTestId: Int): ResponseModel {
+        val response = restApis.batchTestStatus(groupTestId)
         return if (response.isSuccessful) {
             response.body()!!
         } else {

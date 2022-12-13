@@ -37,7 +37,8 @@ fun AppCompatActivity.showDialog(
     image: Int,
     negativeButtonText: String?,
     positiveButtonText: String?,
-    onClickListener: IDialogOnClickListener
+    onClickListener: IDialogOnClickListener,
+    heading: String? = null
 ) {
     val dialog = MaterialAlertDialogBuilder(this).create()
 
@@ -49,12 +50,18 @@ fun AppCompatActivity.showDialog(
     val binding = DialogAlertBinding.inflate(layoutInflater)
     dialog.setView(binding.root)
     dialog.setCancelable(false)
+    dialog.setCanceledOnTouchOutside(false)
 
     binding.tvDialogMessage.text = message
     binding.ivDialogHeader.setImageResource(image)
 
     if (isOkDialog) binding.btnNo.visibility = View.GONE
     else binding.btnNo.visibility = View.VISIBLE
+
+    if (!heading.isNullOrBlank()) {
+        binding.tvDialogHeading.visibility = View.VISIBLE
+        binding.tvDialogHeading.text = heading
+    } else binding.tvDialogHeading.visibility = View.GONE
 
     if (!positiveButtonText.isNullOrBlank()) binding.btnYes.text = positiveButtonText
     if (!negativeButtonText.isNullOrBlank()) binding.btnNo.text = negativeButtonText
@@ -98,14 +105,18 @@ fun AppCompatActivity.writeTextFileToSDCard(fileName: String, request: String?) 
     fOut.close()
 }
 
-fun parseDateFormat(time: String, inputPattern:String, outputPattern: String): String {
+fun parseDateFormat(time: String, inputPattern: String, outputPattern: String): String {
     val inputFormat = SimpleDateFormat(inputPattern, Locale.getDefault())
     val outputFormat = SimpleDateFormat(outputPattern, Locale.getDefault())
     val date = inputFormat.parse(time)
     val dateString = date?.let {
         outputFormat.format(it)
     }
-    return dateString?:""
+    return dateString ?: ""
+}
+
+fun List<Any>.indexExists(index: Int): Boolean {
+    return index in indices
 }
 
 fun isBothListsEqualIgnoreOrder(list1: List<ProviderModel>?, list2: List<ProviderModel>?) =

@@ -66,6 +66,7 @@ class PatientDetailsFragment : BaseFragment() {
                         this.lastName?.trim().equals(lastName.trim(), ignoreCase = true) &&
                         this.dob == newDob
                     ) {
+                        viewModel.isSingleTest = true
                         viewModel.patientId?.let { it1 ->
                             checkTermsAndConditionAgreeAPI(
                                 patientID = it1
@@ -262,9 +263,9 @@ class PatientDetailsFragment : BaseFragment() {
         val dateFormat = SimpleDateFormat("MM-dd-yyyy", Locale.getDefault())
         val dob = dateFormat.format(calendar.time)
         binding.edtDOB.setText(dob)
-        RawMeasurements.selectedYear = year
-        RawMeasurements.selectedMonth = month+1
-        RawMeasurements.selectedDate = day
+        rawMeasurements.selectedYear = year
+        rawMeasurements.selectedMonth = month+1
+        rawMeasurements.selectedDate = day
     }
 
     private fun navigateToTermsAndConditionScreen(termAndConditionURL: String?) {

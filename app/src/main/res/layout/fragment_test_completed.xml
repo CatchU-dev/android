@@ -3,22 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:padding="@dimen/_20sdp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clImageView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintVertical_chainStyle="spread_inside"
         app:layout_constraintBottom_toTopOf="@+id/btnStaffMemberClickHere"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivTestCongrats"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:src="@drawable/congrats_badge"
-            app:layout_constraintBottom_toTopOf="@id/tvTestCompleted"
-            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -31,7 +31,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/test_completed"
-            app:layout_constraintBottom_toTopOf="@+id/tvTestCompletedDesc"
             app:layout_constraintTop_toBottomOf="@+id/ivTestCongrats" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -43,7 +42,6 @@
             android:gravity="center"
             android:text="@string/test_completed_message"
             android:textColor="@color/gray"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTestCompleted" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -56,7 +54,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clImageView"
-        app:layout_constraintVertical_bias="1" />
+        app:layout_constraintTop_toBottomOf="@+id/clImageView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

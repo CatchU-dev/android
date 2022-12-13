@@ -20,10 +20,13 @@ class SharedViewModel @Inject constructor(
 ) : ViewModel() {
 
     var token: String? = null
-    var communityId: Int? = null
     var groupId: Int? = null
     var patientId: Int? = null
-    var testId: String? = null
+
+    var testId: Int? = null
+    var communityId: Int? = null
+    var isSingleTest = false
+
     var termsAndConditionUrl: String? = null
 
     val getLanguage: LiveData<String> = prefService.getLanguage().asLiveData()
@@ -164,6 +167,27 @@ class SharedViewModel @Inject constructor(
                 repository.termsAndConditionsDecline(
                     patientId = stateEvent.patientId
                 )
+                    .onEach { _responseModel.value = it }
+                    .catch { DataState.Error(it as Exception) }
+                    .launchIn(viewModelScope)
+            }
+
+            is StateEvent.CreateRawMeasurement -> {
+                repository.createRawMeasurement(rawMeasurementModel = stateEvent.rawMeasurementModel)
+                    .onEach { _responseModel.value = it }
+                    .catch { DataState.Error(it as Exception) }
+                    .launchIn(viewModelScope)
+            }
+
+            is StateEvent.VerifyGroupTestAlgo -> {
+                repository.verifyGroupTestAlgo(stateEvent.url, stateEvent.args)
+                    .onEach { _responseModel.value = it }
+                    .catch { DataState.Error(it as Exception) }
+                    .launchIn(viewModelScope)
+            }
+
+            is StateEvent.BatchTestStatus -> {
+                repository.batchTestStatus(stateEvent.groupTestId)
                     .onEach { _responseModel.value = it }
                     .catch { DataState.Error(it as Exception) }
                     .launchIn(viewModelScope)

@@ -14,7 +14,7 @@ data class RawMeasurementModel(
     var rawMeasurements: RawMeasurements? = null
 )
 
-object RawMeasurements {
+class RawMeasurements {
 
     @SerializedName("subjectid")
     @Expose
@@ -250,635 +250,635 @@ object RawMeasurements {
 
     @SerializedName("V0")
     @Expose
-    var v0: Int? = null
+    var v0: Int = 0
 
     @SerializedName("S0")
     @Expose
-    var s0: Int? = null
+    var s0: Int = 0
 
     @SerializedName("VS0")
     @Expose
-    var vs0: Int? = null
+    var vs0: Int = 0
 
     @SerializedName("C0")
     @Expose
-    var c0: Int? = null
+    var c0: Int = 0
 
     @SerializedName("V1")
     @Expose
-    var v1: Int? = null
+    var v1: Int = 0
 
     @SerializedName("S1")
     @Expose
-    var s1: Int? = null
+    var s1: Int = 0
 
     @SerializedName("VS1")
     @Expose
-    var vs1: Int? = null
+    var vs1: Int = 0
 
     @SerializedName("C1")
     @Expose
-    var c1: Int? = null
+    var c1: Int = 0
 
     @SerializedName("V2")
     @Expose
-    var v2: Int? = null
+    var v2: Int = 0
 
     @SerializedName("S2")
     @Expose
-    var s2: Int? = null
+    var s2: Int = 0
 
     @SerializedName("VS2")
     @Expose
-    var vs2: Int? = null
+    var vs2: Int = 0
 
     @SerializedName("C2")
     @Expose
-    var c2: Int? = null
+    var c2: Int = 0
 
     @SerializedName("V3")
     @Expose
-    var v3: Int? = null
+    var v3: Int = 0
 
     @SerializedName("S3")
     @Expose
-    var s3: Int? = null
+    var s3: Int = 0
 
     @SerializedName("VS3")
     @Expose
-    var vs3: Int? = null
+    var vs3: Int = 0
 
     @SerializedName("C3")
     @Expose
-    var c3: Int? = null
+    var c3: Int = 0
 
     @SerializedName("V4")
     @Expose
-    var v4: Int? = null
+    var v4: Int = 0
 
     @SerializedName("S4")
     @Expose
-    var s4: Int? = null
+    var s4: Int = 0
 
     @SerializedName("VS4")
     @Expose
-    var vs4: Int? = null
+    var vs4: Int = 0
 
     @SerializedName("C4")
     @Expose
-    var c4: Int? = null
+    var c4: Int = 0
 
     @SerializedName("V5")
     @Expose
-    var v5: Int? = null
+    var v5: Int = 0
 
     @SerializedName("S5")
     @Expose
-    var s5: Int? = null
+    var s5: Int = 0
 
     @SerializedName("VS5")
     @Expose
-    var vs5: Int? = null
+    var vs5: Int = 0
 
     @SerializedName("C5")
     @Expose
-    var c5: Int? = null
+    var c5: Int = 0
 
     @SerializedName("V6")
     @Expose
-    var v6: Int? = null
+    var v6: Int = 0
 
     @SerializedName("S6")
     @Expose
-    var s6: Int? = null
+    var s6: Int = 0
 
     @SerializedName("VS6")
     @Expose
-    var vs6: Int? = null
+    var vs6: Int = 0
 
     @SerializedName("C6")
     @Expose
-    var c6: Int? = null
+    var c6: Int = 0
 
     @SerializedName("V7")
     @Expose
-    var v7: Int? = null
+    var v7: Int = 0
 
     @SerializedName("S7")
     @Expose
-    var s7: Int? = null
+    var s7: Int = 0
 
     @SerializedName("VS7")
     @Expose
-    var vs7: Int? = null
+    var vs7: Int = 0
 
     @SerializedName("C7")
     @Expose
-    var c7: Int? = null
+    var c7: Int = 0
 
     @SerializedName("V8")
     @Expose
-    var v8: Int? = null
+    var v8: Int = 0
 
     @SerializedName("S8")
     @Expose
-    var s8: Int? = null
+    var s8: Int = 0
 
     @SerializedName("VS8")
     @Expose
-    var vs8: Int? = null
+    var vs8: Int = 0
 
     @SerializedName("C8")
     @Expose
-    var c8: Int? = null
+    var c8: Int = 0
 
     @SerializedName("V9")
     @Expose
-    var v9: Int? = null
+    var v9: Int = 0
 
     @SerializedName("S9")
     @Expose
-    var s9: Int? = null
+    var s9: Int = 0
 
     @SerializedName("VS9")
     @Expose
-    var vs9: Int? = null
+    var vs9: Int = 0
 
     @SerializedName("C9")
     @Expose
-    var c9: Int? = null
+    var c9: Int = 0
 
     @SerializedName("V10")
     @Expose
-    var v10: Int? = null
+    var v10: Int = 0
 
     @SerializedName("S10")
     @Expose
-    var s10: Int? = null
+    var s10: Int = 0
 
     @SerializedName("VS10")
     @Expose
-    var vs10: Int? = null
+    var vs10: Int = 0
 
     @SerializedName("C10")
     @Expose
-    var c10: Int? = null
+    var c10: Int = 0
 
     @SerializedName("V11")
     @Expose
-    var v11: Int? = null
+    var v11: Int = 0
 
     @SerializedName("S11")
     @Expose
-    var s11: Int? = null
+    var s11: Int = 0
 
     @SerializedName("VS11")
     @Expose
-    var vs11: Int? = null
+    var vs11: Int = 0
 
     @SerializedName("C11")
     @Expose
-    var c11: Int? = null
+    var c11: Int = 0
 
     @SerializedName("V12")
     @Expose
-    var v12: Int? = null
+    var v12: Int = 0
 
     @SerializedName("S12")
     @Expose
-    var s12: Int? = null
+    var s12: Int = 0
 
     @SerializedName("VS12")
     @Expose
-    var vs12: Int? = null
+    var vs12: Int = 0
 
     @SerializedName("C12")
     @Expose
-    var c12: Int? = null
+    var c12: Int = 0
 
     @SerializedName("V13")
     @Expose
-    var v13: Int? = null
+    var v13: Int = 0
 
     @SerializedName("S13")
     @Expose
-    var s13: Int? = null
+    var s13: Int = 0
 
     @SerializedName("VS13")
     @Expose
-    var vs13: Int? = null
+    var vs13: Int = 0
 
     @SerializedName("C13")
     @Expose
-    var c13: Int? = null
+    var c13: Int = 0
 
     @SerializedName("V14")
     @Expose
-    var v14: Int? = null
+    var v14: Int = 0
 
     @SerializedName("S14")
     @Expose
-    var s14: Int? = null
+    var s14: Int = 0
 
     @SerializedName("VS14")
     @Expose
-    var vs14: Int? = null
+    var vs14: Int = 0
 
     @SerializedName("C14")
     @Expose
-    var c14: Int? = null
+    var c14: Int = 0
 
     @SerializedName("V15")
     @Expose
-    var v15: Int? = null
+    var v15: Int = 0
 
     @SerializedName("S15")
     @Expose
-    var s15: Int? = null
+    var s15: Int = 0
 
     @SerializedName("VS15")
     @Expose
-    var vs15: Int? = null
+    var vs15: Int = 0
 
     @SerializedName("C15")
     @Expose
-    var c15: Int? = null
+    var c15: Int = 0
 
     @SerializedName("V16")
     @Expose
-    var v16: Int? = null
+    var v16: Int = 0
 
     @SerializedName("S16")
     @Expose
-    var s16: Int? = null
+    var s16: Int = 0
 
     @SerializedName("VS16")
     @Expose
-    var vs16: Int? = null
+    var vs16: Int = 0
 
     @SerializedName("C16")
     @Expose
-    var c16: Int? = null
+    var c16: Int = 0
 
     @SerializedName("V17")
     @Expose
-    var v17: Int? = null
+    var v17: Int = 0
 
     @SerializedName("S17")
     @Expose
-    var s17: Int? = null
+    var s17: Int = 0
 
     @SerializedName("VS17")
     @Expose
-    var vs17: Int? = null
+    var vs17: Int = 0
 
     @SerializedName("C17")
     @Expose
-    var c17: Int? = null
+    var c17: Int = 0
 
     @SerializedName("V18")
     @Expose
-    var v18: Int? = null
+    var v18: Int = 0
 
     @SerializedName("S18")
     @Expose
-    var s18: Int? = null
+    var s18: Int = 0
 
     @SerializedName("VS18")
     @Expose
-    var vs18: Int? = null
+    var vs18: Int = 0
 
     @SerializedName("C18")
     @Expose
-    var c18: Int? = null
+    var c18: Int = 0
 
     @SerializedName("V19")
     @Expose
-    var v19: Int? = null
+    var v19: Int = 0
 
     @SerializedName("S19")
     @Expose
-    var s19: Int? = null
+    var s19: Int = 0
 
     @SerializedName("VS19")
     @Expose
-    var vs19: Int? = null
+    var vs19: Int = 0
 
     @SerializedName("C19")
     @Expose
-    var c19: Int? = null
+    var c19: Int = 0
 
     @SerializedName("V20")
     @Expose
-    var v20: Int? = null
+    var v20: Int = 0
 
     @SerializedName("S20")
     @Expose
-    var s20: Int? = null
+    var s20: Int = 0
 
     @SerializedName("VS20")
     @Expose
-    var vs20: Int? = null
+    var vs20: Int = 0
 
     @SerializedName("C20")
     @Expose
-    var c20: Int? = null
+    var c20: Int = 0
 
     @SerializedName("V21")
     @Expose
-    var v21: Int? = null
+    var v21: Int = 0
 
     @SerializedName("S21")
     @Expose
-    var s21: Int? = null
+    var s21: Int = 0
 
     @SerializedName("VS21")
     @Expose
-    var vs21: Int? = null
+    var vs21: Int = 0
 
     @SerializedName("C21")
     @Expose
-    var c21: Int? = null
+    var c21: Int = 0
 
     @SerializedName("V22")
     @Expose
-    var v22: Int? = null
+    var v22: Int = 0
 
     @SerializedName("S22")
     @Expose
-    var s22: Int? = null
+    var s22: Int = 0
 
     @SerializedName("VS22")
     @Expose
-    var vs22: Int? = null
+    var vs22: Int = 0
 
     @SerializedName("C22")
     @Expose
-    var c22: Int? = null
+    var c22: Int = 0
 
     @SerializedName("V23")
     @Expose
-    var v23: Int? = null
+    var v23: Int = 0
 
     @SerializedName("S23")
     @Expose
-    var s23: Int? = null
+    var s23: Int = 0
 
     @SerializedName("VS23")
     @Expose
-    var vs23: Int? = null
+    var vs23: Int = 0
 
     @SerializedName("C23")
     @Expose
-    var c23: Int? = null
+    var c23: Int = 0
 
     @SerializedName("V24")
     @Expose
-    var v24: Int? = null
+    var v24: Int = 0
 
     @SerializedName("S24")
     @Expose
-    var s24: Int? = null
+    var s24: Int = 0
 
     @SerializedName("VS24")
     @Expose
-    var vs24: Int? = null
+    var vs24: Int = 0
 
     @SerializedName("C24")
     @Expose
-    var c24: Int? = null
+    var c24: Int = 0
 
     @SerializedName("V25")
     @Expose
-    var v25: Int? = null
+    var v25: Int = 0
 
     @SerializedName("S25")
     @Expose
-    var s25: Int? = null
+    var s25: Int = 0
 
     @SerializedName("VS25")
     @Expose
-    var vs25: Int? = null
+    var vs25: Int = 0
 
     @SerializedName("C25")
     @Expose
-    var c25: Int? = null
+    var c25: Int = 0
 
     @SerializedName("V26")
     @Expose
-    var v26: Int? = null
+    var v26: Int = 0
 
     @SerializedName("S26")
     @Expose
-    var s26: Int? = null
+    var s26: Int = 0
 
     @SerializedName("VS26")
     @Expose
-    var vs26: Int? = null
+    var vs26: Int = 0
 
     @SerializedName("C26")
     @Expose
-    var c26: Int? = null
+    var c26: Int = 0
 
     @SerializedName("V27")
     @Expose
-    var v27: Int? = null
+    var v27: Int = 0
 
     @SerializedName("S27")
     @Expose
-    var s27: Int? = null
+    var s27: Int = 0
 
     @SerializedName("VS27")
     @Expose
-    var vs27: Int? = null
+    var vs27: Int = 0
 
     @SerializedName("C27")
     @Expose
-    var c27: Int? = null
+    var c27: Int = 0
 
     @SerializedName("V28")
     @Expose
-    var v28: Int? = null
+    var v28: Int = 0
 
     @SerializedName("S28")
     @Expose
-    var s28: Int? = null
+    var s28: Int = 0
 
     @SerializedName("VS28")
     @Expose
-    var vs28: Int? = null
+    var vs28: Int = 0
 
     @SerializedName("C28")
     @Expose
-    var c28: Int? = null
+    var c28: Int = 0
 
     @SerializedName("V29")
     @Expose
-    var v29: Int? = null
+    var v29: Int = 0
 
     @SerializedName("S29")
     @Expose
-    var s29: Int? = null
+    var s29: Int = 0
 
     @SerializedName("VS29")
     @Expose
-    var vs29: Int? = null
+    var vs29: Int = 0
 
     @SerializedName("C29")
     @Expose
-    var c29: Int? = null
+    var c29: Int = 0
 
     @SerializedName("V30")
     @Expose
-    var v30: Int? = null
+    var v30: Int = 0
 
     @SerializedName("S30")
     @Expose
-    var s30: Int? = null
+    var s30: Int = 0
 
     @SerializedName("VS30")
     @Expose
-    var vs30: Int? = null
+    var vs30: Int = 0
 
     @SerializedName("C30")
     @Expose
-    var c30: Int? = null
+    var c30: Int = 0
 
     @SerializedName("V31")
     @Expose
-    var v31: Int? = null
+    var v31: Int = 0
 
     @SerializedName("S31")
     @Expose
-    var s31: Int? = null
+    var s31: Int = 0
 
     @SerializedName("VS31")
     @Expose
-    var vs31: Int? = null
+    var vs31: Int = 0
 
     @SerializedName("C31")
     @Expose
-    var c31: Int? = null
+    var c31: Int = 0
 
     @SerializedName("V32")
     @Expose
-    var v32: Int? = null
+    var v32: Int = 0
 
     @SerializedName("S32")
     @Expose
-    var s32: Int? = null
+    var s32: Int = 0
 
     @SerializedName("VS32")
     @Expose
-    var vs32: Int? = null
+    var vs32: Int = 0
 
     @SerializedName("C32")
     @Expose
-    var c32: Int? = null
+    var c32: Int = 0
 
     @SerializedName("V33")
     @Expose
-    var v33: Int? = null
+    var v33: Int = 0
 
     @SerializedName("S33")
     @Expose
-    var s33: Int? = null
+    var s33: Int = 0
 
     @SerializedName("VS33")
     @Expose
-    var vs33: Int? = null
+    var vs33: Int = 0
 
     @SerializedName("C33")
     @Expose
-    var c33: Int? = null
+    var c33: Int = 0
 
     @SerializedName("V34")
     @Expose
-    var v34: Int? = null
+    var v34: Int = 0
 
     @SerializedName("S34")
     @Expose
-    var s34: Int? = null
+    var s34: Int = 0
 
     @SerializedName("VS34")
     @Expose
-    var vs34: Int? = null
+    var vs34: Int = 0
 
     @SerializedName("C34")
     @Expose
-    var c34: Int? = null
+    var c34: Int = 0
 
     @SerializedName("V35")
     @Expose
-    var v35: Int? = null
+    var v35: Int = 0
 
     @SerializedName("S35")
     @Expose
-    var s35: Int? = null
+    var s35: Int = 0
 
     @SerializedName("VS35")
     @Expose
-    var vs35: Int? = null
+    var vs35: Int = 0
 
     @SerializedName("C35")
     @Expose
-    var c35: Int? = null
+    var c35: Int = 0
 
     @SerializedName("V36")
     @Expose
-    var v36: Int? = null
+    var v36: Int = 0
 
     @SerializedName("S36")
     @Expose
-    var s36: Int? = null
+    var s36: Int = 0
 
     @SerializedName("VS36")
     @Expose
-    var vs36: Int? = null
+    var vs36: Int = 0
 
     @SerializedName("C36")
     @Expose
-    var c36: Int? = null
+    var c36: Int = 0
 
     @SerializedName("V37")
     @Expose
-    var v37: Int? = null
+    var v37: Int = 0
 
     @SerializedName("S37")
     @Expose
-    var s37: Int? = null
+    var s37: Int = 0
 
     @SerializedName("VS37")
     @Expose
-    var vs37: Int? = null
+    var vs37: Int = 0
 
     @SerializedName("C37")
     @Expose
-    var c37: Int? = null
+    var c37: Int = 0
 
     @SerializedName("V38")
     @Expose
-    var v38: Int? = null
+    var v38: Int = 0
 
     @SerializedName("S38")
     @Expose
-    var s38: Int? = null
+    var s38: Int = 0
 
     @SerializedName("VS38")
     @Expose
-    var vs38: Int? = null
+    var vs38: Int = 0
 
     @SerializedName("C38")
     @Expose
-    var c38: Int? = null
+    var c38: Int = 0
 
     @SerializedName("V39")
     @Expose
-    var v39: Int? = null
+    var v39: Int = 0
 
     @SerializedName("S39")
     @Expose
-    var s39: Int? = null
+    var s39: Int = 0
 
     @SerializedName("VS39")
     @Expose
@@ -886,85 +886,85 @@ object RawMeasurements {
 
     @SerializedName("C39")
     @Expose
-    var c39: Int? = null
+    var c39: Int = 0
 
     @SerializedName("V40")
     @Expose
-    var v40: Int? = null
+    var v40: Int = 0
 
     @SerializedName("S40")
     @Expose
-    var s40: Int? = null
+    var s40: Int = 0
 
     @SerializedName("VS40")
     @Expose
-    var vs40: Int? = null
+    var vs40: Int = 0
 
     @SerializedName("C40")
     @Expose
-    var c40: Int? = null
+    var c40: Int = 0
 
     @SerializedName("V41")
     @Expose
-    var v41: Int? = null
+    var v41: Int = 0
 
     @SerializedName("S41")
     @Expose
-    var s41: Int? = null
+    var s41: Int = 0
 
     @SerializedName("VS41")
     @Expose
-    var vs41: Int? = null
+    var vs41: Int = 0
 
     @SerializedName("C41")
     @Expose
-    var c41: Int? = null
+    var c41: Int = 0
 
     @SerializedName("V42")
     @Expose
-    var v42: Int? = null
+    var v42: Int = 0
 
     @SerializedName("S42")
     @Expose
-    var s42: Int? = null
+    var s42: Int = 0
 
     @SerializedName("VS42")
     @Expose
-    var vs42: Int? = null
+    var vs42: Int = 0
 
     @SerializedName("C42")
     @Expose
-    var c42: Int? = null
+    var c42: Int = 0
 
     @SerializedName("V43")
     @Expose
-    var v43: Int? = null
+    var v43: Int = 0
 
     @SerializedName("S43")
     @Expose
-    var s43: Int? = null
+    var s43: Int = 0
 
     @SerializedName("VS43")
     @Expose
-    var vs43: Int? = null
+    var vs43: Int = 0
 
     @SerializedName("C43")
     @Expose
-    var c43: Int? = null
+    var c43: Int = 0
 
     @SerializedName("V44")
     @Expose
-    var v44: Int? = null
+    var v44: Int = 0
 
     @SerializedName("S44")
     @Expose
-    var s44: Int? = null
+    var s44: Int = 0
 
     @SerializedName("VS44")
     @Expose
-    var vs44: Int? = null
+    var vs44: Int = 0
 
     @SerializedName("C44")
     @Expose
-    var c44: Int? = null
+    var c44: Int = 0
 }

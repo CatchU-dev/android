@@ -4,7 +4,6 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import com.isaacsufyan.catchu.R
 import com.isaacsufyan.catchu.domain.enum.EAnswer
-import com.isaacsufyan.catchu.domain.model.RawMeasurements
 
 class DemoGraphicAndMedicalHistorySeg3(
     var fragment: DemoGraphicAndMedicalHistoryFragment
@@ -99,7 +98,7 @@ class DemoGraphicAndMedicalHistorySeg3(
     }
 
     private fun setFearOfFalling(eAnswer: EAnswer) {
-        RawMeasurements.hasFearOfFalling = eAnswer.value
+        fragment.rawMeasurements.hasFearOfFalling = eAnswer.value
         binding.tvFearOfFallingError.visibility = View.GONE
         when (eAnswer) {
             EAnswer.NO -> {
@@ -124,7 +123,7 @@ class DemoGraphicAndMedicalHistorySeg3(
     }
 
     private fun setWalkWithoutBreakingBreak(eAnswer: EAnswer) {
-        RawMeasurements.canWalkWithoutBreak = eAnswer.value
+        fragment.rawMeasurements.canWalkWithoutBreak = eAnswer.value
         binding.tvWalkWithoutBreakError.visibility = View.GONE
         when (eAnswer) {
             EAnswer.NO -> {
@@ -149,7 +148,7 @@ class DemoGraphicAndMedicalHistorySeg3(
     }
 
     private fun setWalkingProblem(eAnswer: EAnswer) {
-        RawMeasurements.hasDifficultyWalking = eAnswer.value
+        fragment.rawMeasurements.hasDifficultyWalking = eAnswer.value
         binding.tvWalkingProblemError.visibility = View.GONE
         val view = binding.includeWalkingProblem.root
         when (eAnswer) {
@@ -189,7 +188,7 @@ class DemoGraphicAndMedicalHistorySeg3(
     }
 
     private fun setWalkingProblemUseCane(eAnswer: EAnswer) {
-        RawMeasurements.hasDifficultyWalkingUseCane = eAnswer.value
+        fragment.rawMeasurements.hasDifficultyWalkingUseCane = eAnswer.value
         binding.includeWalkingProblem.tvWalkingProblemCaneError.visibility = View.GONE
         when (eAnswer) {
             EAnswer.NO -> {
@@ -214,7 +213,7 @@ class DemoGraphicAndMedicalHistorySeg3(
     }
 
     private fun setWalkingProblemUseWalker(eAnswer: EAnswer) {
-        RawMeasurements.hasDifficultyWalkingUseWalker = eAnswer.value
+        fragment.rawMeasurements.hasDifficultyWalkingUseWalker = eAnswer.value
         binding.includeWalkingProblem.tvWalkingProblemWalkerError.visibility = View.GONE
         when (eAnswer) {
             EAnswer.NO -> {
@@ -239,7 +238,7 @@ class DemoGraphicAndMedicalHistorySeg3(
     }
 
     private fun setLowChairDifficulty(eAnswer: EAnswer) {
-        RawMeasurements.hasDifficultyGettingUp = eAnswer.value
+        fragment.rawMeasurements.hasDifficultyGettingUp = eAnswer.value
         binding.tvLowChairDifficultyError.visibility = View.GONE
         when (eAnswer) {
             EAnswer.NO -> {
@@ -264,7 +263,7 @@ class DemoGraphicAndMedicalHistorySeg3(
     }
 
     private fun setHoldWallWhileWalk(eAnswer: EAnswer) {
-        RawMeasurements.hasToHoldOntoWalls = eAnswer.value
+        fragment.rawMeasurements.hasToHoldOntoWalls = eAnswer.value
         binding.tvHoldWallWhileWalkError.visibility = View.GONE
         when (eAnswer) {
             EAnswer.NO -> {
@@ -289,7 +288,7 @@ class DemoGraphicAndMedicalHistorySeg3(
     }
 
     private fun setDifficultyWithBalance(eAnswer: EAnswer) {
-        RawMeasurements.hasDifficultyWithBalance = eAnswer.value
+        fragment.rawMeasurements.hasDifficultyWithBalance = eAnswer.value
         binding.tvDifficultyWithBalanceError.visibility = View.GONE
         when (eAnswer) {
             EAnswer.NO -> {

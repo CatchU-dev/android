@@ -155,9 +155,15 @@
     <string name="test_purpose_question">Esta prueba es con fines de investigación?</string>
     <string name="research_study_id">ID del sitio de investigación</string>
 
-    <string name="select">Select</string>
-    <string name="something_get_wrong_contact_support_engineer">Something Get Wrong - Contact Support Engineer</string>
-    <string name="required">Required</string>
-    <string name="no_patient_record_found">No Patient Record Found</string>
+    <string name="select">Seleccione</string>
+    <string name="something_get_wrong_contact_support_engineer">Algo salió mal - Póngase en contacto con el ingeniero de soporte</string>
+    <string name="required">Requerido</string>
+    <string name="no_patient_record_found">No se encontró ningún registro de paciente</string>
+    <string name="prepare_your_phone_for_testing">Prepare su teléfono para la prueba</string>
+    <string name="step_1">PASO 1: Pon tu teléfono en modo silencioso</string>
+    <string name="step_2">PASO 2: Asegúrese de que el volumen sea audible</string>
+    <string name="step_1_info_1">• Deslice hacia abajo desde la parte superior de la pantalla con el dedo</string>
+    <string name="step_1_info_2">• Debajo de la barra de navegación o de su opción actual, toque el botón silencioso</string>
+    <string name="step_2_info_1">• Presione el botón de Subir volumen para ajustar el volumen</string>
 
 </resources>

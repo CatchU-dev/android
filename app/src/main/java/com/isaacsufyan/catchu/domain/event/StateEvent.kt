@@ -1,5 +1,6 @@
 package com.isaacsufyan.catchu.domain.event
 
+import com.isaacsufyan.catchu.domain.model.RawMeasurementModel
 import okhttp3.RequestBody
 
 sealed class StateEvent {
@@ -48,5 +49,12 @@ sealed class StateEvent {
     class TermsAndConditionAccept(var patientId: Int) : StateEvent()
 
     class TermsAndConditionDecline(var patientId: Int) : StateEvent()
+
+    class CreateRawMeasurement(var rawMeasurementModel: RawMeasurementModel) : StateEvent()
+
+    class VerifyGroupTestAlgo(var url: String, var args: HashMap<String, Any>) : StateEvent()
+
+    class BatchTestStatus(var groupTestId: Int) : StateEvent()
+
 
 }

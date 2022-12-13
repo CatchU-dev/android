@@ -1,6 +1,7 @@
 package com.isaacsufyan.catchu.presentation.activities.main
 
 import android.content.res.Configuration
+import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -20,7 +21,6 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         hideSystemBars()
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         viewModel.getLanguage.observe(this) {
             selectedLanguage = if (it == ELanguage.SPANISH.language) {

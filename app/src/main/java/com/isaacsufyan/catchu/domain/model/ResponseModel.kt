@@ -89,7 +89,7 @@ data class Data(
     //  Create Patient Test within Group API
     @SerializedName("test_id")
     @Expose
-    var test_id: String? = null,
+    var test_id: Int? = null,
 
     //  TermsAndCondition API
     @SerializedName("id")
@@ -102,5 +102,11 @@ data class Data(
 
     @SerializedName("iframe_url")
     @Expose
-    var termAndConditionURL: String? = null
+    var termAndConditionURL: String? = null,
+
+    //Batch Test Status Api
+
+    @SerializedName("batch_completed")
+    @Expose
+    var batchCompleted: Boolean = false
 )

@@ -1,5 +1,6 @@
 package com.isaacsufyan.catchu.repository
 
+import com.isaacsufyan.catchu.domain.model.RawMeasurementModel
 import com.isaacsufyan.catchu.domain.model.ResponseModel
 import com.isaacsufyan.catchu.domain.state.DataState
 import com.isaacsufyan.catchu.framework.datastore.cache.abstraction.DaoService
@@ -316,6 +317,71 @@ class Repository(
             val response = apiService.termsAndConditionsDecline(
                 patientId = patientId
             )
+            if (response.status) {
+                emit(DataState.Success(response))
+            } else {
+                emit(
+                    DataState.Failure(
+                        response.code ?: -1,
+                        response.message ?: "No Message from Server"
+                    )
+                )
+            }
+        } catch (e: Exception) {
+            emit(DataState.Error(e))
+        }
+    }
+
+
+    fun createRawMeasurement(
+        rawMeasurementModel: RawMeasurementModel
+    ) = flow {
+        emit(DataState.Loading)
+        try {
+            val response = apiService.createRawMeasurement(rawMeasurementModel)
+            if (response.status) {
+                emit(DataState.Success(response))
+            } else {
+                emit(
+                    DataState.Failure(
+                        response.code ?: -1,
+                        response.message ?: "No Message from Server"
+                    )
+                )
+            }
+        } catch (e: Exception) {
+            emit(DataState.Error(e))
+        }
+    }
+
+    fun verifyGroupTestAlgo(
+        url: String,
+        args: HashMap<String, Any>
+    ) = flow {
+        emit(DataState.Loading)
+        try {
+            val response = apiService.verifyGroupTestAlgo(url, args)
+            if (response.status) {
+                emit(DataState.Success(response))
+            } else {
+                emit(
+                    DataState.Failure(
+                        response.code ?: -1,
+                        response.message ?: "No Message from Server"
+                    )
+                )
+            }
+        } catch (e: Exception) {
+            emit(DataState.Error(e))
+        }
+    }
+
+    fun batchTestStatus(
+        groupTestId: Int
+    ) = flow {
+        emit(DataState.Loading)
+        try {
+            val response = apiService.batchTestStatus(groupTestId)
             if (response.status) {
                 emit(DataState.Success(response))
             } else {

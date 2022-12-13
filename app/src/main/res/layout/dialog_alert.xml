@@ -16,6 +16,19 @@
         tools:src="@mipmap/ic_launcher" />
 
     <TextView
+        android:id="@+id/tvDialogHeading"
+        style="@style/TextViewNormalStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:gravity="center"
+        android:scrollbars="vertical"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/ivDialogHeader"
+        tools:text="Heading" />
+
+    <TextView
         android:id="@+id/tvDialogMessage"
         style="@style/TextViewNormalStyle"
         android:layout_width="match_parent"
@@ -23,8 +36,7 @@
         android:layout_marginTop="@dimen/_10sdp"
         android:gravity="center"
         android:scrollbars="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/clBottomButton"
-        app:layout_constraintTop_toBottomOf="@+id/ivDialogHeader"
+        app:layout_constraintTop_toBottomOf="@+id/tvDialogHeading"
         tools:text="Custom Message" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,7 +44,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvDialogMessage">
 
         <com.google.android.material.button.MaterialButton

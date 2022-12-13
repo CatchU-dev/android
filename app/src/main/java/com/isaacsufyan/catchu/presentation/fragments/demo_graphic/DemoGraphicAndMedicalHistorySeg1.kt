@@ -4,7 +4,6 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import com.isaacsufyan.catchu.R
 import com.isaacsufyan.catchu.domain.enum.EAnswer
-import com.isaacsufyan.catchu.domain.model.RawMeasurements
 
 class DemoGraphicAndMedicalHistorySeg1 constructor(
     var fragment: DemoGraphicAndMedicalHistoryFragment
@@ -270,7 +269,7 @@ class DemoGraphicAndMedicalHistorySeg1 constructor(
     }
 
     private fun setHypertension(eAnswer: EAnswer) {
-        RawMeasurements.hasHypertension = eAnswer.value
+        fragment.rawMeasurements.hasHypertension = eAnswer.value
         binding.tvHypertensionError.visibility = View.GONE
         when (eAnswer) {
             EAnswer.NO -> {
@@ -295,7 +294,7 @@ class DemoGraphicAndMedicalHistorySeg1 constructor(
     }
 
     private fun setArthritics(eAnswer: EAnswer) {
-        RawMeasurements.hasArthritis = eAnswer.value
+        fragment.rawMeasurements.hasArthritis = eAnswer.value
         binding.tvArthritisError.visibility = View.GONE
         when (eAnswer) {
             EAnswer.NO -> {
@@ -320,7 +319,7 @@ class DemoGraphicAndMedicalHistorySeg1 constructor(
     }
 
     private fun setDiabetes(eAnswer: EAnswer) {
-        RawMeasurements.hasDiabetes = eAnswer.value
+        fragment.rawMeasurements.hasDiabetes = eAnswer.value
         binding.tvDiabetesError.visibility = View.GONE
         val view = binding.includeDiabetesSubQuestions.root
         when (eAnswer) {
@@ -359,7 +358,7 @@ class DemoGraphicAndMedicalHistorySeg1 constructor(
     }
 
     private fun setDiabetesVision(eAnswer: EAnswer) {
-        RawMeasurements.hasDiabetesVision = eAnswer.value
+        fragment.rawMeasurements.hasDiabetesVision = eAnswer.value
         binding.includeDiabetesSubQuestions.tvDiabetesVisionError.visibility = View.GONE
         when (eAnswer) {
             EAnswer.NO -> {
@@ -393,7 +392,7 @@ class DemoGraphicAndMedicalHistorySeg1 constructor(
     }
 
     private fun setDiabetesKidney(eAnswer: EAnswer) {
-        RawMeasurements.hasDiabetesKidney = eAnswer.value
+        fragment.rawMeasurements.hasDiabetesKidney = eAnswer.value
         binding.includeDiabetesSubQuestions.tvDiabetesKidneyError.visibility = View.GONE
         when (eAnswer) {
             EAnswer.NO -> {
@@ -427,7 +426,7 @@ class DemoGraphicAndMedicalHistorySeg1 constructor(
     }
 
     private fun setDiabetesNerve(eAnswer: EAnswer) {
-        RawMeasurements.hasDiabetesNerve = eAnswer.value
+        fragment.rawMeasurements.hasDiabetesNerve = eAnswer.value
         binding.includeDiabetesSubQuestions.tvDiabetesNerveError.visibility = View.GONE
         when (eAnswer) {
             EAnswer.NO -> {
@@ -461,7 +460,7 @@ class DemoGraphicAndMedicalHistorySeg1 constructor(
     }
 
     private fun setDiabetesTakingMedicine(eAnswer: EAnswer) {
-        RawMeasurements.hasDiabetesTakMedicine = eAnswer.value
+        fragment.rawMeasurements.hasDiabetesTakMedicine = eAnswer.value
         binding.includeDiabetesSubQuestions.tvDiabetesTakingMedicineError.visibility = View.GONE
         val view = binding.includeDiabetesSubQuestions.clDiabetesTakingMedicine
         when (eAnswer) {
@@ -508,7 +507,7 @@ class DemoGraphicAndMedicalHistorySeg1 constructor(
     }
 
     private fun setDiabetesOralMedicine(eAnswer: EAnswer) {
-        RawMeasurements.hasDiabetesTakOralMedicine = eAnswer.value
+        fragment.rawMeasurements.hasDiabetesTakOralMedicine = eAnswer.value
         binding.includeDiabetesSubQuestions.tvDiabetesOralMedicineError.visibility = View.GONE
         when (eAnswer) {
             EAnswer.NO -> {
@@ -542,7 +541,7 @@ class DemoGraphicAndMedicalHistorySeg1 constructor(
     }
 
     private fun setDiabetesInsulinMedicine(eAnswer: EAnswer) {
-        RawMeasurements.hasDiabetesTakInsulin = eAnswer.value
+        fragment.rawMeasurements.hasDiabetesTakInsulin = eAnswer.value
         binding.includeDiabetesSubQuestions.tvDiabetesInsulinError.visibility = View.GONE
         when (eAnswer) {
             EAnswer.NO -> {
@@ -576,7 +575,7 @@ class DemoGraphicAndMedicalHistorySeg1 constructor(
     }
 
     private fun setDiabetesInjectionMedicine(eAnswer: EAnswer) {
-        RawMeasurements.hasDiabetesTakInjection = eAnswer.value
+        fragment.rawMeasurements.hasDiabetesTakInjection = eAnswer.value
         binding.includeDiabetesSubQuestions.tvDiabetesInjectionError.visibility = View.GONE
         when (eAnswer) {
             EAnswer.NO -> {
@@ -610,7 +609,7 @@ class DemoGraphicAndMedicalHistorySeg1 constructor(
     }
 
     private fun setDepression(eAnswer: EAnswer) {
-        RawMeasurements.hasDepression = eAnswer.value
+        fragment.rawMeasurements.hasDepression = eAnswer.value
         binding.tvDepressionError.visibility = View.GONE
         when (eAnswer) {
             EAnswer.NO -> {
@@ -644,7 +643,7 @@ class DemoGraphicAndMedicalHistorySeg1 constructor(
     }
 
     private fun setChronic(eAnswer: EAnswer) {
-        RawMeasurements.hasCOPD = eAnswer.value
+        fragment.rawMeasurements.hasCOPD = eAnswer.value
         binding.tvChronicError.visibility = View.GONE
         when (eAnswer) {
             EAnswer.NO -> {
@@ -678,7 +677,7 @@ class DemoGraphicAndMedicalHistorySeg1 constructor(
     }
 
     private fun setOsteoporosis(eAnswer: EAnswer) {
-        RawMeasurements.hasOsteoporosis = eAnswer.value
+        fragment.rawMeasurements.hasOsteoporosis = eAnswer.value
         binding.tvOsteoporosisError.visibility = View.GONE
         when (eAnswer) {
             EAnswer.NO -> {
@@ -708,7 +707,7 @@ class DemoGraphicAndMedicalHistorySeg1 constructor(
     }
 
     private fun setAnxiety(eAnswer: EAnswer) {
-        RawMeasurements.hasAnxiety = eAnswer.value
+        fragment.rawMeasurements.hasAnxiety = eAnswer.value
         binding.tvAnxietyError.visibility = View.GONE
         when (eAnswer) {
             EAnswer.NO -> {
@@ -738,7 +737,7 @@ class DemoGraphicAndMedicalHistorySeg1 constructor(
     }
 
     private fun setStroke(eAnswer: EAnswer) {
-        RawMeasurements.hasStroke = eAnswer.value
+        fragment.rawMeasurements.hasStroke = eAnswer.value
         binding.tvStrokeError.visibility = View.GONE
         when (eAnswer) {
             EAnswer.NO -> {
@@ -768,7 +767,7 @@ class DemoGraphicAndMedicalHistorySeg1 constructor(
     }
 
     private fun setHeartDisease(eAnswer: EAnswer) {
-        RawMeasurements.hasHeartDisease = eAnswer.value
+        fragment.rawMeasurements.hasHeartDisease = eAnswer.value
         binding.tvHeartDiseaseError.visibility = View.GONE
         val view = binding.includeHeartDiseasesSubQuestions.root
         when (eAnswer) {
@@ -813,7 +812,7 @@ class DemoGraphicAndMedicalHistorySeg1 constructor(
     }
 
     private fun setHeartFailure(eAnswer: EAnswer) {
-        RawMeasurements.hasHeartFailure = eAnswer.value
+        fragment.rawMeasurements.hasHeartFailure = eAnswer.value
         binding.includeHeartDiseasesSubQuestions.tvHeartFailureError.visibility = View.GONE
         when (eAnswer) {
             EAnswer.NO -> {
@@ -843,7 +842,7 @@ class DemoGraphicAndMedicalHistorySeg1 constructor(
     }
 
     private fun setMI(eAnswer: EAnswer) {
-        RawMeasurements.hasMI = eAnswer.value
+        fragment.rawMeasurements.hasMI = eAnswer.value
         binding.includeHeartDiseasesSubQuestions.tvMyocardialError.visibility = View.GONE
         when (eAnswer) {
             EAnswer.NO -> {
@@ -872,7 +871,7 @@ class DemoGraphicAndMedicalHistorySeg1 constructor(
     }
 
     private fun setParkinson(eAnswer: EAnswer) {
-        RawMeasurements.hasPD = eAnswer.value
+        fragment.rawMeasurements.hasPD = eAnswer.value
         binding.tvParkinsonDiseaseError.visibility = View.GONE
         when (eAnswer) {
             EAnswer.NO -> {
@@ -901,7 +900,7 @@ class DemoGraphicAndMedicalHistorySeg1 constructor(
     }
 
     private fun setMemoryProblem(eAnswer: EAnswer) {
-        RawMeasurements.hasMemoryProblems = eAnswer.value
+        fragment.rawMeasurements.hasMemoryProblems = eAnswer.value
         binding.tvMemoryProblemError.visibility = View.GONE
         val view = binding.includeMemoryProblemSubQuestions.root
         when (eAnswer) {
@@ -945,7 +944,7 @@ class DemoGraphicAndMedicalHistorySeg1 constructor(
     }
 
     private fun setDementia(eAnswer: EAnswer) {
-        RawMeasurements.hasDementia = eAnswer.value
+        fragment.rawMeasurements.hasDementia = eAnswer.value
         binding.includeMemoryProblemSubQuestions.tvDementiaError.visibility = View.GONE
         when (eAnswer) {
             EAnswer.NO -> {
@@ -974,7 +973,7 @@ class DemoGraphicAndMedicalHistorySeg1 constructor(
     }
 
     private fun setHighCholesterol(eAnswer: EAnswer) {
-        RawMeasurements.hasHighCholesterol = eAnswer.value
+        fragment.rawMeasurements.hasHighCholesterol = eAnswer.value
         binding.tvHighCholesterolError.visibility = View.GONE
         when (eAnswer) {
             EAnswer.NO -> {
@@ -1003,7 +1002,7 @@ class DemoGraphicAndMedicalHistorySeg1 constructor(
     }
 
     private fun setSeizure(eAnswer: EAnswer) {
-        RawMeasurements.hasSeizure = eAnswer.value
+        fragment.rawMeasurements.hasSeizure = eAnswer.value
         binding.tvSeizureError.visibility = View.GONE
         when (eAnswer) {
             EAnswer.NO -> {
@@ -1032,7 +1031,7 @@ class DemoGraphicAndMedicalHistorySeg1 constructor(
     }
 
     private fun setNeuropathy(eAnswer: EAnswer) {
-        RawMeasurements.hasNeuropathy = eAnswer.value
+        fragment.rawMeasurements.hasNeuropathy = eAnswer.value
         binding.tvNeuropathyError.visibility = View.GONE
         when (eAnswer) {
             EAnswer.NO -> {
