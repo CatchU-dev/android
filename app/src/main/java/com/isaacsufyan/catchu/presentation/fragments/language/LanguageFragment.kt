@@ -1,9 +1,7 @@
 package com.isaacsufyan.catchu.presentation.fragments.language
 
 import android.content.Context
-import android.content.res.Configuration
 import android.os.Bundle
-import android.text.InputFilter
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +14,6 @@ import com.isaacsufyan.catchu.adapter.MaterialArrayAdapter
 import com.isaacsufyan.catchu.base.BaseFragment
 import com.isaacsufyan.catchu.databinding.FragmentLanguageBinding
 import com.isaacsufyan.catchu.domain.enum.ELanguage
-import com.isaacsufyan.catchu.domain.model.RawMeasurements
 import com.isaacsufyan.catchu.presentation.fragments.SharedViewModel
 
 
@@ -43,8 +40,8 @@ class LanguageFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupLanguageDropDown()
-        setupResearchPurpose()
+        viewModel.searchPurposeList.observe(viewLifecycleOwner) { setupResearchPurpose(it) }
+        viewModel.languageList.observe(viewLifecycleOwner) { setupLanguageDropDown(it) }
         binding.btnContinue.setOnClickListener {
             rawMeasurements.researchPurpose = binding.edtResearchPurpose.text.toString()
             val action =
@@ -54,12 +51,11 @@ class LanguageFragment : BaseFragment() {
         }
     }
 
-    private fun setupLanguageDropDown() {
-        val language = listOf("English", "Spanish")
+    private fun setupLanguageDropDown(list: List<String>) {
         val materialAdapter = MaterialArrayAdapter(
             requireContext(),
             R.layout.simple_list_item,
-            language,
+            list,
             binding.edtLanguageView.simpleItemSelectedColor,
             binding.edtLanguageView.simpleItemSelectedRippleColor
         )
@@ -88,8 +84,7 @@ class LanguageFragment : BaseFragment() {
             }
     }
 
-    private fun setupResearchPurpose() {
-        val list = listOf("No", "Yes")
+    private fun setupResearchPurpose(list: List<String>) {
         val materialAdapter = MaterialArrayAdapter(
             requireContext(),
             R.layout.simple_list_item,
@@ -100,13 +95,11 @@ class LanguageFragment : BaseFragment() {
         binding.edtResearchPurpose.setAdapter(materialAdapter)
         var selectedText = binding.edtResearchPurpose.adapter.getItem(0).toString()
         binding.edtResearchPurpose.setText(selectedText, false)
-        materialAdapter.notifyDataSetChanged()
         materialAdapter.updateColor(selectedText)
 
         binding.edtResearchPurpose.onItemClickListener =
             AdapterView.OnItemClickListener { _, _, position, _ ->
                 selectedText = binding.edtResearchPurpose.adapter.getItem(position).toString()
-                binding.edtResearchPurpose.setText(selectedText, false)
                 materialAdapter.updateColor(selectedText)
             }
     }

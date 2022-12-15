@@ -118,7 +118,7 @@
     <string name="group_code">Group Code</string>
     <string name="group_name">Group Name</string>
     <string name="no_of_tests">No. of tests</string>
-    <string name="infinite_if_empty">Will be infinite if left empty</string>
+    <string name="infinite_if_empty">will be infinite if left empty</string>
     <string name="provider">Provider</string>
     <string name="billee">Billee</string>
     <string name="expiry_date">Expiry Date</string>

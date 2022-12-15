@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"
         android:layout_marginTop="@dimen/_20sdp"
-        android:background="@color/white_blue"
+        android:background="?attr/colorOnTertiaryContainer"
         app:layout_constraintTop_toBottomOf="@+id/tvScreenTitle">
 
         <com.google.android.material.textview.MaterialTextView

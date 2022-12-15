@@ -17,7 +17,6 @@
 
         <activity
             android:name=".presentation.activities.main.MainActivity"
-            android:configChanges="uiMode"
             android:exported="true">
 
             <intent-filter>

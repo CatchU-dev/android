@@ -7,15 +7,15 @@
         <item name="colorPrimaryContainer">@color/white</item>
         <item name="colorOnPrimaryContainer">@color/navy</item>
 
-        <item name="colorSecondary">@color/navy_dark</item>
+        <item name="colorSecondary">@color/white</item>
         <item name="colorOnSecondary">@color/white</item>
         <item name="colorSecondaryContainer">@color/white</item>
         <item name="colorOnSecondaryContainer">@color/white</item>
 
         <item name="colorTertiary">@color/red</item>
-        <item name="colorOnTertiary">@color/white</item>
+        <item name="colorOnTertiary">@color/navy_dark</item>
         <item name="colorTertiaryContainer">@color/white</item>
-        <item name="colorOnTertiaryContainer">@color/white</item>
+        <item name="colorOnTertiaryContainer">@color/navy</item>
 
         <item name="android:colorBackground">@color/black_dark</item>
         <item name="colorOnBackground">@color/white</item>

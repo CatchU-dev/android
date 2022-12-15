@@ -231,6 +231,7 @@ class GroupTestDetailsFragment : BaseFragment() {
 
     private fun populateActiveGroupDropdown(activeGroupTestList: List<ActiveGroupTest>?) {
         if (!activeGroupTestList.isNullOrEmpty()) {
+            viewModel.groupId = activeGroupTestList[0].groupId
             val materialAdapter = MaterialArrayAdapter(
                 requireContext(),
                 R.layout.simple_list_item,
@@ -241,7 +242,6 @@ class GroupTestDetailsFragment : BaseFragment() {
 
             binding.edtGroupTestDetails.setAdapter(materialAdapter)
             var selectedText = binding.edtGroupTestDetails.adapter.getItem(0).toString()
-            viewModel.groupId = activeGroupTestList[0].groupId
             binding.edtGroupTestDetails.setText(selectedText, false)
             materialAdapter.updateColor(selectedText)
 

@@ -13,9 +13,9 @@
         <item name="colorOnSecondaryContainer">@color/white</item>
 
         <item name="colorTertiary">@color/red</item>
-        <item name="colorOnTertiary">@color/white</item>
+        <item name="colorOnTertiary">@color/gray_light</item>
         <item name="colorTertiaryContainer">@color/white</item>
-        <item name="colorOnTertiaryContainer">@color/white</item>
+        <item name="colorOnTertiaryContainer">@color/white_blue</item>
 
         <item name="android:colorBackground">@color/white</item>
         <item name="colorOnBackground">@color/black_dark</item>
@@ -47,17 +47,7 @@
         <item name="cornerSize">@dimen/_8sdp</item>
     </style>
 
-    <style name="tvStyleDialogHeader">
-        <item name="android:background">?attr/colorSecondary</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:padding">@dimen/_10sdp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textColor">?android:colorBackground</item>
-    </style>
-
     <style name="MaterialButtonStyleFilled" parent="Widget.Material3.Button">
-        <item name="rippleColor">?attr/colorSecondary</item>
         <item name="android:textAllCaps">true</item>
         <item name="cornerRadius">@dimen/_4sdp</item>
         <item name="android:textStyle">bold</item>
@@ -65,9 +55,8 @@
     </style>
 
     <style name="MaterialButtonStyleOutline" parent="Widget.Material3.Button.OutlinedButton">
-        <item name="rippleColor">?attr/colorSecondary</item>
         <item name="strokeWidth">@dimen/_2sdp</item>
-        <item name="strokeColor">?attr/colorSecondary</item>
+        <item name="strokeColor">?attr/colorPrimary</item>
         <item name="android:textAllCaps">true</item>
         <item name="cornerRadius">@dimen/_4sdp</item>
         <item name="android:textStyle">bold</item>
@@ -75,14 +64,13 @@
     </style>
 
     <style name="TextViewHeadingStyle" parent="TextAppearance.Material3.HeadlineSmall">
-        <item name="android:textColor">?attr/colorSecondary</item>
+        <item name="android:textColor">?attr/colorPrimaryContainer</item>
         <item name="android:paddingTop">@dimen/_4sdp</item>
         <item name="android:paddingBottom">@dimen/_4sdp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextViewNormalStyle" parent="TextAppearance.Material3.LabelLarge">
-        <item name="android:textColor">?attr/colorOnSurface</item>
         <item name="android:paddingTop">@dimen/_4sdp</item>
         <item name="android:paddingBottom">@dimen/_4sdp</item>
     </style>
@@ -111,7 +99,7 @@
         <item name="boxStrokeWidth">0dp</item>
         <item name="boxStrokeWidthFocused">0dp</item>
         <item name="errorEnabled">false</item>
-        <item name="endIconTint">?attr/colorSecondary</item>
+        <item name="endIconTint">?attr/colorPrimaryContainer</item>
         <item name="hintEnabled">false</item>
         <item name="boxBackgroundColor">?attr/colorSurface</item>
     </style>

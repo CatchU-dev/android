@@ -30,6 +30,8 @@ class SharedViewModel @Inject constructor(
     var termsAndConditionUrl: String? = null
 
     val getLanguage: LiveData<String> = prefService.getLanguage().asLiveData()
+    val searchPurposeList: LiveData<List<String>> = MutableLiveData(listOf("No", "Yes"))
+    val languageList: LiveData<List<String>> = MutableLiveData(listOf("English", "Spanish"))
 
     fun setLanguage(language: String) {
         viewModelScope.launch {
