@@ -76,7 +76,9 @@ class GroupTestDetailsFragment : BaseFragment() {
         }
 
         binding.btnNext.setOnClickListener {
-            if (viewModel.groupId != null) navigateToNextScreen()
+            if (viewModel.groupId != null) {
+                navigateToNextScreen()
+            }
         }
 
         binding.btnSubmit.setOnClickListener {
@@ -245,7 +247,6 @@ class GroupTestDetailsFragment : BaseFragment() {
             binding.edtGroupTestDetails.setText(selectedText, false)
             materialAdapter.updateColor(selectedText)
 
-
             binding.edtGroupTestDetails.onItemClickListener =
                 AdapterView.OnItemClickListener { _, _, position, _ ->
                     selectedText = binding.edtGroupTestDetails.adapter.getItem(position).toString()
@@ -253,6 +254,7 @@ class GroupTestDetailsFragment : BaseFragment() {
                     materialAdapter.updateColor(selectedText)
                 }
         } else {
+            viewModel.groupId = null
             binding.edtGroupTestDetailsLayout.isEnabled = false
             binding.edtGroupTestDetails.hint = "List Empty - Create New Group Test"
         }
