@@ -67,7 +67,7 @@ class LanguageFragment : BaseFragment() {
             binding.edtLanguageView.adapter.getItem(1).toString()
         }
 
-        binding.edtLanguageView.setText(selectedText, false)
+        binding.edtLanguageView.setText(selectedText)
         materialAdapter.updateColor(selectedText)
 
         binding.edtLanguageView.onItemClickListener =
@@ -94,7 +94,7 @@ class LanguageFragment : BaseFragment() {
         )
         binding.edtResearchPurpose.setAdapter(materialAdapter)
         var selectedText = binding.edtResearchPurpose.adapter.getItem(0).toString()
-        binding.edtResearchPurpose.setText(selectedText, false)
+        binding.edtResearchPurpose.setText(selectedText)
         materialAdapter.updateColor(selectedText)
 
         binding.edtResearchPurpose.onItemClickListener =

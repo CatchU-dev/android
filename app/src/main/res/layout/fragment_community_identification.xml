@@ -42,7 +42,9 @@
             android:layout_width="match_parent"
             android:text="OSHFR56C"
             android:layout_height="wrap_content"
-            android:inputType="none" />
+            android:inputType="text"
+            android:maxLines="1"
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 

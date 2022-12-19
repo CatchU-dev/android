@@ -244,7 +244,7 @@ class GroupTestDetailsFragment : BaseFragment() {
 
             binding.edtGroupTestDetails.setAdapter(materialAdapter)
             var selectedText = binding.edtGroupTestDetails.adapter.getItem(0).toString()
-            binding.edtGroupTestDetails.setText(selectedText, false)
+            binding.edtGroupTestDetails.setText(selectedText)
             materialAdapter.updateColor(selectedText)
 
             binding.edtGroupTestDetails.onItemClickListener =
@@ -283,7 +283,7 @@ class GroupTestDetailsFragment : BaseFragment() {
         var selectedText = binding.edtProvider.adapter.getItem(0).toString()
         providerId = providerList[0].id ?: providerList[0].providerId
 
-        binding.edtProvider.setText(selectedText, false)
+        binding.edtProvider.setText(selectedText)
         providerDropDownAdapter.updateColor(selectedText)
 
         binding.edtProvider.onItemClickListener =
@@ -318,7 +318,7 @@ class GroupTestDetailsFragment : BaseFragment() {
         var selectedText = binding.edtBillee.adapter.getItem(0).toString()
         billeeId = billeeList[0].Id ?: billeeList[0].billeeId
 
-        binding.edtBillee.setText(selectedText, false)
+        binding.edtBillee.setText(selectedText)
         materialAdapter.updateColor(selectedText)
 
         binding.edtBillee.onItemClickListener =

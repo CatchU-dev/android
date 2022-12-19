@@ -10,6 +10,7 @@ import android.graphics.drawable.RippleDrawable
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Filter
 import android.widget.TextView
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.ViewCompat
@@ -111,5 +112,13 @@ class MaterialArrayAdapter<T>(
 
     private fun hasSelectedRippleColor(): Boolean {
         return simpleItemSelectedRippleColor == null
+    }
+
+    override fun getFilter() = NonFilter()
+
+    class NonFilter : Filter() {
+        override fun performFiltering(constraint: CharSequence?) = FilterResults()
+
+        override fun publishResults(constraint: CharSequence?, results: FilterResults?) = Unit
     }
 }
