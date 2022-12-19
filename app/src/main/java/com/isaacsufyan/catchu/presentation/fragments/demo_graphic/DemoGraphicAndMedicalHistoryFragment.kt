@@ -12,6 +12,7 @@ import com.isaacsufyan.catchu.R
 import com.isaacsufyan.catchu.base.BaseFragment
 import com.isaacsufyan.catchu.databinding.FragmentDemoGraphicAndMedicalHistoryBinding
 import com.isaacsufyan.catchu.domain.model.RawMeasurements
+import com.isaacsufyan.catchu.utils.showSnackBar
 import com.isaacsufyan.catchu.utils.textToString
 import java.text.SimpleDateFormat
 import java.util.*
@@ -43,13 +44,13 @@ class DemoGraphicAndMedicalHistoryFragment : BaseFragment() {
         val validation = DemoGraphicAndMedicalHistoryValidation(this)
 
         binding.btnStartTrail.setOnClickListener {
-//            if (validation.validate()) {
+            if (validation.validate()) {
             getInputValueAndSet()
             val action = DemoGraphicAndMedicalHistoryFragmentDirections.actionDemoToTest()
             findNavController().navigate(action)
-//            } else {
-//                mainActivity.showSnackBar("All field are Required")
-//            }
+            } else {
+                mainActivity.showSnackBar("All field are Required")
+            }
         }
     }
 
@@ -71,7 +72,7 @@ class DemoGraphicAndMedicalHistoryFragment : BaseFragment() {
             (Calendar.getInstance(Locale.ENGLISH)[Calendar.YEAR] - rawMeasurements.selectedYear)
         binding.includeSeg0.edtDOB.setText(age.toString())
         binding.includeSeg0.edtDOB.isEnabled = false
-        val color = ResourcesCompat.getColor(resources, R.color.white_blue, null)
+        val color = ResourcesCompat.getColor(resources, R.color.blue_light, null)
         binding.includeSeg0.edtDOBLayout.boxBackgroundColor = color
     }
 
