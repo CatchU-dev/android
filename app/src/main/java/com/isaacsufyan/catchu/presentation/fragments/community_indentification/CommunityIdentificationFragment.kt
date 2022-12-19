@@ -11,6 +11,7 @@ import com.isaacsufyan.catchu.databinding.FragmentCommunityIdentificationBinding
 import com.isaacsufyan.catchu.domain.event.StateEvent
 import com.isaacsufyan.catchu.domain.state.DataState
 import com.isaacsufyan.catchu.presentation.fragments.SharedViewModel
+import com.isaacsufyan.catchu.utils.hideSoftKeyboard
 import com.isaacsufyan.catchu.utils.isNullOrEmpty
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -38,6 +39,7 @@ class CommunityIdentificationFragment : BaseFragment() {
                 return@setOnClickListener
             }
             viewModel.setStateEvent(StateEvent.ValidateCommunity(binding.edtCommunityId.text.toString()))
+            it.hideSoftKeyboard()
         }
 
         subscriber()
