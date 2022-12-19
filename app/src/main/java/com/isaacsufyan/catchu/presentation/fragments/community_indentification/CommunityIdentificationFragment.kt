@@ -13,8 +13,6 @@ import com.isaacsufyan.catchu.domain.state.DataState
 import com.isaacsufyan.catchu.presentation.fragments.SharedViewModel
 import com.isaacsufyan.catchu.utils.hideSoftKeyboard
 import com.isaacsufyan.catchu.utils.isNullOrEmpty
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody.Companion.toRequestBody
 
 
 class CommunityIdentificationFragment : BaseFragment() {
@@ -35,7 +33,7 @@ class CommunityIdentificationFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.resetResponseModel()
         binding.btnSubmit.setOnClickListener {
-            if (binding.edtCommunityId.isNullOrEmpty()){
+            if (binding.edtCommunityId.isNullOrEmpty()) {
                 return@setOnClickListener
             }
             viewModel.setStateEvent(StateEvent.ValidateCommunity(binding.edtCommunityId.text.toString()))
@@ -53,13 +51,18 @@ class CommunityIdentificationFragment : BaseFragment() {
                 }
                 is DataState.Success -> {
                     mainActivity.showProgress(false)
-                    val text = String.format(
-                        resources.getString(R.string.you_have_entered_msg),
-                        it.data.data?.community.toString()
-                    )
-                    viewModel.communityId = it.data.data?.community_id
-                    val action = CommunityIdentificationFragmentDirections.actionCommunityIndToGroupDetails()
-                    showDialogAndNavigateScreen(text, action)
+                    if (it.data.data?.community_id != null) {
+                        val text = String.format(
+                            resources.getString(R.string.you_have_entered_msg),
+                            it.data.data?.community.toString()
+                        )
+                        viewModel.communityId = it.data.data?.community_id
+                        val action =
+                            CommunityIdentificationFragmentDirections.actionCommunityIndToGroupDetails()
+                        showDialogAndNavigateScreen(text, action)
+                    } else {
+                        showOkDialog("Try Another Community: ${it.data.message}")
+                    }
                 }
                 is DataState.Failure -> {
                     mainActivity.showProgress(false)
