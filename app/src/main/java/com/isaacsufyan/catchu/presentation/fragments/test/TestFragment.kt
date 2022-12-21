@@ -9,9 +9,11 @@ import android.view.*
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.isaacsufyan.catchu.BuildConfig
 import com.isaacsufyan.catchu.R
 import com.isaacsufyan.catchu.base.BaseFragment
+import com.isaacsufyan.catchu.databinding.DialogAlertBinding
 import com.isaacsufyan.catchu.databinding.FragmentTestBinding
 import com.isaacsufyan.catchu.domain.*
 import com.isaacsufyan.catchu.domain.enum.EStimulusType
@@ -25,6 +27,7 @@ import com.isaacsufyan.catchu.presentation.fragments.test_completed.TestComplete
 import com.isaacsufyan.catchu.utils.indexExists
 import com.isaacsufyan.catchu.utils.showDialog
 import java.util.*
+
 
 class TestFragment : BaseFragment() {
 
@@ -79,15 +82,12 @@ class TestFragment : BaseFragment() {
                 mainActivity.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
             vibratorManager.defaultVibrator
         } else {
-            @Suppress("DEPRECATION")
-            mainActivity.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            @Suppress("DEPRECATION") mainActivity.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         }
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentTestBinding.inflate(inflater, container, false)
         return binding.root
@@ -259,19 +259,27 @@ class TestFragment : BaseFragment() {
         val message: String
 
         if (breakNumber == 1) {
-            message = "First Break"
+            message = resources.getString(R.string.task_instructions_first_break_text)
             breakOneTaken = true
         } else {
-            message = "Second Break"
+            message = resources.getString(R.string.task_instructions_second_break_text)
             breakTwoTaken = true
         }
 
-        showOkDialog(message, object : IDialogOnClickListener {
-            override fun onOk(dialog: AlertDialog) {
-                dialog.dismiss()
-                handleStimPresentation()
-            }
-        })
+        val dialog = createDialog(message)
+        dialog.show()
+
+        val handler = Handler(Looper.getMainLooper())
+        val runnableDialog = Runnable { if (dialog.isShowing) dialog.dismiss() }
+        val runnableTest = Runnable { handleStimPresentation() }
+
+        dialog.setOnDismissListener {
+            handler.removeCallbacks(runnableDialog)
+            handler.removeCallbacks(runnableDialog)
+        }
+
+        handler.postDelayed(runnableDialog, 15000)
+        handler.postDelayed(runnableTest, 21000)
     }
 
     private fun showNoneStimulus(func: () -> Unit) {
@@ -516,12 +524,9 @@ class TestFragment : BaseFragment() {
             it > 0.0
         }.size
 
-        val answerVisPercentage =
-            answerVisCount.toDouble() / 45.toDouble()
-        val answersSomaPercentage =
-            answersSomaCount.toDouble() / 45.toDouble()
-        val answersVisAndSomaPercentage =
-            answersVisAndSomaCount.toDouble() / 45.toDouble()
+        val answerVisPercentage = answerVisCount.toDouble() / 45.toDouble()
+        val answersSomaPercentage = answersSomaCount.toDouble() / 45.toDouble()
+        val answersVisAndSomaPercentage = answersVisAndSomaCount.toDouble() / 45.toDouble()
 
 
         params["trialAnswersVisCount"] = trialAnswersVis.size
@@ -587,5 +592,28 @@ class TestFragment : BaseFragment() {
             TestFragmentDirections.actionTestCompleteToPatientProfile()
         }
         findNavController().navigate(action)
+    }
+
+    private fun createDialog(message: String): AlertDialog {
+        val dialog = MaterialAlertDialogBuilder(requireContext()).create()
+
+        dialog.window?.setFlags(
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+        )
+
+        val binding = DialogAlertBinding.inflate(layoutInflater)
+        dialog.setView(binding.root)
+        dialog.setCancelable(false)
+        dialog.setCanceledOnTouchOutside(false)
+
+        binding.tvDialogHeading.visibility = View.VISIBLE
+        binding.tvDialogHeading.text = resources.getString(R.string.time_for_break)
+        binding.tvDialogMessage.text = message
+
+        binding.ivDialogHeader.setImageResource(R.mipmap.ic_launcher)
+        binding.btnNo.visibility = View.GONE
+        binding.btnYes.visibility = View.GONE
+        return dialog
     }
 }

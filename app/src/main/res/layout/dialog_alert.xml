@@ -26,7 +26,8 @@
         android:textStyle="bold"
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/ivDialogHeader"
-        tools:text="Heading" />
+        tools:text="Heading"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/tvDialogMessage"
