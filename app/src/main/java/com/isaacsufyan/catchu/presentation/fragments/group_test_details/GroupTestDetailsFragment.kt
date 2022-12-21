@@ -1,11 +1,13 @@
 package com.isaacsufyan.catchu.presentation.fragments.group_test_details
 
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.TimePicker
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -125,9 +127,7 @@ class GroupTestDetailsFragment : BaseFragment() {
         calendar.set(Calendar.YEAR, year)
         calendar.set(Calendar.MONTH, month)
         calendar.set(Calendar.DAY_OF_MONTH, day)
-        val dateFormat = SimpleDateFormat("MM-dd-yyyy hh:mm:ss", Locale.getDefault())
-        val expireDate = dateFormat.format(calendar.time)
-        binding.edtExpiryDate.setText(expireDate)
+        timePicker()
     }
 
     private fun validationBeforeCreateGroupTest(): Boolean {
@@ -333,4 +333,24 @@ class GroupTestDetailsFragment : BaseFragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    private fun timePicker() {
+        val hour = calendar.get(Calendar.HOUR_OF_DAY)
+        val minute = calendar.get(Calendar.MINUTE)
+        val timePickerDialog = TimePickerDialog(requireContext(), object : TimePickerDialog.OnTimeSetListener {
+            override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                calendar.set(Calendar.MINUTE, minute)
+                setExpiryTimeHandler()
+            }
+        }, hour, minute, false)
+        timePickerDialog.show();
+    }
+    
+    private fun setExpiryTimeHandler() { 
+        val dateFormat = SimpleDateFormat("MM-dd-yyyy hh:mm:ss", Locale.getDefault())
+        val expireDate = dateFormat.format(calendar.time)
+        binding.edtExpiryDate.setText(expireDate)
+    }
+
 }
