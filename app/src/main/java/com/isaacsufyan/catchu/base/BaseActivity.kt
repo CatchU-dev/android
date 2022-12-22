@@ -45,12 +45,14 @@ open class BaseActivity : AppCompatActivity(), Thread.UncaughtExceptionHandler {
         when {
             show -> {
                 if (!isFinishing && !progressDialog!!.isShowing) {
+                    disableBackgroundTouchesHandler()
                     progressDialog?.setCanceledOnTouchOutside(false)
                     progressDialog?.show()
                 }
             }
             else -> {
                 if (!isFinishing && progressDialog!!.isShowing) {
+                    freeBackgroundTouchesHandler()
                     progressDialog?.dismiss()
                 }
             }
@@ -63,5 +65,15 @@ open class BaseActivity : AppCompatActivity(), Thread.UncaughtExceptionHandler {
         windowInsetsController.systemBarsBehavior =
             WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
+    }
+
+    fun disableBackgroundTouchesHandler() {
+        this.window.setFlags(
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
+
+    fun freeBackgroundTouchesHandler() {
+        this.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 }

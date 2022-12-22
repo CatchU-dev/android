@@ -123,6 +123,7 @@ class TermsAndConditionFragment : BaseFragment() {
     }
 
     private fun showTerminateDialog() {
+        mainActivity.disableBackgroundTouchesHandler()
         mainActivity.showDialog(
             true,
             resources.getString(R.string.terminate_test_msg),
@@ -131,6 +132,7 @@ class TermsAndConditionFragment : BaseFragment() {
             resources.getString(R.string.ok),
             object : IDialogOnClickListener {
                 override fun onOk(dialog: AlertDialog) {
+                    mainActivity.freeBackgroundTouchesHandler()
                     dialog.dismiss()
                     isTerminateDialogDisplay = true
                 }

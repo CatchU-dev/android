@@ -415,6 +415,7 @@ class TestFragment : BaseFragment() {
 
         if (!introShown) {
             introShown = true
+            mainActivity.disableBackgroundTouchesHandler()
             mainActivity.showDialog(
                 true,
                 message,
@@ -423,6 +424,7 @@ class TestFragment : BaseFragment() {
                 resources.getString(R.string.okay),
                 object : IDialogOnClickListener {
                     override fun onOk(dialog: AlertDialog) {
+                        mainActivity.freeBackgroundTouchesHandler()
                         dialog.dismiss()
                         binding.tvStartText.text = resources.getString(R.string.click_here_to_start)
                     }
