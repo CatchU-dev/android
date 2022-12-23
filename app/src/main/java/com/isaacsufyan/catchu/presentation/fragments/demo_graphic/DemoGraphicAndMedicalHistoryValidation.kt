@@ -65,29 +65,34 @@ class DemoGraphicAndMedicalHistoryValidation constructor(
             val view = binding.includeSeg1.includeDiabetesSubQuestions
             if (fragment.rawMeasurements.hasDiabetesVision == null) {
                 view.tvDiabetesVisionError.visibility = View.VISIBLE
+                giveAllAns = false
             }
             if (fragment.rawMeasurements.hasDiabetesKidney == null) {
                 view.tvDiabetesKidneyError.visibility = View.VISIBLE
+                giveAllAns = false
             }
             if (fragment.rawMeasurements.hasDiabetesNerve == null) {
                 view.tvDiabetesNerveError.visibility = View.VISIBLE
+                giveAllAns = false
             }
             if (fragment.rawMeasurements.hasDiabetesTakMedicine == null) {
                 view.tvDiabetesTakingMedicineError.visibility = View.VISIBLE
+                giveAllAns = false
             }
             if (fragment.rawMeasurements.hasDiabetesTakMedicine == EAnswer.YES.value) {
                 if (fragment.rawMeasurements.hasDiabetesTakOralMedicine == null) {
                     view.tvDiabetesOralMedicineError.visibility = View.VISIBLE
+                    giveAllAns = false
                 }
                 if (fragment.rawMeasurements.hasDiabetesTakInsulin == null) {
                     view.tvDiabetesInsulinError.visibility = View.VISIBLE
+                    giveAllAns = false
                 }
                 if (fragment.rawMeasurements.hasDiabetesTakInjection == null) {
                     view.tvDiabetesInjectionError.visibility = View.VISIBLE
+                    giveAllAns = false
                 }
             }
-
-            giveAllAns = false
         }
 
         if (fragment.rawMeasurements.hasDepression == null) {

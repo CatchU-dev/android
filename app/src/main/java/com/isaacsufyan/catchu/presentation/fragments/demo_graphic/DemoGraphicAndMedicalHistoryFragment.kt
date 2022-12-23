@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import com.isaacsufyan.catchu.R
 import com.isaacsufyan.catchu.base.BaseFragment
 import com.isaacsufyan.catchu.databinding.FragmentDemoGraphicAndMedicalHistoryBinding
-import com.isaacsufyan.catchu.domain.model.RawMeasurements
 import com.isaacsufyan.catchu.utils.hideSoftKeyboard
 import com.isaacsufyan.catchu.utils.showSnackBar
 import com.isaacsufyan.catchu.utils.textToString
@@ -47,9 +46,9 @@ class DemoGraphicAndMedicalHistoryFragment : BaseFragment() {
         binding.btnStartTrail.setOnClickListener {
             it.hideSoftKeyboard()
             if (validation.validate()) {
-            getInputValueAndSet()
-            val action = DemoGraphicAndMedicalHistoryFragmentDirections.actionDemoToTest()
-            findNavController().navigate(action)
+                getInputValueAndSet()
+                val action = DemoGraphicAndMedicalHistoryFragmentDirections.actionDemoToTest()
+                findNavController().navigate(action)
             } else {
                 mainActivity.showSnackBar("All field are Required")
             }

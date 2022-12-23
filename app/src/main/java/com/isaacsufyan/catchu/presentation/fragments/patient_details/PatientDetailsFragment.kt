@@ -230,21 +230,6 @@ class PatientDetailsFragment : BaseFragment() {
     }
 
     private fun selectDate() {
-//        val constraintsBuilder =
-//            CalendarConstraints.Builder()
-//                .setValidator(DateValidatorPointBackward.now())
-//
-//        val datePicker =
-//            MaterialDatePicker.Builder.datePicker()
-//                .setTitleText("Select Date Of Birth")
-//                .setCalendarConstraints(constraintsBuilder.build())
-//                .build()
-//        datePicker.isCancelable = false
-//        datePicker.show(childFragmentManager, "")
-//        datePicker.addOnPositiveButtonClickListener {
-//            binding.edtDOB.setText(datePicker.headerText)
-//        }
-
 
         DatePickerDialog(
             requireContext(),

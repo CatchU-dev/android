@@ -1,5 +1,6 @@
 package com.isaacsufyan.catchu.di
 
+import com.isaacsufyan.catchu.domain.model.RawMeasurements
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,4 +16,9 @@ object PrefModule {
     @Provides
     @Singleton
     fun providePrefService(prefServiceImpl: PrefServiceImpl): PrefService = prefServiceImpl
+
+    @Provides
+    @Singleton
+    fun provideRawMeasurement(): RawMeasurements = RawMeasurements()
+
 }

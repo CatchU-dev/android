@@ -27,6 +27,7 @@ import com.isaacsufyan.catchu.presentation.fragments.test_completed.TestComplete
 import com.isaacsufyan.catchu.utils.indexExists
 import com.isaacsufyan.catchu.utils.showDialog
 import java.util.*
+import kotlin.collections.HashMap
 
 
 class TestFragment : BaseFragment() {
@@ -350,38 +351,41 @@ class TestFragment : BaseFragment() {
     }
 
     private fun uploadResultsToServer() {
+        Log.e("TAG", "uploadResultsToServer: " )
         sortAnswerArrays()
         var answerNone: Double
         var answerVis: Double
         var answerVisSoma: Double
         var answerSoma: Double
+        val params = HashMap<String, Int>()
 
         for (i in 0 until 45) {
             if (answersNone.indexExists(i)) {
                 answerNone = answersNone[i]
-                rawMeasurements.javaClass.getField("c$i")
-                    .set(rawMeasurements, (answerNone * 1000).toInt())
+                params["C$i"] = (answerNone * 1000).toInt()
             }
             if (answersVis.indexExists(i)) {
                 answerVis = answersVis[i]
-                rawMeasurements.javaClass.getField("v$i")
-                    .set(rawMeasurements, (answerVis * 1000).toInt())
+                params["V$i"] = (answerVis * 1000).toInt()
             }
             if (answersVisAndSoma.indexExists(i)) {
                 answerVisSoma = answersVisAndSoma[i]
-                rawMeasurements.javaClass.getField("vs$i")
-                    .set(rawMeasurements, (answerVisSoma * 1000).toInt())
+                params["VS$i"] = (answerVisSoma * 1000).toInt()
             }
             if (answersSoma.indexExists(i)) {
                 answerSoma = answersSoma[i]
-                rawMeasurements.javaClass.getField("s$i")
-                    .set(rawMeasurements, (answerSoma * 1000).toInt())
+                params["S$i"] = (answerSoma * 1000).toInt()
             }
         }
+
+        Log.e("TAG", "CreateRawMeasurement: $rawMeasurements" )
+
+        rawMeasurements.testValues = params
         val rawMeasurementModel = RawMeasurementModel()
         rawMeasurementModel.test = viewModel.testId
         rawMeasurementModel.rawMeasurements = rawMeasurements
         stateEvent = StateEvent.CreateRawMeasurement(rawMeasurementModel)
+        viewModel.resetResponseModel()
         viewModel.setStateEvent(stateEvent as StateEvent.CreateRawMeasurement)
     }
 
@@ -464,7 +468,11 @@ class TestFragment : BaseFragment() {
                             batchCompleted = it.data.data?.batchCompleted ?: false
                             showCompleteTestScreen()
                         } else {
-                            showOkDialog(it.data.message.toString())
+                            showOkDialog(it.data.message.toString(), object :IDialogOnClickListener{
+                                override fun onOk(dialog: AlertDialog) {
+                                    showCompleteTestScreen()
+                                }
+                            })
                         }
                     }
                 }
@@ -547,6 +555,7 @@ class TestFragment : BaseFragment() {
     }
 
     private fun verifyGroupTestAlgo(invalidReport: Boolean) {
+        Log.e("TAG", "verifyGroupTestAlgo: ", )
         val url = "https://5ioxsjwd31.execute-api.us-east-1.amazonaws.com/algorithm/algorithm"
         val args = HashMap<String, Any>()
         viewModel.testId?.let {
@@ -557,12 +566,15 @@ class TestFragment : BaseFragment() {
             args["environment"] = BuildConfig.Environment
         }
         stateEvent = StateEvent.VerifyGroupTestAlgo(url = url, args)
+        viewModel.resetResponseModel()
         viewModel.setStateEvent(stateEvent as StateEvent.VerifyGroupTestAlgo)
     }
 
     private fun batchTestStatus() {
+        Log.e("TAG", "batchTestStatus: ", )
         viewModel.communityId?.let {
             stateEvent = StateEvent.BatchTestStatus(it)
+            viewModel.resetResponseModel()
             viewModel.setStateEvent(stateEvent as StateEvent.BatchTestStatus)
         }
     }
@@ -577,6 +589,7 @@ class TestFragment : BaseFragment() {
                 handleCompleteTest()
             }
         }
+        Log.e("TAG", "showCompleteTestScreen: ", )
         val dialog = TestCompletedFragment(dialogListener)
         dialog.show(childFragmentManager, "TestCompletedFragment")
     }

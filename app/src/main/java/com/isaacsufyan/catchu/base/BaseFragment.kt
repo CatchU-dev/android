@@ -12,18 +12,20 @@ import com.isaacsufyan.catchu.presentation.activities.main.MainActivity
 import com.isaacsufyan.catchu.utils.showDialog
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 open class BaseFragment : Fragment() {
 
     lateinit var mainActivity: MainActivity
     protected lateinit var calendar: Calendar
+
+    @Inject
     lateinit var rawMeasurements: RawMeasurements
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainActivity = requireActivity() as MainActivity
-        rawMeasurements = RawMeasurements()
         calendar = Calendar.getInstance()
     }
 
