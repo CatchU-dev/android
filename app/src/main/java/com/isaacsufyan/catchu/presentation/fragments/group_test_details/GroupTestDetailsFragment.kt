@@ -66,6 +66,7 @@ class GroupTestDetailsFragment : BaseFragment() {
         subscriber()
 
         binding.edtExpiryDate.setOnClickListener {
+            it.hideSoftKeyboard()
             DatePickerDialog(
                 requireContext(),
                 date,
@@ -82,6 +83,18 @@ class GroupTestDetailsFragment : BaseFragment() {
             it.hideSoftKeyboard()
             if (viewModel.groupId != null) {
                 navigateToNextScreen()
+            }
+        }
+
+        binding.edtGroupName.setOnFocusChangeListener { v, hasFocus ->
+            if(!hasFocus) {
+                v.hideSoftKeyboard()
+            }
+        }
+
+        binding.edtNoOfTest.setOnFocusChangeListener { v, hasFocus ->
+            if(!hasFocus) {
+                v.hideSoftKeyboard()
             }
         }
 

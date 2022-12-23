@@ -4,6 +4,7 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import com.isaacsufyan.catchu.R
 import com.isaacsufyan.catchu.domain.enum.EAnswer
+import com.isaacsufyan.catchu.utils.hideSoftKeyboard
 
 class DemoGraphicAndMedicalHistorySeg1 constructor(
     var fragment: DemoGraphicAndMedicalHistoryFragment
@@ -104,6 +105,12 @@ class DemoGraphicAndMedicalHistorySeg1 constructor(
 
         binding.tvNeuropathyYes.setOnClickListener(this)
         binding.tvNeuropathyNo.setOnClickListener(this)
+
+        binding.includeDiabetesSubQuestions.edtDiabetesYear.setOnFocusChangeListener { v, hasFocus ->
+            if(!hasFocus) {
+                v.hideSoftKeyboard()
+            }
+        }
     }
 
     override fun onClick(view: View?) {
