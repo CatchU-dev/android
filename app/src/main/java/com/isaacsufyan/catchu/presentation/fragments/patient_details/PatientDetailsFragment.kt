@@ -49,6 +49,7 @@ class PatientDetailsFragment : BaseFragment() {
         }
 
         binding.edtDOB.setOnClickListener {
+            it.hideSoftKeyboard()
             selectDate()
         }
 

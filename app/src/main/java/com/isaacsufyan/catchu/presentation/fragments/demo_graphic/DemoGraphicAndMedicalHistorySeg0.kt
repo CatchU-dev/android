@@ -6,6 +6,7 @@ import com.isaacsufyan.catchu.R
 import com.isaacsufyan.catchu.adapter.MaterialArrayAdapter
 import com.isaacsufyan.catchu.domain.enum.EAnswer
 import com.isaacsufyan.catchu.domain.enum.EGender
+import com.isaacsufyan.catchu.utils.hideSoftKeyboard
 
 class DemoGraphicAndMedicalHistorySeg0(
     var fragment: DemoGraphicAndMedicalHistoryFragment
@@ -26,6 +27,12 @@ class DemoGraphicAndMedicalHistorySeg0(
 
         binding.tvHispanicLatinoYes.setOnClickListener(this)
         binding.tvHispanicLatinoYNo.setOnClickListener(this)
+
+        binding.edtYearOfEducation.setOnFocusChangeListener { v, hasFocus ->
+            if(!hasFocus) {
+                v.hideSoftKeyboard()
+            }
+        }
     }
 
     override fun onClick(view: View?) {

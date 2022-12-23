@@ -4,6 +4,7 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import com.isaacsufyan.catchu.R
 import com.isaacsufyan.catchu.domain.enum.EAnswer
+import com.isaacsufyan.catchu.utils.hideSoftKeyboard
 
 class DemoGraphicAndMedicalHistorySeg3(
     var fragment: DemoGraphicAndMedicalHistoryFragment
@@ -38,6 +39,12 @@ class DemoGraphicAndMedicalHistorySeg3(
 
         binding.tvDifficultyWithBalanceYes.setOnClickListener(this)
         binding.tvDifficultyWithBalanceNo.setOnClickListener(this)
+
+        binding.edtRegularlyMedicine.setOnFocusChangeListener { v, hasFocus ->
+            if(!hasFocus) {
+                v.hideSoftKeyboard()
+            }
+        }
 
     }
 
