@@ -28,6 +28,7 @@ open class BaseFragment : Fragment() {
     }
 
     fun showOkDialog(message: String) {
+        mainActivity.disableBackgroundTouchesHandler()
         mainActivity.showDialog(
             true,
             message,
@@ -36,6 +37,7 @@ open class BaseFragment : Fragment() {
             resources.getString(R.string.okay),
             object : IDialogOnClickListener {
                 override fun onOk(dialog: AlertDialog) {
+                    mainActivity.freeBackgroundTouchesHandler()
                     dialog.dismiss()
                 }
             })
@@ -53,6 +55,7 @@ open class BaseFragment : Fragment() {
     }
 
     fun showDialogAndNavigateScreen(message: String, action: NavDirections) {
+        mainActivity.disableBackgroundTouchesHandler()
         mainActivity.showDialog(
             false,
             message,
@@ -61,11 +64,13 @@ open class BaseFragment : Fragment() {
             null,
             object : IDialogOnClickListener {
                 override fun onOk(dialog: AlertDialog) {
+                    mainActivity.freeBackgroundTouchesHandler()
                     dialog.dismiss()
                     findNavController().navigate(action)
                 }
 
                 override fun onCancel(dialog: AlertDialog) {
+                    mainActivity.freeBackgroundTouchesHandler()
                     dialog.dismiss()
                 }
             })

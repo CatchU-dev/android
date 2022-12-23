@@ -57,6 +57,7 @@ class CurrentGroupTestFragment : BaseFragment() {
         }
 
         binding.btnTerminateGroupTest.setOnClickListener {
+            mainActivity.disableBackgroundTouchesHandler()
             mainActivity.showDialog(
                 isOkDialog = false,
                 message = resources.getString(R.string.terminate_test_msg),
@@ -65,6 +66,7 @@ class CurrentGroupTestFragment : BaseFragment() {
                 null,
                 object : IDialogOnClickListener {
                     override fun onOk(dialog: AlertDialog) {
+                        mainActivity.freeBackgroundTouchesHandler()
                         dialog.dismiss()
                         viewModel.groupId?.let {
                             stateEvent = StateEvent.TerminateGroupTest(it)
@@ -73,6 +75,7 @@ class CurrentGroupTestFragment : BaseFragment() {
                     }
 
                     override fun onCancel(dialog: AlertDialog) {
+                        mainActivity.freeBackgroundTouchesHandler()
                         dialog.dismiss()
                     }
                 })

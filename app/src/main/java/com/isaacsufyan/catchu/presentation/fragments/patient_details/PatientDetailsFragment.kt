@@ -15,6 +15,7 @@ import com.isaacsufyan.catchu.domain.model.RawMeasurements
 import com.isaacsufyan.catchu.domain.model.ResponseModel
 import com.isaacsufyan.catchu.domain.state.DataState
 import com.isaacsufyan.catchu.presentation.fragments.SharedViewModel
+import com.isaacsufyan.catchu.utils.hideSoftKeyboard
 import com.isaacsufyan.catchu.utils.isNullOrEmpty
 import com.isaacsufyan.catchu.utils.parseDateFormat
 import java.text.SimpleDateFormat
@@ -52,6 +53,7 @@ class PatientDetailsFragment : BaseFragment() {
         }
 
         binding.btnContinue.setOnClickListener {
+            it.hideSoftKeyboard()
             if (validation()) {
                 val firstName = binding.edtFirstName.text.toString()
                 val lastName = binding.edtLastName.text.toString()

@@ -38,7 +38,7 @@
     </style>
 
     <style name="CardViewStyle" parent="Widget.Material3.CardView.Filled">
-        <item name="cardElevation">@dimen/_2sdp</item>
+        <item name="cardElevation">@dimen/_4sdp</item>
         <item name="elevationOverlayEnabled">false</item>
     </style>
 

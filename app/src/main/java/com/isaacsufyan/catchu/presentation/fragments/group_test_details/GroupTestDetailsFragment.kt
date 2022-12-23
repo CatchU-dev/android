@@ -21,6 +21,7 @@ import com.isaacsufyan.catchu.domain.model.BilleeModel
 import com.isaacsufyan.catchu.domain.model.ProviderModel
 import com.isaacsufyan.catchu.domain.state.DataState
 import com.isaacsufyan.catchu.presentation.fragments.SharedViewModel
+import com.isaacsufyan.catchu.utils.hideSoftKeyboard
 import com.isaacsufyan.catchu.utils.isNullOrEmpty
 import com.isaacsufyan.catchu.utils.parseDateFormat
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -78,13 +79,14 @@ class GroupTestDetailsFragment : BaseFragment() {
         }
 
         binding.btnNext.setOnClickListener {
+            it.hideSoftKeyboard()
             if (viewModel.groupId != null) {
                 navigateToNextScreen()
             }
         }
 
         binding.btnSubmit.setOnClickListener {
-
+            it.hideSoftKeyboard()
             if (validationBeforeCreateGroupTest()) {
                 val groupName = binding.edtGroupName.text.toString()
                 val noOfTest = binding.edtNoOfTest.text.toString()

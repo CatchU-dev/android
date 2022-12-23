@@ -12,6 +12,7 @@ import com.isaacsufyan.catchu.R
 import com.isaacsufyan.catchu.base.BaseFragment
 import com.isaacsufyan.catchu.databinding.FragmentDemoGraphicAndMedicalHistoryBinding
 import com.isaacsufyan.catchu.domain.model.RawMeasurements
+import com.isaacsufyan.catchu.utils.hideSoftKeyboard
 import com.isaacsufyan.catchu.utils.showSnackBar
 import com.isaacsufyan.catchu.utils.textToString
 import java.text.SimpleDateFormat
@@ -44,6 +45,7 @@ class DemoGraphicAndMedicalHistoryFragment : BaseFragment() {
         val validation = DemoGraphicAndMedicalHistoryValidation(this)
 
         binding.btnStartTrail.setOnClickListener {
+            it.hideSoftKeyboard()
             if (validation.validate()) {
             getInputValueAndSet()
             val action = DemoGraphicAndMedicalHistoryFragmentDirections.actionDemoToTest()

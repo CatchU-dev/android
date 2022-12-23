@@ -158,7 +158,7 @@
     <string name="select">Seleccione</string>
     <string name="something_get_wrong_contact_support_engineer">Algo salió mal - Póngase en contacto con el ingeniero de soporte</string>
     <string name="required">Requerido</string>
-    <string name="no_patient_record_found">No se encontró ningún registro de paciente</string>
+    <string name="no_patient_record_found">No se encontró ningún registro de pacientes.</string>
     <string name="prepare_your_phone_for_testing">Prepare su teléfono para la prueba</string>
     <string name="step_1">PASO 1: Pon tu teléfono en modo silencioso</string>
     <string name="step_2">PASO 2: Asegúrese de que el volumen sea audible</string>
