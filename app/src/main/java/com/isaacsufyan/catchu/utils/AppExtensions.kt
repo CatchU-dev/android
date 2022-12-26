@@ -118,6 +118,3 @@ fun parseDateFormat(time: String, inputPattern: String, outputPattern: String): 
 fun List<Any>.indexExists(index: Int): Boolean {
     return index in indices
 }
-
-fun isBothListsEqualIgnoreOrder(list1: List<ProviderModel>?, list2: List<ProviderModel>?) =
-    list1?.size == list2?.size && list1?.toSet() == list2?.toSet()

@@ -3,7 +3,6 @@ package com.isaacsufyan.catchu.repository
 import com.isaacsufyan.catchu.domain.model.RawMeasurementModel
 import com.isaacsufyan.catchu.domain.model.ResponseModel
 import com.isaacsufyan.catchu.domain.state.DataState
-import com.isaacsufyan.catchu.framework.datastore.cache.abstraction.DaoService
 import com.isaacsufyan.catchu.framework.datastore.network.abstraction.ApiService
 import kotlinx.coroutines.flow.flow
 import okhttp3.RequestBody
@@ -11,8 +10,7 @@ import retrofit2.HttpException
 
 
 class Repository(
-    private val apiService: ApiService,
-    private val daoService: DaoService
+    private val apiService: ApiService
 ) {
     private val TAG = "Repository"
 

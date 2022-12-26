@@ -11,7 +11,6 @@ import com.isaacsufyan.catchu.R
 import com.isaacsufyan.catchu.base.BaseFragment
 import com.isaacsufyan.catchu.databinding.FragmentPatientDetailsBinding
 import com.isaacsufyan.catchu.domain.event.StateEvent
-import com.isaacsufyan.catchu.domain.model.RawMeasurements
 import com.isaacsufyan.catchu.domain.model.ResponseModel
 import com.isaacsufyan.catchu.domain.state.DataState
 import com.isaacsufyan.catchu.presentation.fragments.SharedViewModel
