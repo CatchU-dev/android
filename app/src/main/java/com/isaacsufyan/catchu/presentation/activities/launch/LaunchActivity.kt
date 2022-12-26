@@ -6,10 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.isaacsufyan.catchu.base.BaseActivity
 import com.isaacsufyan.catchu.databinding.ActivityLaunchBinding
-import com.isaacsufyan.catchu.framework.datastore.preference.abstraction.PrefService
 import com.isaacsufyan.catchu.presentation.activities.main.MainActivity
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 class LaunchActivity : BaseActivity() {
 

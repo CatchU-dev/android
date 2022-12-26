@@ -5,7 +5,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import com.isaacsufyan.catchu.framework.datastore.cache.abstraction.DaoService
 import com.isaacsufyan.catchu.framework.datastore.network.abstraction.ApiService
 import javax.inject.Singleton
 
@@ -17,11 +16,9 @@ object RepositoryModule {
     @Provides
     fun provideUserRepository(
         apiService: ApiService,
-        cacheService: DaoService,
     ): Repository {
         return Repository(
             apiService,
-            cacheService
         )
     }
 }

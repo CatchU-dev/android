@@ -3,17 +3,12 @@ package com.isaacsufyan.catchu.presentation.fragments.launch
 import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.isaacsufyan.catchu.R
 import com.isaacsufyan.catchu.databinding.FragmentLaunchBinding
-import com.isaacsufyan.catchu.presentation.fragments.language.LanguageFragmentDirections
 
 class LaunchFragment : Fragment() {
 

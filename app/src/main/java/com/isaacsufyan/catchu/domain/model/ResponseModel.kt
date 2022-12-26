@@ -1,17 +1,10 @@
 package com.isaacsufyan.catchu.domain.model
 
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-@Entity
 data class ResponseModel(
-
-    @PrimaryKey(autoGenerate = true)
-    var primaryKey: Int? = 0,
 
     @SerializedName("status")
     @Expose
@@ -25,7 +18,6 @@ data class ResponseModel(
     @Expose
     var message: String? = null,
 
-    @Embedded
     @SerializedName("data")
     @Expose
     var data: Data? = null
@@ -81,7 +73,6 @@ data class Data(
     @Expose
     var resumeBatchTest: Boolean = false,
 
-    @Embedded
     @SerializedName("patient_details")
     @Expose
     var patientDetails: PatientDetails? = null,
