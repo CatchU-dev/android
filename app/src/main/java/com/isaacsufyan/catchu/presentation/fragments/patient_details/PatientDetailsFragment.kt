@@ -17,6 +17,7 @@ import com.isaacsufyan.catchu.presentation.fragments.SharedViewModel
 import com.isaacsufyan.catchu.utils.hideSoftKeyboard
 import com.isaacsufyan.catchu.utils.isNullOrEmpty
 import com.isaacsufyan.catchu.utils.parseDateFormat
+import com.isaacsufyan.catchu.utils.textToString
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -55,8 +56,8 @@ class PatientDetailsFragment : BaseFragment() {
         binding.btnContinue.setOnClickListener {
             it.hideSoftKeyboard()
             if (validation()) {
-                val firstName = binding.edtFirstName.text.toString()
-                val lastName = binding.edtLastName.text.toString()
+                val firstName = binding.edtFirstName.textToString()
+                val lastName = binding.edtLastName.textToString()
                 val dob = binding.edtDOB.text.toString()
 
                 if (stateEvent != null && stateEvent is StateEvent.ValidatePatientToken) {

@@ -13,6 +13,7 @@ import com.isaacsufyan.catchu.domain.state.DataState
 import com.isaacsufyan.catchu.presentation.fragments.SharedViewModel
 import com.isaacsufyan.catchu.utils.hideSoftKeyboard
 import com.isaacsufyan.catchu.utils.isNullOrEmpty
+import com.isaacsufyan.catchu.utils.textToString
 
 
 class CommunityIdentificationFragment : BaseFragment() {
@@ -36,8 +37,9 @@ class CommunityIdentificationFragment : BaseFragment() {
             if (binding.edtCommunityId.isNullOrEmpty()) {
                 return@setOnClickListener
             }
-            viewModel.setStateEvent(StateEvent.ValidateCommunity(binding.edtCommunityId.text.toString()))
+            viewModel.setStateEvent(StateEvent.ValidateCommunity(binding.edtCommunityId.textToString()))
             it.hideSoftKeyboard()
+            binding.edtCommunityId.clearFocus()
         }
 
         subscriber()
