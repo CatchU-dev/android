@@ -24,6 +24,7 @@ import com.isaacsufyan.catchu.presentation.fragments.SharedViewModel
 import com.isaacsufyan.catchu.utils.hideSoftKeyboard
 import com.isaacsufyan.catchu.utils.isNullOrEmpty
 import com.isaacsufyan.catchu.utils.parseDateFormat
+import com.isaacsufyan.catchu.utils.textToString
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.text.SimpleDateFormat
@@ -101,9 +102,9 @@ class GroupTestDetailsFragment : BaseFragment() {
         binding.btnSubmit.setOnClickListener {
             it.hideSoftKeyboard()
             if (validationBeforeCreateGroupTest()) {
-                val groupName = binding.edtGroupName.text.toString()
+                val groupName = binding.edtGroupName.textToString()
                 val noOfTest = binding.edtNoOfTest.text.toString()
-                val expireDate = parseDateFormat(binding.edtExpiryDate.text.toString(), "MM-dd-yyyy hh:mm:ss","yyyy-MM-dd hh:mm:ss")
+                val expireDate = parseDateFormat(binding.edtExpiryDate.text.toString(), "MM-dd-yyyy HH:mm:ss","yyyy-MM-dd HH:mm:ss")
                 val timeZoneId = TimeZone.getDefault().id
 
                 val communityIdParam = viewModel.communityId.toString()
@@ -363,7 +364,7 @@ class GroupTestDetailsFragment : BaseFragment() {
     }
     
     private fun setExpiryTimeHandler() { 
-        val dateFormat = SimpleDateFormat("MM-dd-yyyy hh:mm:ss", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("MM-dd-yyyy HH:mm:ss", Locale.getDefault())
         val expireDate = dateFormat.format(calendar.time)
         binding.edtExpiryDate.setText(expireDate)
     }
