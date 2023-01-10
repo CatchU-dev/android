@@ -44,7 +44,7 @@ android {
     productFlavors {
         qa {
             versionCode 1
-            versionName "1.1.3"
+            versionName "1.1.4"
             buildConfigField "String", "BASE_URL", '"https://qa.catchu.net/"'
             buildConfigField "String", "Environment", '"QA"'
         }

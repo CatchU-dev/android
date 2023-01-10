@@ -571,8 +571,7 @@ class TestFragment : BaseFragment() {
     }
 
     private fun batchTestStatus() {
-        Log.e("TAG", "batchTestStatus: ", )
-        viewModel.communityId?.let {
+        viewModel.groupId?.let {
             stateEvent = StateEvent.BatchTestStatus(it)
             viewModel.resetResponseModel()
             viewModel.setStateEvent(stateEvent as StateEvent.BatchTestStatus)
