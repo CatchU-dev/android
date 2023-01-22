@@ -1,27 +1,17 @@
 <resources>
-    <string name="app_name" translatable="false">CatchU App</string>
+    <string name="app_name" translatable="false">CatchU</string>
     <string name="default_font" translatable="false">sans-serif-light</string>
 
-    <string name="cancel">Cancelar</string>
     <string name="ok">OK</string>
     <string name="loading">Cargando</string>
 
     <string name="preferred_language">Idioma preferido para la prueba:</string>
-    <string name="test_instructions_heading">Instrucciones</string>
-    <string name="test_instructions_text">Tan pronto como sienta, vea o sienta y vea un estímulo, presione el área de respuesta gris lo más rápido posible. Fije la cruz durante todo el experimento. Se le presentará un total de tres bloques experimentales, cada uno de los cuales durará unos 3–4 minutos. Cuando esté listo para comenzar el experimento, presione el área de respuesta gris.</string>
     <string name="task_instructions_first_break_text">Has terminado el primero de los tres bloques. Tómate un descanso de 20 segundos. La próxima sesión comenzará inmediatamente en 20 segundos.</string>
     <string name="task_instructions_second_break_text">Has terminado el segundo de los tres bloques. Tómate un descanso de 20 segundos. La próxima sesión comenzará inmediatamente en 20 segundos.</string>
     <string name="time_for_break">Tiempo para un descanso</string>
-    <string name="trial_canceled">Pruebas canceladas</string>
-    <string name="any_completed_trials">Se han guardado todas las pruebas completadas. Ahora volverá a la página de inicio.</string>
-    <string name="congrats_experiment_complete">Felicitaciones, ha completado el experimento. Gracias por su participación.</string>
-    <string name="trials_complete">Pruebas completadas</string>
     <string name="practice_test">Examen de práctica</string>
     <string name="practice_test_start_msg">Comencemos con una prueba de práctica. Tan pronto como sienta, vea o sienta y vea un estímulo, presione el área de respuesta gris lo más rápido posible. Cuando esté listo para comenzar la prueba de práctica, presione el área de respuesta gris.</string>
     <string name="okay">BUENO</string>
-    <string name="before_we_begin">Antes de que comencemos</string>
-    <string name="begin_trial">Iniciar prueba</string>
-    <string name="begin">Comenzar</string>
     <string name="click_here_to_start">HAZ CLICK AQUÍ PARA COMENZAR</string>
     <string name="terms_and_conditions">Términos y condiciones</string>
     <string name="accept">Aceptar</string>
@@ -36,13 +26,6 @@
     <string name="female">Feminina</string>
     <string name="other">Otro</string>
     <string name="racial_category">Con qué categoría racial te asocias?</string>
-    <string name="american_indian_alaska_native">Indio Americano/Nativo de Alaska</string>
-    <string name="asian">Asiatico</string>
-    <string name="native_hawaiian">Hawaiano</string>
-    <string name="black_african">Negro/Afro Americano</string>
-    <string name="white">Caucasico</string>
-    <string name="more_than_one_race">Multirracial</string>
-    <string name="unknown">Desconocido / Prefiero no responder</string>
     <string name="hispanic_or_latin">Te identificas como hispano o latino?</string>
     <string name="doctor_described_medical_conditions">Le ha dicho su médico que padece de forma crónica alguna de las siguientes enfermedades?</string>
     <string name="community_identification">Identificación de Comunidad</string>
@@ -53,7 +36,6 @@
     <string name="lastname">Apellido</string>
     <string name="dob">Fecha de nacimiento</string>
     <string name="terminate_test_msg">Puedes Confirmar que quieres terminar este examen grupal?</string>
-    <string name="msg">mensaje</string>
     <string name="hypertension">Hypertension(High Blood Pressue)</string>
     <string name="arthritis">Artritis</string>
     <string name="diabetes">Diabetes</string>
@@ -85,10 +67,6 @@
     <string name="dialysis">Estás en diálisis?</string>
     <string name="vision_problems">Tiene alguna problema con tu visión?</string>
     <string name="rate_vision_problems">Cómo calificaría sus problemas de visión?</string>
-    <string name="moderate_mild_severe">(Leve, Moderado, or Severo)</string>
-    <string name="mild">Leve</string>
-    <string name="moderate">Moderado</string>
-    <string name="severe">Severo</string>
     <string name="glasses_contact_lenses">Usa lentes correctivos como anteojos o lentes de contacto?</string>
     <string name="hearing_loss">Tiene una pérdida auditiva severa?</string>
     <string name="hearing_aid">Utiliza un audífono para corregir?</string>
@@ -98,16 +76,12 @@
     <string name="fear_of_falling">Tienes miedo de caerse?</string>
     <string name="walk_more_than_mile_without_break">Puede caminar sin tomar un descanso en terreno llano durante más de ¼ de milla?</string>
     <string name="problems_walking">Tienes problemas para caminar?</string>
-    <string name="use_cane">Usas bastón?</string>
-    <string name="use_walker">Usas un andador?</string>
     <string name="problems_getting_up_from_low_chair_couch">Le resulta difícil levantarse de una silla baja o un sofá?</string>
     <string name="hold_onto_walls_furniture_while_walking">Alguna vez te aferras a las paredes / muebles mientras caminas dentro de tu casa?</string>
     <string name="difficulty_with_balance">Tienes alguna dificultad con tu equilibrio?</string>
     <string name="regularly_scheduled_medications">Cuántos medicamentos programados regularmente está tomando actualmente?</string>
     <string name="start_trial">Iniciar prueba</string>
 
-    <string name="error">Error</string>
-    <string name="respond_all_questions">Responda a todas las preguntas para continuar</string>
     <string name="no">no</string>
     <string name="yes">Sí</string>
     <string name="you_have_entered_msg">Haz sometido %s es correcto?</string>
@@ -127,33 +101,16 @@
     <string name="status">Status</string>
     <string name="resume_group_test">Resumir examen grupal</string>
     <string name="terminate_group_test">Terminar examen grupal</string>
-    <string name="cannot_proceed_without_accepting_terms">No puede proceder el examen sin aceptar los términos</string>
     <string name="start_test_now">Iniciar prueba ahora</string>
     <string name="staff_member_click_here">Miembro del personal Haga clic aquí</string>
     <string name="is_using_cane_for_walking">Usas bastón?"</string>
     <string name="is_using_walker_for_walking">Usas un andador?</string>
-    <string name="response_required_text">esto requiere una respuesta</string>
-    <string name="community_id_empty_msg">Favor de ingresar el ID de su comunidad.";</string>
-    <string name="groupname_empty_error_msg">Favor de ingresar el nombre del grupo</string>
-    <string name="numberof_tests_zero">El número de pruebas no puede ser 0</string>
-    <string name="expiry_date_past_msg">La fecha de expiración no puede estar en pasado</string>
-    <string name="bill_required_msg">Facturador es un campo requerido</string>
-    <string name="no_active_group_test">No hay grupos de prueba disponibles</string>
-    <string name="enter_first_name">Favor de ingresar su nombre</string>
-    <string name="enter_last_name">Favor de ingresar su primer apellido</string>
-    <string name="enter_dob">Porfavor ingrese fecha de nacimiento</string>
-    <string name="billee_is_required">Facturador es un campo requerido</string>
-    <string name="patient_information_not_matching">La información del paciente no coincide. Porfavor inténtelo de nuevo.</string>
-    <string name="research_purpose_text">Esta prueba es con fines de investigación?</string>
 
-    <string name="research_study_site">Sitio de investigación:</string>
     <string name="practice_test_complete">Ejercicio de práctica completado!</string>
     <string name="test_completed">Prueba completa!</string>
     <string name="test_completed_message">Tus resultados serán enviados directamente a tu doctor</string>
     <string name="second_practice_test_message">Inténtemoslo de nuevo. Recuerda, tan pronto cómo sientas o vea un estímulo, porfavor asegúrate de presionar el boton gris tan rápido cómo pueda. Cuando esté listo para tomar el test de práctica, de click en el botón gris</string>
-    <string name="language">Idioma</string>
     <string name="test_purpose_question">Esta prueba es con fines de investigación?</string>
-    <string name="research_study_id">ID del sitio de investigación</string>
 
     <string name="select">Seleccione</string>
     <string name="something_get_wrong_contact_support_engineer">Algo salió mal - Póngase en contacto con el ingeniero de soporte</string>

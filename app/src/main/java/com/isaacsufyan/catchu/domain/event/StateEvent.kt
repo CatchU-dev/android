@@ -25,9 +25,7 @@ sealed class StateEvent {
     class ResumeBatchTest(var groupTestId: Int) : StateEvent()
     class TerminateGroupTest(var groupTestId: Int) : StateEvent()
 
-    class ValidatePatientToken(
-        var testToken: String
-    ) : StateEvent()
+    class ValidatePatientToken(var testToken: String) : StateEvent()
 
     class ValidatePatient(
         var community_id: Int,

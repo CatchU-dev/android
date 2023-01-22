@@ -48,11 +48,8 @@ class MainActivity : BaseActivity() {
 
                 deepLink?.let { uri ->
                     viewModel.token = uri.toString().substring(uri.toString().lastIndexOf("=") + 1)
-                    Log.d("TAG", "getDynamicLink - Uri: $uri")
-                    Log.d("TAG", "getDynamicLink - Token: ${viewModel.token}")
                 }
             }.addOnFailureListener {
-                Log.d("TAG", "handleIncomingDeepLinks: ${it.message}")
             }
     }
 

@@ -72,7 +72,6 @@ fun AppCompatActivity.showDialog(
     dialog.show()
 }
 
-
 fun AppCompatActivity.isNetworkAvailable(): Boolean {
     val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -93,17 +92,6 @@ fun AppCompatActivity.isNetworkAvailable(): Boolean {
     return false
 }
 
-fun AppCompatActivity.writeTextFileToSDCard(fileName: String, request: String?) {
-    val dir: File = getDir("DefaulterApp", MODE_PRIVATE)!!
-    if (!dir.exists()) dir.mkdirs()
-    val file = File(dir, "$fileName.txt")
-    val fOut = FileOutputStream(file)
-    val myOutWriter = OutputStreamWriter(fOut)
-    myOutWriter.append(request)
-    myOutWriter.close()
-    fOut.flush()
-    fOut.close()
-}
 
 fun parseDateFormat(time: String, inputPattern: String, outputPattern: String): String {
     val inputFormat = SimpleDateFormat(inputPattern, Locale.getDefault())

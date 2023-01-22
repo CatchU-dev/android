@@ -40,7 +40,6 @@
             android:id="@+id/edtCommunityId"
             style="@style/EditTextStyle"
             android:layout_width="match_parent"
-            android:text="OSHFR56C"
             android:layout_height="wrap_content"
             android:inputType="text"
             android:maxLines="1"

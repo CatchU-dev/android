@@ -3,7 +3,6 @@ package com.isaacsufyan.catchu.base
 import android.app.Dialog
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.WindowManager
 import android.webkit.WebView
 import androidx.appcompat.app.AppCompatActivity
@@ -11,12 +10,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.isaacsufyan.catchu.R
-import com.isaacsufyan.catchu.utils.writeTextFileToSDCard
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-open class BaseActivity : AppCompatActivity(), Thread.UncaughtExceptionHandler {
+open class BaseActivity : AppCompatActivity() {
 
     private var progressDialog: Dialog? = null
 
@@ -24,7 +22,6 @@ open class BaseActivity : AppCompatActivity(), Thread.UncaughtExceptionHandler {
         super.onCreate(savedInstanceState)
         hideSystemBars()
         WebView(this).destroy()
-        Thread.setDefaultUncaughtExceptionHandler(this)
 
         if (progressDialog == null) {
             progressDialog = Dialog(this)
@@ -35,10 +32,6 @@ open class BaseActivity : AppCompatActivity(), Thread.UncaughtExceptionHandler {
             )
             progressDialog?.setContentView(R.layout.progress_dialog)
         }
-    }
-
-    override fun uncaughtException(p0: Thread, p1: Throwable) {
-        writeTextFileToSDCard("uncaughtCrashLogFile", Log.getStackTraceString(p1))
     }
 
     fun showProgress(show: Boolean) {

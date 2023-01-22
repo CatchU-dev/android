@@ -168,7 +168,6 @@ class ApiServiceImpl @Inject constructor(private val restApis: RestApis) : ApiSe
         args: HashMap<String, Any>
     ): ResponseModel {
         val response = restApis.verifyGroupTestAlgo(url, args)
-        Log.d("TAG", "verifyGroupTestAlgo: ${response.body()}")
         return if (response.isSuccessful) {
             ResponseModel(code = response.code(), message = response.body(), status = true )
         } else {

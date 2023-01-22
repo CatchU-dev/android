@@ -27,22 +27,8 @@ object RetrofitModule {
 
     @Singleton
     @Provides
-    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
-        return HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        }
-    }
-
-    @Singleton
-    @Provides
-    fun provideOkHttpClient(
-        loggingInterceptor: HttpLoggingInterceptor
-    ): OkHttpClient {
-        val httpClient: OkHttpClient.Builder = OkHttpClient.Builder().apply {
-            if (BuildConfig.DEBUG) {
-                addInterceptor(loggingInterceptor)
-            }
-        }
+    fun provideOkHttpClient(): OkHttpClient {
+        val httpClient: OkHttpClient.Builder = OkHttpClient.Builder()
         return httpClient.build()
     }
 

@@ -100,6 +100,8 @@ class CurrentGroupTestFragment : BaseFragment() {
                             val action =
                                 CurrentGroupTestFragmentDirections.actionCurrentGroupToPatientProfile()
                             findNavController().navigate(action)
+                        }else{
+                            showOkDialog(it.data.message?:"You can`t resume this test")
                         }
                     } else if (stateEvent is StateEvent.TerminateGroupTest) {
                         if (it.data.status) {

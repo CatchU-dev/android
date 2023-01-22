@@ -74,7 +74,6 @@ android {
         release {
             minifyEnabled true
             shrinkResources true
-            debuggable true
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -86,13 +85,6 @@ android {
             outputFileName = appName + "_${output.baseName}_V${variant.versionName}.${variant.versionCode}.apk"
         }
     }
-
-//    applicationVariants.all { variant ->
-//        variant.outputs.each { output ->
-//            def file = output.outputFileName
-//            output.outputFileName = file.replace(".apk", "-V" + productFlavors.versionName +".apk")
-//        }
-//    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

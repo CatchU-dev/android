@@ -1,42 +1,50 @@
 {
   "project_info": {
-    "project_number": "858189275496",
-    "project_id": "catchu-23a8a",
-    "storage_bucket": "catchu-23a8a.appspot.com"
+    "project_number": "1077751806010",
+    "project_id": "catchu-35f4c",
+    "storage_bucket": "catchu-35f4c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:858189275496:android:5b0d66640e2ecbf79cb6dd",
+        "mobilesdk_app_id": "1:1077751806010:android:b5395d72ec5e08bd46dd03",
         "android_client_info": {
           "package_name": "com.isaacsufyan.catchu"
         }
       },
       "oauth_client": [
         {
-          "client_id": "858189275496-bagf8oenhebese2ok53a5vujk67chn4f.apps.googleusercontent.com",
+          "client_id": "1077751806010-ca9u6gm22gl77es41v1ib9npiii960v3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.isaacsufyan.catchu",
-            "certificate_hash": "49f41491b89dbf487f3745645ef7009211eb80d8"
+            "certificate_hash": "a5e78cfa83366a08aa348b598be6e4e612012dab"
           }
         },
         {
-          "client_id": "858189275496-n9t15d8ubdle8rda0svek63fh4d02umj.apps.googleusercontent.com",
+          "client_id": "1077751806010-lir4ablnekfavgeoh2birfbrnm8i0hrn.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBJDlsKEeHrscAqk8lNnLZcd3nEkn2SbJI"
+          "current_key": "AIzaSyAj6rWDAuI76w_Ly2EzA8wi148ZIq7eWRg"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "858189275496-n9t15d8ubdle8rda0svek63fh4d02umj.apps.googleusercontent.com",
+              "client_id": "1077751806010-lir4ablnekfavgeoh2birfbrnm8i0hrn.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1077751806010-hda5c1em459nemtrjpjo2mdrtdcmpki7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.lsztech.Vis-Tact-App",
+                "app_store_id": "1602152762"
+              }
             }
           ]
         }

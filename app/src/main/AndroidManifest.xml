@@ -33,7 +33,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="catchu3.page.link"
+                    android:host="catchu4.page.link"
                     android:scheme="https" />
 
             </intent-filter>

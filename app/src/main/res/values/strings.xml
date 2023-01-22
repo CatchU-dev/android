@@ -1,26 +1,16 @@
 <resources>
-    <string name="app_name" translatable="false">CatchU App</string>
+    <string name="app_name" translatable="false">CatchU</string>
     <string name="default_font" translatable="false">sans-serif-light</string>
 
-    <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
     <string name="loading">Loading</string>
     <string name="preferred_language">Preferred Language For Testing</string>
-    <string name="test_instructions_heading">Task Instruction</string>
-    <string name="test_instructions_text">As soon as you feel, see, or feel and see a stimulus, please press the gray response area as quickly as possible. Please fixate the cross during the entire experiment.  You will be presented with a total of three experimental blocks – each lasting about 3–4 minutes.  When you are ready to start the experiment, press the gray response area.</string>
     <string name="task_instructions_first_break_text">You have finished the first of three blocks. Please take a 20 second rest. The next session will start immediately in 20 seconds</string>
     <string name="task_instructions_second_break_text">You have finished the second of three blocks. Please take a 20 second rest. The next session will start immediately in 20 seconds</string>
     <string name="time_for_break">Time for a Break</string>
-    <string name="trial_canceled">Trials Canceled</string>
-    <string name="any_completed_trials">Any completed trials have been saved. You will now be returned to the home page.</string>
-    <string name="congrats_experiment_complete">Congratulations, you have completed the experiment. Thank you for your participation.</string>
-    <string name="trials_complete">Trials Completed</string>
     <string name="practice_test">Practice Test</string>
     <string name="practice_test_start_msg">Let\'s start with a practice test.  As soon as you feel, see, or feel and see a stimulus, please press the gray response area as quickly as possible. When you are ready to start the practice test, press the gray response area.</string>
     <string name="okay">okay</string>
-    <string name="before_we_begin">Before We Begin</string>
-    <string name="begin_trial">Begin Trial</string>
-    <string name="begin">Begin</string>
     <string name="click_here_to_start">CLICK HERE TO START</string>
     <string name="terms_and_conditions">Terms and Condition</string>
     <string name="accept">Accept</string>
@@ -35,13 +25,6 @@
     <string name="female">Female</string>
     <string name="other">Other</string>
     <string name="racial_category">What racial category do you associate with?</string>
-    <string name="american_indian_alaska_native">American Indian/Alaska Native</string>
-    <string name="asian">Asian</string>
-    <string name="native_hawaiian">Native Hawaiian or Other Pacific Island</string>
-    <string name="black_african">Black / African American</string>
-    <string name="white">White</string>
-    <string name="more_than_one_race">More than one race</string>
-    <string name="unknown">Unknown/prefer not to say</string>
     <string name="hispanic_or_latin">Do you identify as Hispanic or Latino?</string>
     <string name="doctor_described_medical_conditions">Has a doctor ever told you that you have any of the following medical conditions?</string>
     <string name="community_identification">Community Identification</string>
@@ -52,7 +35,6 @@
     <string name="lastname">Last Name</string>
     <string name="dob">DOB</string>
     <string name="terminate_test_msg">Are you sure you want to terminate this group test?</string>
-    <string name="msg">Message</string>
     <string name="hypertension">Hypertension(High Blood Pressue)</string>
     <string name="arthritis">Arthritis</string>
     <string name="diabetes">Diabetes</string>
@@ -84,10 +66,6 @@
     <string name="dialysis">Are you on dialysis?</string>
     <string name="vision_problems">Do you have any problems with your vision?</string>
     <string name="rate_vision_problems">How would you rate your vision problems?</string>
-    <string name="moderate_mild_severe">(Mild, Moderate, or Severe)</string>
-    <string name="mild">Mild</string>
-    <string name="moderate">Moderate</string>
-    <string name="severe">Severe</string>
     <string name="glasses_contact_lenses">Do you wear glasses or contact lenses?</string>
     <string name="hearing_loss">Do you have severe hearing loss?</string>
     <string name="hearing_aid">Do you use a hearing aid to correct?</string>
@@ -97,16 +75,12 @@
     <string name="fear_of_falling">Do you have a fear of falling?</string>
     <string name="walk_more_than_mile_without_break">Can you walk without taking a break on level ground for more than ¼ mile?</string>
     <string name="problems_walking">Do you have problems walking?</string>
-    <string name="use_cane">Do you use a cane?</string>
-    <string name="use_walker">Do you use a walker?</string>
     <string name="problems_getting_up_from_low_chair_couch">Do you find it difficult to get up from a low chair or couch?</string>
     <string name="hold_onto_walls_furniture_while_walking">Do you ever hold onto walls/furniture while walking inside home?</string>
     <string name="difficulty_with_balance">Do you have any difficulty with your balance?</string>
     <string name="regularly_scheduled_medications">How many regularly scheduled medications are you currently taking?</string>
     <string name="start_trial">Start trial</string>
 
-    <string name="error">Error</string>
-    <string name="respond_all_questions">Please respond to all questions to proceed</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
     <string name="you_have_entered_msg">You have entered %s is this correct?</string>
@@ -126,33 +100,16 @@
     <string name="status">Status</string>
     <string name="resume_group_test">Resume group Test</string>
     <string name="terminate_group_test">Terminate group Test</string>
-    <string name="cannot_proceed_without_accepting_terms">You cannot proceed to testing without accepting the terms and conditions.</string>
     <string name="start_test_now">Start test now</string>
     <string name="staff_member_click_here">Staff Member Click Here</string>
     <string name="is_using_cane_for_walking">Do you use a cane?"</string>
     <string name="is_using_walker_for_walking">Do you use a walker?</string>
-    <string name="response_required_text">This requires a response</string>
-    <string name="community_id_empty_msg">Please enter Community ID</string>
-    <string name="groupname_empty_error_msg">Please enter Group Name</string>
-    <string name="numberof_tests_zero">No of tests can\'t be 0</string>
-    <string name="expiry_date_past_msg">Expiry Date should not be from past</string>
-    <string name="bill_required_msg">Billee is Required Field</string>
-    <string name="no_active_group_test">No Active Group Test Available</string>
-    <string name="enter_first_name">Please enter First Name</string>
-    <string name="enter_last_name">Please enter Last Name</string>
-    <string name="enter_dob">Please enter Date of Birth</string>
-    <string name="billee_is_required">Billee is Required Field</string>
-    <string name="patient_information_not_matching">Patient information did not match. Please try again.</string>
-    <string name="research_purpose_text">Is this test for research purposes?</string>
 
-    <string name="research_study_site">Research Study Site:</string>
     <string name="practice_test_complete">Practice Test Completed!</string>
     <string name="test_completed">Test Completed!</string>
     <string name="test_completed_message">Your results are being sent directly to your doctor. Thank you, please hand the phone back to the staff member now.</string>
     <string name="second_practice_test_message">Let’s try that again.  Remember, as soon as you feel, see, or feel and see a stimulus, please be sure to press the gray response button as quickly as possible.  When you are ready to try the practice test again, press the gray response area.</string>
-    <string name="language">Language</string>
     <string name="test_purpose_question">Is this test for research purposes?</string>
-    <string name="research_study_id">Research Study ID</string>
 
     <string name="something_get_wrong_contact_support_engineer">Something Get Wrong - Contact Support Engineer</string>
     <string name="required">Required</string>

@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.DialogInterface
 import android.media.MediaPlayer
 import android.os.*
-import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
@@ -113,8 +112,6 @@ class TestFragment : BaseFragment() {
             if (canAnswer) {
                 responseTimeStamp = Date().time.toDouble()
                 proceedToNextStimulus()
-            } else {
-                Log.d("TAG", "recordResponse: Cant Answer")
             }
         } else {
             Handler(Looper.getMainLooper()).postDelayed({
@@ -130,9 +127,7 @@ class TestFragment : BaseFragment() {
         currentStim += 1
         resetTimeStamps()
 
-        Log.e("TAG", "proceedToNextStimulus: ${stims.size}")
         if (currentStim < stims.size) {
-            Log.d("TAG", "Currently On Stim: $currentStim")
             val randomWaitTime = kotlin.random.Random.nextDouble(1.0, 4.0)
             Handler(Looper.getMainLooper()).postDelayed({
                 handleStimPresentation()
@@ -149,7 +144,6 @@ class TestFragment : BaseFragment() {
         }
         var reactionTime = responseTimeStamp - displayTimeStamp
         if (reactionTime < 0) reactionTime = 0.0
-        Log.d("TAG", "reactionTime: $reactionTime")
 
         when (currentType) {
             EStimulusType.NONE -> {
@@ -180,9 +174,7 @@ class TestFragment : BaseFragment() {
         }
     }
 
-    private fun inTrail(): Boolean {
-        return currentStim < 15
-    }
+    private fun inTrail() = currentStim < 15
 
     private fun handleStimPresentation() {
         if (isPaused) {
@@ -224,7 +216,6 @@ class TestFragment : BaseFragment() {
             if (!mediaPlayer.isPlaying) mediaPlayer.start()
 
             currentType = stims[currentStim].stimulusType
-            Log.d("TAG", "handleStimPresentation: $currentType")
 
             when (currentType) {
                 EStimulusType.VISUAL -> {
@@ -351,7 +342,6 @@ class TestFragment : BaseFragment() {
     }
 
     private fun uploadResultsToServer() {
-        Log.e("TAG", "uploadResultsToServer: " )
         sortAnswerArrays()
         var answerNone: Double
         var answerVis: Double
@@ -378,7 +368,6 @@ class TestFragment : BaseFragment() {
             }
         }
 
-        Log.e("TAG", "CreateRawMeasurement: $rawMeasurements" )
 
         rawMeasurements.testValues = params
         val rawMeasurementModel = RawMeasurementModel()
@@ -555,7 +544,6 @@ class TestFragment : BaseFragment() {
     }
 
     private fun verifyGroupTestAlgo(invalidReport: Boolean) {
-        Log.e("TAG", "verifyGroupTestAlgo: ", )
         val url = "https://5ioxsjwd31.execute-api.us-east-1.amazonaws.com/algorithm/algorithm"
         val args = HashMap<String, Any>()
         viewModel.testId?.let {
@@ -588,7 +576,6 @@ class TestFragment : BaseFragment() {
                 handleCompleteTest()
             }
         }
-        Log.e("TAG", "showCompleteTestScreen: ", )
         val dialog = TestCompletedFragment(dialogListener)
         dialog.show(childFragmentManager, "TestCompletedFragment")
     }

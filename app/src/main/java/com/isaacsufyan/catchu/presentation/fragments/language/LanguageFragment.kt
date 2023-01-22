@@ -23,13 +23,6 @@ class LanguageFragment : BaseFragment() {
     private var _binding: FragmentLanguageBinding? = null
     private val binding get() = _binding!!
 
-    private var TAG = "TAG_Language"
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        Log.e(TAG, "onAttach: Language" )
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

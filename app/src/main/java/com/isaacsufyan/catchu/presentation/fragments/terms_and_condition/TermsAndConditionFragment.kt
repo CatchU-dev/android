@@ -75,7 +75,6 @@ class TermsAndConditionFragment : BaseFragment() {
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun loadTermAndCondition(url: String) {
-        Log.d("TAG", "loadTermAndCondition: $url")
         val webSettings = binding.webView.settings
         webSettings.javaScriptEnabled = true
         webSettings.loadWithOverviewMode = true
