@@ -11,6 +11,7 @@
     <string name="time_for_break">Tiempo para un descanso</string>
     <string name="practice_test">Examen de práctica</string>
     <string name="practice_test_start_msg">Comencemos con una prueba de práctica. Tan pronto como sienta, vea o sienta y vea un estímulo, presione el área de respuesta gris lo más rápido posible. Cuando esté listo para comenzar la prueba de práctica, presione el área de respuesta gris.</string>
+    <string name="original_test_start_msg">Tan pronto como sienta, vea o sienta y vea un estímulo, presione el área de respuesta gris lo más rápido posible. Cuando esté listo para comenzar la prueba de práctica, presione el área de respuesta gris.</string>
     <string name="okay">BUENO</string>
     <string name="click_here_to_start">HAZ CLICK AQUÍ PARA COMENZAR</string>
     <string name="terms_and_conditions">Términos y condiciones</string>
@@ -107,8 +108,9 @@
     <string name="is_using_walker_for_walking">Usas un andador?</string>
 
     <string name="practice_test_complete">Ejercicio de práctica completado!</string>
+    <string name="task_instructions">Instrucciones de tareas</string>
     <string name="test_completed">Prueba completa!</string>
-    <string name="test_completed_message">Tus resultados serán enviados directamente a tu doctor</string>
+    <string name="test_completed_message">Tus resultados serán enviados directamente a tu doctor. Gracias, devuélvale el teléfono al miembro del personal ahora.</string>
     <string name="second_practice_test_message">Inténtemoslo de nuevo. Recuerda, tan pronto cómo sientas o vea un estímulo, porfavor asegúrate de presionar el boton gris tan rápido cómo pueda. Cuando esté listo para tomar el test de práctica, de click en el botón gris</string>
     <string name="test_purpose_question">Esta prueba es con fines de investigación?</string>
 

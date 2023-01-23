@@ -137,7 +137,7 @@ class PatientDetailsFragment : BaseFragment() {
             lastName = data.data?.patientDetails?.lastName
             dob = data.data?.patientDetails?.dob
             viewModel.patientId = data.data?.patientDetails?.patient_Id
-            viewModel.testId = data.data?.test_id
+            viewModel.testId = data.data?.id
         }
     }
 
@@ -155,7 +155,7 @@ class PatientDetailsFragment : BaseFragment() {
 
     private fun performActionAfterCreatePatientWithinGroup(data: ResponseModel) {
         if (data.status) {
-            val testId = data.data?.test_id
+            val testId = data.data?.id
             testId?.let { id ->
                 viewModel.testId = id
                 viewModel.patientId?.let { it1 ->

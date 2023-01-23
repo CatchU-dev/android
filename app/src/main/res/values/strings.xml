@@ -10,6 +10,7 @@
     <string name="time_for_break">Time for a Break</string>
     <string name="practice_test">Practice Test</string>
     <string name="practice_test_start_msg">Let\'s start with a practice test.  As soon as you feel, see, or feel and see a stimulus, please press the gray response area as quickly as possible. When you are ready to start the practice test, press the gray response area.</string>
+    <string name="original_test_start_msg">As soon as you feel, see, or feel and see a stimulus, please press the gray response area as quickly as possible. When you are ready to start the practice test, press the gray response area.</string>
     <string name="okay">okay</string>
     <string name="click_here_to_start">CLICK HERE TO START</string>
     <string name="terms_and_conditions">Terms and Condition</string>
@@ -106,6 +107,7 @@
     <string name="is_using_walker_for_walking">Do you use a walker?</string>
 
     <string name="practice_test_complete">Practice Test Completed!</string>
+    <string name="task_instructions">Task Instructions</string>
     <string name="test_completed">Test Completed!</string>
     <string name="test_completed_message">Your results are being sent directly to your doctor. Thank you, please hand the phone back to the staff member now.</string>
     <string name="second_practice_test_message">Let’s try that again.  Remember, as soon as you feel, see, or feel and see a stimulus, please be sure to press the gray response button as quickly as possible.  When you are ready to try the practice test again, press the gray response area.</string>

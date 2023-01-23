@@ -78,14 +78,12 @@ data class Data(
     var patientDetails: PatientDetails? = null,
 
     //  Create Patient Test within Group API
-    @SerializedName("test_id")
-    @Expose
-    var test_id: Int? = null,
 
-    //  TermsAndCondition API
     @SerializedName("id")
     @Expose
     var id: Int? = null,
+
+    //  TermsAndCondition API
 
     @SerializedName("accepted")
     @Expose

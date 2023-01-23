@@ -42,10 +42,10 @@ fun AppCompatActivity.showDialog(
 ) {
     val dialog = MaterialAlertDialogBuilder(this).create()
 
-    dialog.window?.setFlags(
-        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-    )
+//    dialog.window?.setFlags(
+//        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+//        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+//    )
 
     val binding = DialogAlertBinding.inflate(layoutInflater)
     dialog.setView(binding.root)

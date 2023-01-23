@@ -42,7 +42,8 @@ class TestFragment : BaseFragment() {
     private var trailStims = mutableListOf<Stimulus>()
 
     private var currentStim = 0
-    private var introShown = false
+
+    //    private var introShown = false
     private var displayTimeStamp = 0.0
     private var removeDisplayTimeStamp = 0.0
     private var responseTimeStamp = 0.0
@@ -181,19 +182,20 @@ class TestFragment : BaseFragment() {
             return
         }
         trialMode = true
-        if (currentStim == 0 && !introShown) {
+        if (currentStim == 0) {
             showInitialAlert()
         } else if (currentStim == 15 && !mainInstructionShown && verifySuccessfulPracticeTrails()) {
             if (mediaPlayer.isPlaying) mediaPlayer.pause()
             val action = TestFragmentDirections.actionTestToPracticeCompleteDialogFragment()
             findNavController().navigate(action)
-
-            binding.tvStartText.text = resources.getString(R.string.click_here_to_start)
+            showInitialAlert(
+                message = resources.getString(R.string.original_test_start_msg),
+                heading = resources.getString(R.string.task_instructions_second_break_text)
+            )
             trialMode = false
             mainInstructionShown = true
         } else if (currentStim == 15 && !mainInstructionShown && !verifySuccessfulPracticeTrails()) {
             currentStim = 0
-            introShown = !introShown
 
             if (practiceRetried) {
                 uploadResultsToServer()
@@ -403,28 +405,26 @@ class TestFragment : BaseFragment() {
     }
 
     private fun showInitialAlert(
-        message: String = resources.getString(R.string.practice_test_start_msg)
+        message: String = resources.getString(R.string.practice_test_start_msg),
+        heading: String = resources.getString(R.string.practice_test)
     ) {
 
-        if (!introShown) {
-            introShown = true
-            mainActivity.disableBackgroundTouchesHandler()
-            mainActivity.showDialog(
-                true,
-                message,
-                R.drawable.practice_icon,
-                null,
-                resources.getString(R.string.okay),
-                object : IDialogOnClickListener {
-                    override fun onOk(dialog: AlertDialog) {
-                        mainActivity.freeBackgroundTouchesHandler()
-                        dialog.dismiss()
-                        binding.tvStartText.text = resources.getString(R.string.click_here_to_start)
-                    }
-                },
-                resources.getString(R.string.practice_test)
-            )
-        }
+        mainActivity.disableBackgroundTouchesHandler()
+        mainActivity.showDialog(
+            true,
+            message,
+            R.drawable.practice_icon,
+            null,
+            resources.getString(R.string.okay),
+            object : IDialogOnClickListener {
+                override fun onOk(dialog: AlertDialog) {
+                    mainActivity.freeBackgroundTouchesHandler()
+                    dialog.dismiss()
+                    binding.tvStartText.text = resources.getString(R.string.click_here_to_start)
+                }
+            },
+            heading
+        )
 
     }
 
@@ -457,11 +457,13 @@ class TestFragment : BaseFragment() {
                             batchCompleted = it.data.data?.batchCompleted ?: false
                             showCompleteTestScreen()
                         } else {
-                            showOkDialog(it.data.message.toString(), object :IDialogOnClickListener{
-                                override fun onOk(dialog: AlertDialog) {
-                                    showCompleteTestScreen()
-                                }
-                            })
+                            showOkDialog(
+                                it.data.message.toString(),
+                                object : IDialogOnClickListener {
+                                    override fun onOk(dialog: AlertDialog) {
+                                        showCompleteTestScreen()
+                                    }
+                                })
                         }
                     }
                 }
