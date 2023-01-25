@@ -190,7 +190,7 @@ class TestFragment : BaseFragment() {
             findNavController().navigate(action)
             showInitialAlert(
                 message = resources.getString(R.string.original_test_start_msg),
-                heading = resources.getString(R.string.task_instructions_second_break_text)
+                heading = resources.getString(R.string.task_instructions)
             )
             trialMode = false
             mainInstructionShown = true
@@ -425,7 +425,6 @@ class TestFragment : BaseFragment() {
             },
             heading
         )
-
     }
 
     private fun subscriber() {
