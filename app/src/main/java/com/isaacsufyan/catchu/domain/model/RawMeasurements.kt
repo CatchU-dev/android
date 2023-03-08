@@ -1,5 +1,6 @@
 package com.isaacsufyan.catchu.domain.model
 
+import android.os.Build
 import androidx.annotation.Keep
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
@@ -235,6 +236,16 @@ class RawMeasurements {
     @SerializedName("test_values")
     @Expose
     var testValues : HashMap<String, Int>? = null
+
+    @SerializedName("platform")
+    @Expose
+    var platform : String = "Android"
+
+    @SerializedName("platform_version")
+    @Expose
+    var platform_version: String = Build.VERSION.RELEASE
+
+//    var platform_version: Int = android.os.Build.VERSION.SDK_INT
 //
 //    @SerializedName("V0")
 //    @Expose
