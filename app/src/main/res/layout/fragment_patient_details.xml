@@ -38,8 +38,9 @@
             style="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
+            android:inputType="textNoSuggestions"
             android:maxLines="1"
+            android:importantForAutofill="no"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -68,8 +69,9 @@
             style="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
+            android:inputType="textNoSuggestions"
             android:maxLines="1"
+            android:importantForAutofill="no"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -103,7 +105,10 @@
             android:focusable="false"
             android:clickable="false"
             android:cursorVisible="false"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            android:inputType="textNoSuggestions"
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 

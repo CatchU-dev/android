@@ -68,11 +68,13 @@ class LanguageFragment : BaseFragment() {
                 if (position == 0 && mainActivity.selectedLanguage != ELanguage.ENGLISH) {
                     viewModel.setLanguage(ELanguage.ENGLISH.language)
                     mainActivity.setLocale(ELanguage.ENGLISH.language)
-                    mainActivity.restartApp()
+//                    mainActivity.restartApp()
+                    mainActivity.recreate()
                 } else if (position == 1 && mainActivity.selectedLanguage != ELanguage.SPANISH) {
                     viewModel.setLanguage(ELanguage.SPANISH.language)
                     mainActivity.setLocale(ELanguage.SPANISH.language)
-                    mainActivity.restartApp()
+//                    mainActivity.restartApp()
+                    mainActivity.recreate()
                 }
             }
     }

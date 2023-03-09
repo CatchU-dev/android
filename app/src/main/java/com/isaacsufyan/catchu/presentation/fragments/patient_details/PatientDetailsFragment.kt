@@ -2,6 +2,7 @@ package com.isaacsufyan.catchu.presentation.fragments.patient_details
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -84,7 +85,9 @@ class PatientDetailsFragment : BaseFragment() {
                 }
             }
         }
-
+        binding.edtFirstName.inputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
+        binding.edtLastName.inputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
+        binding.edtDOB.inputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
         subscriber()
 
     }

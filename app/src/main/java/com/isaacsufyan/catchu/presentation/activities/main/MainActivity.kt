@@ -27,8 +27,10 @@ class MainActivity : BaseActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         viewModel.getLanguage.observe(this) {
             selectedLanguage = if (it == ELanguage.SPANISH.language) {
+                setLocale(ELanguage.SPANISH.language)
                 ELanguage.SPANISH
             } else {
+                setLocale(ELanguage.ENGLISH.language)
                 ELanguage.ENGLISH
             }
         }
