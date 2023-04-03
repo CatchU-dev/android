@@ -39,7 +39,7 @@ class LanguageFragment : BaseFragment() {
             rawMeasurements.researchPurpose = binding.edtResearchPurpose.text.toString()
             val action =
                 if (viewModel.token == null) LanguageFragmentDirections.actionLanguageToCommunityInd()
-                else LanguageFragmentDirections.actionLanguageToProfileDetails()
+                else LanguageFragmentDirections.actionLanguageFragmentToOtpVerificationFragment()
             findNavController().navigate(action)
         }
     }
@@ -54,14 +54,17 @@ class LanguageFragment : BaseFragment() {
         )
         binding.edtLanguageView.setAdapter(materialAdapter)
 
-        val selectedText = if (mainActivity.selectedLanguage == ELanguage.ENGLISH) {
-            binding.edtLanguageView.adapter.getItem(0).toString()
-        } else {
-            binding.edtLanguageView.adapter.getItem(1).toString()
+        viewModel.getLanguage.observe(viewLifecycleOwner) {
+            val selectedText = if (mainActivity.selectedLanguage == ELanguage.ENGLISH) {
+                binding.edtLanguageView.adapter.getItem(0).toString()
+            } else {
+                binding.edtLanguageView.adapter.getItem(1).toString()
+            }
+            binding.edtLanguageView.setText(selectedText)
+            materialAdapter.updateColor(selectedText)
         }
 
-        binding.edtLanguageView.setText(selectedText)
-        materialAdapter.updateColor(selectedText)
+        binding.edtLanguageView.dismissDropDown()
 
         binding.edtLanguageView.onItemClickListener =
             AdapterView.OnItemClickListener { _, _, position, _ ->

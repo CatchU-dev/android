@@ -112,4 +112,18 @@ interface RestApis {
     suspend fun batchTestStatus(
         @Path("Id") groupTestId: Int
     ): Response<ResponseModel>
+
+    @Multipart
+    @POST("/api/test/send_otp_to_patient/")
+    suspend fun sendOtpToPatient(
+        @Part("test_id") test_id: RequestBody
+    ): Response<ResponseModel>
+
+    @Multipart
+    @POST("/api/test/verify_patient_otp/")
+    suspend fun verifyPatientOtp(
+        @Part("test_id") test_id: RequestBody,
+        @Part("otp") otp: RequestBody,
+    ): Response<ResponseModel>
+
 }

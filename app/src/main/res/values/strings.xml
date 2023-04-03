@@ -50,6 +50,12 @@
     <string name="injections">Injections other than insulin?</string>
     <string name="depression">Depression</string>
     <string name="copd">Chronic Obstructive Pulmonary</string>
+    <string name="otp_verification">OTP Verification</string>
+    <string name="enter_otp">Enter OTP</string>
+    <string name="did_not_get_otp">Didn\'t get OTP?</string>
+    <string name="resend_code_in">Resend in</string>
+    <string name="resend_otp">Resend</string>
+    <string name="otp_verify">Verify</string>
 
     <string name="osteoporosis">Osteoporosis</string>
     <string name="anxiety">Anxiety</string>
@@ -123,5 +129,7 @@
     <string name="step_1_info_1">• Swipe down from the top of your screen with your finger</string>
     <string name="step_1_info_2">• Under the navigation bar or your current option, tap the silent button</string>
     <string name="step_2_info_1">• Press Volume up button to adjust volume</string>
+
+    <string name="test_error_msg">Some issue occurred when collecting test results. You might have to retake the test. Make sure your internet connection is stable</string>
 
 </resources>

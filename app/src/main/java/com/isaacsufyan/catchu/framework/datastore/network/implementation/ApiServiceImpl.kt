@@ -1,6 +1,5 @@
 package com.isaacsufyan.catchu.framework.datastore.network.implementation
 
-import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.isaacsufyan.catchu.domain.model.RawMeasurementModel
@@ -185,4 +184,25 @@ class ApiServiceImpl @Inject constructor(private val restApis: RestApis) : ApiSe
             Gson().fromJson(response.errorBody()!!.charStream(), type)
         }
     }
+
+    override suspend fun sendOtpToPatient(testId: RequestBody): ResponseModel {
+        val response = restApis.sendOtpToPatient(testId)
+        return if (response.isSuccessful) {
+            response.body()!!
+        } else {
+            val type = object : TypeToken<ResponseModel>() {}.type
+            Gson().fromJson(response.errorBody()!!.charStream(), type)
+        }
+    }
+
+    override suspend fun verifyPatientOtp(testId: RequestBody, otp: RequestBody): ResponseModel {
+        val response = restApis.verifyPatientOtp(testId, otp)
+        return if (response.isSuccessful) {
+            response.body()!!
+        } else {
+            val type = object : TypeToken<ResponseModel>() {}.type
+            Gson().fromJson(response.errorBody()!!.charStream(), type)
+        }
+    }
+
 }

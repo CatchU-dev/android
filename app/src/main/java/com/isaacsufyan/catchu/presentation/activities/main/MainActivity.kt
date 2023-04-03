@@ -8,8 +8,10 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import androidx.activity.viewModels
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
+import com.google.gson.Gson
 import com.isaacsufyan.catchu.base.BaseActivity
 import com.isaacsufyan.catchu.databinding.ActivityMainBinding
 import com.isaacsufyan.catchu.domain.enum.ELanguage
@@ -93,5 +95,12 @@ class MainActivity : BaseActivity() {
             configuration,
             baseContext.resources.displayMetrics
         )
+    }
+
+    override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
+        return if (keyCode == KeyEvent.KEYCODE_DEL){
+            viewModel.setEvent(keyCode)
+            true
+        } else super.onKeyUp(keyCode, event)
     }
 }

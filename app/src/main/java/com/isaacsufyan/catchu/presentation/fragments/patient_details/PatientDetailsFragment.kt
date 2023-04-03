@@ -6,6 +6,7 @@ import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.isaacsufyan.catchu.R
@@ -14,6 +15,7 @@ import com.isaacsufyan.catchu.databinding.FragmentPatientDetailsBinding
 import com.isaacsufyan.catchu.domain.event.StateEvent
 import com.isaacsufyan.catchu.domain.model.ResponseModel
 import com.isaacsufyan.catchu.domain.state.DataState
+import com.isaacsufyan.catchu.framework.interfaces.IDialogOnClickListener
 import com.isaacsufyan.catchu.presentation.fragments.SharedViewModel
 import com.isaacsufyan.catchu.utils.hideSoftKeyboard
 import com.isaacsufyan.catchu.utils.isNullOrEmpty
@@ -119,8 +121,18 @@ class PatientDetailsFragment : BaseFragment() {
 
                 }
                 is DataState.Failure -> {
-                    mainActivity.showProgress(false)
-                    showOkDialog("Code: ${it.code} Message: ${it.message}")
+                    if (stateEvent is StateEvent.ValidatePatientToken) {
+                        mainActivity.showProgress(false)
+                        showOkDialog("Code: ${it.code} Message: ${it.message}",
+                            object : IDialogOnClickListener {
+                                override fun onOk(dialog: AlertDialog) {
+                                    mainActivity.finish()
+                                }
+                            })
+                    } else {
+                        mainActivity.showProgress(false)
+                        showOkDialog("Code: ${it.code} Message: ${it.message}")
+                    }
                 }
                 is DataState.Error -> {
                     mainActivity.showProgress(false)

@@ -12,14 +12,24 @@ import android.view.Window
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResult
 import com.isaacsufyan.catchu.databinding.FragmentTestCompletedBinding
 import com.isaacsufyan.catchu.framework.interfaces.IDialogOnClickListener
+import com.isaacsufyan.catchu.presentation.activities.main.MainActivity
+import com.isaacsufyan.catchu.presentation.fragments.SharedViewModel
 
 class TestCompletedFragment(var dialogListener: DialogInterface) : DialogFragment() {
 
     private var _binding: FragmentTestCompletedBinding? = null
     private val binding get() = _binding!!
+    private val viewModel by activityViewModels<SharedViewModel>()
+    lateinit var mainActivity: MainActivity
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mainActivity = requireActivity() as MainActivity
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
@@ -53,6 +63,9 @@ class TestCompletedFragment(var dialogListener: DialogInterface) : DialogFragmen
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnStaffMemberClickHere.setOnClickListener {
+            if (viewModel.isSingleTest) {
+                mainActivity.finish()
+            }
             dismiss()
         }
     }

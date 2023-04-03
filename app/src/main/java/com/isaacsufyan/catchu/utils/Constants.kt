@@ -8,6 +8,7 @@ import com.isaacsufyan.catchu.domain.enum.EGender
 object Constants {
 
     const val PREFS_NAME = "MY_PREF"
+    const val RESEND_TIME = "resendTime"
 
     object PreferencesKeys {
         val SELECTED_LANGUAGE = stringPreferencesKey("SELECTED_LANGUAGE")

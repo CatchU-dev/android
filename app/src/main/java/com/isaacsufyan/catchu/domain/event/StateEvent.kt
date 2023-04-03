@@ -54,5 +54,8 @@ sealed class StateEvent {
 
     class BatchTestStatus(var groupTestId: Int) : StateEvent()
 
+    class SendOtpToPatient (var testId: RequestBody): StateEvent()
+
+    class verifyPatientOtp (var testId: RequestBody, var otp: RequestBody): StateEvent()
 
 }

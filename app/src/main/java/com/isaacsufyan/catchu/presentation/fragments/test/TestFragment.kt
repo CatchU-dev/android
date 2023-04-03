@@ -4,11 +4,13 @@ import android.content.Context
 import android.content.DialogInterface
 import android.media.MediaPlayer
 import android.os.*
+import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.gson.Gson
 import com.isaacsufyan.catchu.BuildConfig
 import com.isaacsufyan.catchu.R
 import com.isaacsufyan.catchu.base.BaseFragment
@@ -370,7 +372,9 @@ class TestFragment : BaseFragment() {
             }
         }
 
-
+        if (practiceRetried) {
+            rawMeasurements.practise_test_status = "fail"
+        }
         rawMeasurements.testValues = params
         val rawMeasurementModel = RawMeasurementModel()
         rawMeasurementModel.test = viewModel.testId
@@ -468,11 +472,21 @@ class TestFragment : BaseFragment() {
                 }
                 is DataState.Failure -> {
                     mainActivity.showProgress(false)
-                    showOkDialog("Code: ${it.code} Message: ${it.message}")
+//                    showOkDialog("Code: ${it.code} Message: ${it.message}")
+                    showOkDialog("Code: ${it.code} Message: ${resources.getString(R.string.test_error_msg)}", object : IDialogOnClickListener {
+                        override fun onOk(dialog: AlertDialog) {
+                            returnToCommunity(dialog)
+                        }
+                    })
                 }
                 is DataState.Error -> {
                     mainActivity.showProgress(false)
-                    showOkDialog(it.exception.message.toString())
+//                    showOkDialog(it.exception.message.toString(), object : IDialogOnClickListener {
+                    showOkDialog(resources.getString(R.string.test_error_msg), object : IDialogOnClickListener {
+                        override fun onOk(dialog: AlertDialog) {
+                            returnToCommunity(dialog)
+                        }
+                    })
                 }
 
                 is DataState.Idle -> {
@@ -579,6 +593,17 @@ class TestFragment : BaseFragment() {
         }
         val dialog = TestCompletedFragment(dialogListener)
         dialog.show(childFragmentManager, "TestCompletedFragment")
+    }
+
+    private fun returnToCommunity(dialog: AlertDialog) {
+        dialog.dismiss()
+        mediaPlayer.stop()
+        if(viewModel.isSingleTest) {
+            mainActivity.finish()
+        } else {
+            val action = TestFragmentDirections.actionTestCompleteToCommunityId()
+            findNavController().navigate(action)
+        }
     }
 
     override fun onDestroyView() {

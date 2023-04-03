@@ -45,19 +45,19 @@ android {
     productFlavors {
         qa {
             versionCode 6
-            versionName "1.1"
+            versionName "1.5"
             buildConfigField "String", "BASE_URL", '"https://qa.catchu.net/"'
             buildConfigField "String", "Environment", '"QA"'
         }
         stagging {
-            versionCode 3
-            versionName "1.2"
+            versionCode 6
+            versionName "1.5"
             buildConfigField "String", "BASE_URL", '"https://stage.catchu.net/"'
             buildConfigField "String", "Environment", '"Staging"'
         }
         prod {
-            versionCode 3
-            versionName "1.2"
+            versionCode 6
+            versionName "1.5"
             buildConfigField "String", "BASE_URL", '"https://my.catchu.net/"'
             buildConfigField "String", "Environment", '"Production"'
         }
@@ -148,6 +148,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:31.1.0')
     implementation 'com.google.firebase:firebase-dynamic-links-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
+
 }
 kapt {
     correctErrorTypes = true

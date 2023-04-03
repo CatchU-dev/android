@@ -245,6 +245,10 @@ class RawMeasurements {
     @Expose
     var platform_version: String = Build.VERSION.RELEASE
 
+    @SerializedName("practise_test_status")
+    @Expose
+    var practise_test_status: String = "pass"
+
 //    var platform_version: Int = android.os.Build.VERSION.SDK_INT
 //
 //    @SerializedName("V0")
