@@ -70,6 +70,7 @@ class TestFragment : BaseFragment() {
     private var runnable: Runnable? = null
 
     private var practiceRetried: Boolean = false
+    private var failedAttempts: Int = 0
 
     private var accuracyThreshold = 0.7 // 70%
     private val params = HashMap<String, Any>()
@@ -200,6 +201,7 @@ class TestFragment : BaseFragment() {
             currentStim = 0
 
             if (practiceRetried) {
+                failedAttempts = 2
                 uploadResultsToServer()
                 mediaPlayer.stop()
                 return
@@ -376,6 +378,37 @@ class TestFragment : BaseFragment() {
             rawMeasurements.practise_test_status = "fail"
         }
         rawMeasurements.testValues = params
+        if (rawMeasurements.hasDiabetesTakOralMedicine == null) {
+            rawMeasurements.hasDiabetesTakOralMedicine = 0
+        }
+        if (rawMeasurements.hasDiabetesTakInsulin == null) {
+            rawMeasurements.hasDiabetesTakInsulin = 0
+        }
+        if (rawMeasurements.hasMI == null) {
+            rawMeasurements.hasMI = 0
+        }
+        if (rawMeasurements.hasHeartFailure == null) {
+            rawMeasurements.hasHeartFailure = 0
+        }
+        if (rawMeasurements.hasDementia == null) {
+            rawMeasurements.hasDementia = 0
+        }
+        if(rawMeasurements.hasVisionLoss == null) {
+            rawMeasurements.hasVisionLoss = -1
+        }
+        if (rawMeasurements.hasCorrectiveLenses == null) {
+            rawMeasurements.hasCorrectiveLenses = 0
+        }
+        if (rawMeasurements.hasHearingAid == null) {
+            rawMeasurements.hasHearingAid = 0
+        }
+        if (rawMeasurements.hasHadAFracture == null) {
+            rawMeasurements.hasHadAFracture = 0
+        }
+        if (rawMeasurements.hasHadAFracturePastFiveYears == null) {
+            rawMeasurements.hasHadAFracturePastFiveYears = 0
+        }
+        rawMeasurements.visualImpairments = rawMeasurements.hasVisionProblem
         val rawMeasurementModel = RawMeasurementModel()
         rawMeasurementModel.test = viewModel.testId
         rawMeasurementModel.rawMeasurements = rawMeasurements
@@ -564,7 +597,12 @@ class TestFragment : BaseFragment() {
         viewModel.testId?.let {
             args["testId"] = it
             args["debug"] = params
-            args["test_status"] = if (invalidReport) "Failed" else "Success"
+            if (failedAttempts == 2) {
+                args["test_status"] = "Failed"
+            } else {
+//                args["test_status"] = if (invalidReport) "Failed" else "Success"
+                args["test_status"] = "Success"
+            }
             args["invalidReport"] = invalidReport
             args["environment"] = BuildConfig.Environment
         }

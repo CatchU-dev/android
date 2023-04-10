@@ -249,6 +249,10 @@ class RawMeasurements {
     @Expose
     var practise_test_status: String = "pass"
 
+    @SerializedName("visualImpairments")
+    @Expose
+    var visualImpairments: Int? = null
+
 //    var platform_version: Int = android.os.Build.VERSION.SDK_INT
 //
 //    @SerializedName("V0")

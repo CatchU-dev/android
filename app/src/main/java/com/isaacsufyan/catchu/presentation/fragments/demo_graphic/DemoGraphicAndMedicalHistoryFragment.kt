@@ -67,7 +67,7 @@ class DemoGraphicAndMedicalHistoryFragment : BaseFragment() {
     }
 
     private fun getCurrentDateAndSet() {
-        val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        val date = SimpleDateFormat("MM-dd-yyyy", Locale.getDefault()).format(Date())
         rawMeasurements.testdate = date
         val age =
             (Calendar.getInstance(Locale.ENGLISH)[Calendar.YEAR] - rawMeasurements.selectedYear)
