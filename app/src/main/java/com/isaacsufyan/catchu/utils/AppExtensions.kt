@@ -2,20 +2,19 @@ package com.isaacsufyan.catchu.utils
 
 import android.app.Activity
 import android.content.Context
-import android.content.Context.MODE_PRIVATE
 import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.view.View
-import android.view.WindowManager
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.MutableLiveData
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.isaacsufyan.catchu.R
 import com.isaacsufyan.catchu.databinding.DialogAlertBinding
-import com.isaacsufyan.catchu.domain.model.ProviderModel
 import com.isaacsufyan.catchu.framework.interfaces.IDialogOnClickListener
 import java.io.File
 import java.io.FileOutputStream
@@ -31,6 +30,12 @@ fun Activity.showSnackBar(msg: String) {
     snackBar.show()
 }
 
+var dialogRef: MutableLiveData<AlertDialog> = MutableLiveData<AlertDialog>().apply {
+    value = null
+}
+
+var dialogRefValue: AlertDialog? = null
+
 fun AppCompatActivity.showDialog(
     isOkDialog: Boolean,
     message: String,
@@ -41,7 +46,8 @@ fun AppCompatActivity.showDialog(
     heading: String? = null
 ) {
     val dialog = MaterialAlertDialogBuilder(this).create()
-
+    dialogRef.value = dialog
+    dialogRefValue = dialog
 //    dialog.window?.setFlags(
 //        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
 //        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
@@ -70,6 +76,47 @@ fun AppCompatActivity.showDialog(
     binding.btnNo.setOnClickListener { onClickListener.onCancel(dialog) }
 
     dialog.show()
+}
+
+fun AppCompatActivity.getDialogRef(
+): MutableLiveData<AlertDialog> {
+    return dialogRef
+}
+
+fun AppCompatActivity.getDialogRefValue(
+): AlertDialog? {
+    return dialogRefValue
+}
+
+fun AppCompatActivity.DialogNoInternet(
+    message: String,
+    image: Int,
+    heading: String? = null
+): AlertDialog {
+    val dialog = MaterialAlertDialogBuilder(this).create()
+
+//    dialog.window?.setFlags(
+//        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+//        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+//    )
+
+    val binding = DialogAlertBinding.inflate(layoutInflater)
+    dialog.setView(binding.root)
+    dialog.setCancelable(false)
+    dialog.setCanceledOnTouchOutside(false)
+
+    binding.tvDialogMessage.text = message
+    binding.ivDialogHeader.setImageResource(image)
+
+    binding.clBottomButton.visibility = View.GONE
+
+    if (!heading.isNullOrBlank()) {
+        binding.tvDialogHeading.visibility = View.VISIBLE
+        binding.tvDialogHeading.text = heading
+    } else binding.tvDialogHeading.visibility = View.GONE
+
+//    dialog.show()
+    return dialog
 }
 
 fun AppCompatActivity.isNetworkAvailable(): Boolean {

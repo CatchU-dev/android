@@ -47,6 +47,7 @@ class DemoGraphicAndMedicalHistoryFragment : BaseFragment() {
             it.hideSoftKeyboard()
             if (validation.validate()) {
                 getInputValueAndSet()
+                mainActivity.testInProgress.value = true
                 val action = DemoGraphicAndMedicalHistoryFragmentDirections.actionDemoToTest()
                 findNavController().navigate(action)
             } else {

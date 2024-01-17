@@ -3,7 +3,6 @@ package com.isaacsufyan.catchu.presentation.fragments.terms_and_condition
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.webkit.*
 import androidx.appcompat.app.AlertDialog
@@ -25,6 +24,8 @@ class TermsAndConditionFragment : BaseFragment() {
     private val binding get() = _binding!!
     private var isTerminateDialogDisplay = false
     private val viewModel by activityViewModels<SharedViewModel>()
+    private var isWebPageLoaded: Boolean = false
+    private var isErrorOnLoadingWebPage: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,7 +70,12 @@ class TermsAndConditionFragment : BaseFragment() {
                 showOkDialog(resources.getString(R.string.something_get_wrong_contact_support_engineer))
             }
         }
-
+        mainActivity.isInternetConnected.observe(viewLifecycleOwner) {
+            if(it && isErrorOnLoadingWebPage) {
+                mainActivity.showProgress(true)
+                binding.webView.reload()
+            }
+        }
         subscriber()
     }
 
@@ -87,11 +93,13 @@ class TermsAndConditionFragment : BaseFragment() {
 
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                 super.onPageStarted(view, url, favicon)
+                isErrorOnLoadingWebPage = false
                 mainActivity.showProgress(true)
             }
 
             override fun onPageFinished(view: WebView, url: String) {
                 super.onPageFinished(view, url)
+                isWebPageLoaded = true
                 mainActivity.showProgress(false)
             }
 
@@ -108,6 +116,7 @@ class TermsAndConditionFragment : BaseFragment() {
                 error: WebResourceError?
             ) {
                 super.onReceivedError(view, request, error)
+                isErrorOnLoadingWebPage = true
                 mainActivity.showProgress(false)
             }
         }

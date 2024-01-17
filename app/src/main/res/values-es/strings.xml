@@ -133,4 +133,7 @@
 
     <string name="test_error_msg">Se produjo algún problema al recopilar los resultados de la prueba. Es posible que deba volver a tomar la prueba. Asegúrate de que tu conexión a Internet sea estable</string>
 
+    <string name="no_internet_title">Sin conexión a Internet</string>
+    <string name="no_internet_msg">¡Ups! Parece que no estás conectado a Internet. Conéctese a Internet para continuar.</string>
+
 </resources>

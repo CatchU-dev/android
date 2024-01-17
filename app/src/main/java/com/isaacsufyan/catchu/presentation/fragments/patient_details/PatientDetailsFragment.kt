@@ -17,10 +17,7 @@ import com.isaacsufyan.catchu.domain.model.ResponseModel
 import com.isaacsufyan.catchu.domain.state.DataState
 import com.isaacsufyan.catchu.framework.interfaces.IDialogOnClickListener
 import com.isaacsufyan.catchu.presentation.fragments.SharedViewModel
-import com.isaacsufyan.catchu.utils.hideSoftKeyboard
-import com.isaacsufyan.catchu.utils.isNullOrEmpty
-import com.isaacsufyan.catchu.utils.parseDateFormat
-import com.isaacsufyan.catchu.utils.textToString
+import com.isaacsufyan.catchu.utils.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -90,6 +87,13 @@ class PatientDetailsFragment : BaseFragment() {
         binding.edtFirstName.inputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
         binding.edtLastName.inputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
         binding.edtDOB.inputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
+//        mainActivity.isInternetConnected.observe(viewLifecycleOwner) {
+//            if (!it) {
+//                mainActivity.getDialogRef().observe(viewLifecycleOwner) {diag ->
+//                    diag?.dismiss()
+//                }
+//            }
+//        }
         subscriber()
 
     }
@@ -123,20 +127,26 @@ class PatientDetailsFragment : BaseFragment() {
                 is DataState.Failure -> {
                     if (stateEvent is StateEvent.ValidatePatientToken) {
                         mainActivity.showProgress(false)
-                        showOkDialog("Code: ${it.code} Message: ${it.message}",
-                            object : IDialogOnClickListener {
-                                override fun onOk(dialog: AlertDialog) {
-                                    mainActivity.finish()
-                                }
-                            })
+                        if(mainActivity.isInternetConnected.value == true) {
+                            showOkDialog("Code: ${it.code} Message: ${it.message}",
+                                object : IDialogOnClickListener {
+                                    override fun onOk(dialog: AlertDialog) {
+                                        mainActivity.finish()
+                                    }
+                                })
+                        }
                     } else {
                         mainActivity.showProgress(false)
-                        showOkDialog("Code: ${it.code} Message: ${it.message}")
+                        if(mainActivity.isInternetConnected.value == true) {
+                            showOkDialog("Code: ${it.code} Message: ${it.message}")
+                        }
                     }
                 }
                 is DataState.Error -> {
                     mainActivity.showProgress(false)
-                    showOkDialog(it.exception.message.toString())
+                    if(mainActivity.isInternetConnected.value == true) {
+                        showOkDialog(it.exception.message.toString())
+                    }
                 }
 
                 is DataState.Idle -> {

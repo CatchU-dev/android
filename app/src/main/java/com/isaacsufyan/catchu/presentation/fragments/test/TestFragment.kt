@@ -27,6 +27,7 @@ import com.isaacsufyan.catchu.presentation.fragments.SharedViewModel
 import com.isaacsufyan.catchu.presentation.fragments.test_completed.TestCompletedFragment
 import com.isaacsufyan.catchu.utils.indexExists
 import com.isaacsufyan.catchu.utils.showDialog
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -77,6 +78,7 @@ class TestFragment : BaseFragment() {
     private var stateEvent: StateEvent? = null
 
     private var batchCompleted = false
+    private var isOnTestCompleteScreen = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -348,73 +350,91 @@ class TestFragment : BaseFragment() {
     }
 
     private fun uploadResultsToServer() {
-        sortAnswerArrays()
-        var answerNone: Double
-        var answerVis: Double
-        var answerVisSoma: Double
-        var answerSoma: Double
-        val params = HashMap<String, Int>()
+        mainActivity.testInProgress.value = false
+        mainActivity.isInternetConnected.observe(viewLifecycleOwner, androidx.lifecycle.Observer { t ->
+            if (t && !isOnTestCompleteScreen) {
+                sortAnswerArrays()
+                var answerNone: Double
+                var answerVis: Double
+                var answerVisSoma: Double
+                var answerSoma: Double
+                val params = HashMap<String, Int>()
 
-        for (i in 0 until 45) {
-            if (answersNone.indexExists(i)) {
-                answerNone = answersNone[i]
-                params["C$i"] = (answerNone * 1000).toInt()
+                if (practiceRetried) {
+                    for (i in 0 until 45) {
+                        params["C$i"] = 0
+                        params["V$i"] = 0
+                        params["VS$i"] = 0
+                        params["S$i"] = 0
+                    }
+                } else {
+                    for (i in 0 until 45) {
+                        if (answersNone.indexExists(i)) {
+                            answerNone = answersNone[i]
+//                            params["C$i"] = (answerNone * 1000).toInt()
+                            params["C$i"] = (answerNone).toInt()
+                        }
+                        if (answersVis.indexExists(i)) {
+                            answerVis = answersVis[i]
+//                            params["V$i"] = (answerVis * 1000).toInt()
+                            params["V$i"] = (answerVis).toInt()
+                        }
+                        if (answersVisAndSoma.indexExists(i)) {
+                            answerVisSoma = answersVisAndSoma[i]
+//                            params["VS$i"] = (answerVisSoma * 1000).toInt()
+                            params["VS$i"] = (answerVisSoma).toInt()
+                        }
+                        if (answersSoma.indexExists(i)) {
+                            answerSoma = answersSoma[i]
+//                            params["S$i"] = (answerSoma * 1000).toInt()
+                            params["S$i"] = (answerSoma).toInt()
+                        }
+                    }
+                }
+                if (practiceRetried) {
+                    rawMeasurements.practise_test_status = "fail"
+                }
+                Log.d("Raw Measurements", Gson().toJson(params))
+                rawMeasurements.testValues = params
+                if (rawMeasurements.hasDiabetesTakOralMedicine == null) {
+                    rawMeasurements.hasDiabetesTakOralMedicine = 0
+                }
+                if (rawMeasurements.hasDiabetesTakInsulin == null) {
+                    rawMeasurements.hasDiabetesTakInsulin = 0
+                }
+                if (rawMeasurements.hasMI == null) {
+                    rawMeasurements.hasMI = 0
+                }
+                if (rawMeasurements.hasHeartFailure == null) {
+                    rawMeasurements.hasHeartFailure = 0
+                }
+                if (rawMeasurements.hasDementia == null) {
+                    rawMeasurements.hasDementia = 0
+                }
+                if(rawMeasurements.hasVisionLoss == null) {
+                    rawMeasurements.hasVisionLoss = 0
+                }
+                if (rawMeasurements.hasCorrectiveLenses == null) {
+                    rawMeasurements.hasCorrectiveLenses = 0
+                }
+                if (rawMeasurements.hasHearingAid == null) {
+                    rawMeasurements.hasHearingAid = 0
+                }
+                if (rawMeasurements.hasHadAFracture == null) {
+                    rawMeasurements.hasHadAFracture = 0
+                }
+                if (rawMeasurements.hasHadAFracturePastFiveYears == null) {
+                    rawMeasurements.hasHadAFracturePastFiveYears = 0
+                }
+                rawMeasurements.visualImpairments = rawMeasurements.hasVisionProblem
+                val rawMeasurementModel = RawMeasurementModel()
+                rawMeasurementModel.test = viewModel.testId
+                rawMeasurementModel.rawMeasurements = rawMeasurements
+                stateEvent = StateEvent.CreateRawMeasurement(rawMeasurementModel)
+                viewModel.resetResponseModel()
+                viewModel.setStateEvent(stateEvent as StateEvent.CreateRawMeasurement)
             }
-            if (answersVis.indexExists(i)) {
-                answerVis = answersVis[i]
-                params["V$i"] = (answerVis * 1000).toInt()
-            }
-            if (answersVisAndSoma.indexExists(i)) {
-                answerVisSoma = answersVisAndSoma[i]
-                params["VS$i"] = (answerVisSoma * 1000).toInt()
-            }
-            if (answersSoma.indexExists(i)) {
-                answerSoma = answersSoma[i]
-                params["S$i"] = (answerSoma * 1000).toInt()
-            }
-        }
-
-        if (practiceRetried) {
-            rawMeasurements.practise_test_status = "fail"
-        }
-        rawMeasurements.testValues = params
-        if (rawMeasurements.hasDiabetesTakOralMedicine == null) {
-            rawMeasurements.hasDiabetesTakOralMedicine = 0
-        }
-        if (rawMeasurements.hasDiabetesTakInsulin == null) {
-            rawMeasurements.hasDiabetesTakInsulin = 0
-        }
-        if (rawMeasurements.hasMI == null) {
-            rawMeasurements.hasMI = 0
-        }
-        if (rawMeasurements.hasHeartFailure == null) {
-            rawMeasurements.hasHeartFailure = 0
-        }
-        if (rawMeasurements.hasDementia == null) {
-            rawMeasurements.hasDementia = 0
-        }
-        if(rawMeasurements.hasVisionLoss == null) {
-            rawMeasurements.hasVisionLoss = -1
-        }
-        if (rawMeasurements.hasCorrectiveLenses == null) {
-            rawMeasurements.hasCorrectiveLenses = 0
-        }
-        if (rawMeasurements.hasHearingAid == null) {
-            rawMeasurements.hasHearingAid = 0
-        }
-        if (rawMeasurements.hasHadAFracture == null) {
-            rawMeasurements.hasHadAFracture = 0
-        }
-        if (rawMeasurements.hasHadAFracturePastFiveYears == null) {
-            rawMeasurements.hasHadAFracturePastFiveYears = 0
-        }
-        rawMeasurements.visualImpairments = rawMeasurements.hasVisionProblem
-        val rawMeasurementModel = RawMeasurementModel()
-        rawMeasurementModel.test = viewModel.testId
-        rawMeasurementModel.rawMeasurements = rawMeasurements
-        stateEvent = StateEvent.CreateRawMeasurement(rawMeasurementModel)
-        viewModel.resetResponseModel()
-        viewModel.setStateEvent(stateEvent as StateEvent.CreateRawMeasurement)
+        })
     }
 
     private fun sortAnswerArrays() {
@@ -630,16 +650,18 @@ class TestFragment : BaseFragment() {
             }
         }
         val dialog = TestCompletedFragment(dialogListener)
+        isOnTestCompleteScreen = true
         dialog.show(childFragmentManager, "TestCompletedFragment")
     }
 
     private fun returnToCommunity(dialog: AlertDialog) {
-        dialog.dismiss()
         mediaPlayer.stop()
         if(viewModel.isSingleTest) {
             mainActivity.finish()
         } else {
+            dialog.dismiss()
             val action = TestFragmentDirections.actionTestCompleteToCommunityId()
+            mainActivity.testInProgress.value = false
             findNavController().navigate(action)
         }
     }
@@ -656,6 +678,7 @@ class TestFragment : BaseFragment() {
         } else {
             TestFragmentDirections.actionTestCompleteToPatientProfile()
         }
+        mainActivity.testInProgress.value = false
         findNavController().navigate(action)
     }
 
@@ -680,5 +703,13 @@ class TestFragment : BaseFragment() {
         binding.btnNo.visibility = View.GONE
         binding.btnYes.visibility = View.GONE
         return dialog
+    }
+    private fun timeIntervalSince1970(): Long {
+        val dateFormatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        val currentTimeMillis = System.currentTimeMillis()
+        val currentDate = Date(currentTimeMillis)
+        val formattedCurrentDate = dateFormatter.format(currentDate)
+        val parsedCurrentDate = dateFormatter.parse(formattedCurrentDate)!!
+        return (parsedCurrentDate.time / 1000)
     }
 }
