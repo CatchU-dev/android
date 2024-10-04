@@ -19,15 +19,19 @@ class RawMeasurements {
 
     @SerializedName("selectedYear")
     @Expose
-    var selectedYear: Int = 0
+    var selectedYear: String? = null
 
     @SerializedName("selectedMonth")
     @Expose
-    var selectedMonth: Int = 0
+    var selectedMonth: String? = null
+
+    @SerializedName("practise_test_status")
+    @Expose
+    var practiseTestStatus: String? = null
 
     @SerializedName("selectedDate")
     @Expose
-    var selectedDate: Int = 0
+    var selectedDate: String? = null
 
     @SerializedName("selectedRace")
     @Expose
@@ -43,7 +47,7 @@ class RawMeasurements {
 
     @SerializedName("selectedGender")
     @Expose
-    var selectedGender: Int? = null
+    var selectedGender: String? = null
 
     @SerializedName("hasHypertension")
     @Expose
@@ -157,6 +161,10 @@ class RawMeasurements {
     @Expose
     var hasVisionProblem: Int? = null
 
+    @SerializedName("visualImpairments")
+    @Expose
+    var visualImpairments: Int? = null
+
     @SerializedName("hasVisionLoss")
     @Expose
     var hasVisionLoss: Int? = null
@@ -223,7 +231,7 @@ class RawMeasurements {
 
     @SerializedName("regularlyScheduledMedicines")
     @Expose
-    var regularlyScheduledMedicines: String? = null
+    var regularlyScheduledMedicines: Int? = null
 
     @SerializedName("ResPurp")
     @Expose

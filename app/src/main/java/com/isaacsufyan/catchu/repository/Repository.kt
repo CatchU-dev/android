@@ -1,5 +1,7 @@
 package com.isaacsufyan.catchu.repository
 
+import android.util.Log
+import com.google.gson.Gson
 import com.isaacsufyan.catchu.domain.model.RawMeasurementModel
 import com.isaacsufyan.catchu.domain.model.ResponseModel
 import com.isaacsufyan.catchu.domain.state.DataState
@@ -379,6 +381,7 @@ class Repository(
     ) = flow {
         emit(DataState.Loading)
         try {
+            Log.e("batchTestStatus",Gson().toJson(groupTestId))
             val response = apiService.batchTestStatus(groupTestId)
             if (response.status) {
                 emit(DataState.Success(response))

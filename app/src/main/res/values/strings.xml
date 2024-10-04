@@ -123,5 +123,6 @@
     <string name="step_1_info_1">• Swipe down from the top of your screen with your finger</string>
     <string name="step_1_info_2">• Under the navigation bar or your current option, tap the silent button</string>
     <string name="step_2_info_1">• Press Volume up button to adjust volume</string>
+    <string name="the_expiry_date_must_be_a_future_date">The expiry date must be a future date.</string>
 
 </resources>

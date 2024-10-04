@@ -327,6 +327,15 @@ class DemoGraphicAndMedicalHistorySeg1 constructor(
 
     private fun setDiabetes(eAnswer: EAnswer) {
         fragment.rawMeasurements.hasDiabetes = eAnswer.value
+        if(eAnswer.value == 0){
+            fragment.rawMeasurements.hasDiabetesTakOralMedicine = eAnswer.value
+            fragment.rawMeasurements.hasDiabetesVision = eAnswer.value
+            fragment.rawMeasurements.hasDiabetesKidney = eAnswer.value
+            fragment.rawMeasurements.hasDiabetesNerve = eAnswer.value
+            fragment.rawMeasurements.hasDiabetesTakOralMedicine = eAnswer.value
+            fragment.rawMeasurements.hasDiabetesTakOralMedicine = eAnswer.value
+            fragment.rawMeasurements.hasDiabetesTakInsulin = eAnswer.value
+        }
         binding.tvDiabetesError.visibility = View.GONE
         val view = binding.includeDiabetesSubQuestions.root
         when (eAnswer) {
@@ -775,6 +784,10 @@ class DemoGraphicAndMedicalHistorySeg1 constructor(
 
     private fun setHeartDisease(eAnswer: EAnswer) {
         fragment.rawMeasurements.hasHeartDisease = eAnswer.value
+        if(eAnswer.value == 0){
+            fragment.rawMeasurements.hasHeartFailure = eAnswer.value
+            fragment.rawMeasurements.hasMI = eAnswer.value
+        }
         binding.tvHeartDiseaseError.visibility = View.GONE
         val view = binding.includeHeartDiseasesSubQuestions.root
         when (eAnswer) {
@@ -908,6 +921,9 @@ class DemoGraphicAndMedicalHistorySeg1 constructor(
 
     private fun setMemoryProblem(eAnswer: EAnswer) {
         fragment.rawMeasurements.hasMemoryProblems = eAnswer.value
+        if(eAnswer.value == 0){
+            fragment.rawMeasurements.hasDementia = eAnswer.value
+        }
         binding.tvMemoryProblemError.visibility = View.GONE
         val view = binding.includeMemoryProblemSubQuestions.root
         when (eAnswer) {

@@ -124,5 +124,6 @@
     <string name="step_1_info_1">• Deslice hacia abajo desde la parte superior de la pantalla con el dedo</string>
     <string name="step_1_info_2">• Debajo de la barra de navegación o de su opción actual, toque el botón silencioso</string>
     <string name="step_2_info_1">• Presione el botón de Subir volumen para ajustar el volumen</string>
+    <string name="the_expiry_date_must_be_a_future_date">La fecha de expiración debe ser una fecha futura.</string>
 
 </resources>

@@ -3,11 +3,13 @@ package com.isaacsufyan.catchu.presentation.fragments.group_test_details
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.TimePicker
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -75,7 +77,7 @@ class GroupTestDetailsFragment : BaseFragment() {
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH)
             ).apply {
-                datePicker.minDate = System.currentTimeMillis() - 1000
+                datePicker.minDate = System.currentTimeMillis()
                 show()
             }
         }
@@ -140,10 +142,21 @@ class GroupTestDetailsFragment : BaseFragment() {
     }
 
     private val date = DatePickerDialog.OnDateSetListener { _, year, month, day ->
-        calendar.set(Calendar.YEAR, year)
-        calendar.set(Calendar.MONTH, month)
-        calendar.set(Calendar.DAY_OF_MONTH, day)
-        timePicker()
+        val calendar = Calendar.getInstance()
+        val currentYear = calendar.get(Calendar.YEAR)
+        val currentMonth = calendar.get(Calendar.MONTH)
+        val currentDay = calendar.get(Calendar.DAY_OF_MONTH )
+
+        // Check if selected date is today's date
+        if (year == currentYear && month == currentMonth && day == currentDay) {
+            Toast.makeText(context,
+                getString(R.string.the_expiry_date_must_be_a_future_date), Toast.LENGTH_LONG).show()
+        } else {
+            calendar.set(Calendar.YEAR, year)
+            calendar.set(Calendar.MONTH, month)
+            calendar.set(Calendar.DAY_OF_MONTH, day)
+            timePicker()
+        }
     }
 
     private fun validationBeforeCreateGroupTest(): Boolean {
@@ -353,13 +366,12 @@ class GroupTestDetailsFragment : BaseFragment() {
     private fun timePicker() {
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
         val minute = calendar.get(Calendar.MINUTE)
-        val timePickerDialog = TimePickerDialog(requireContext(), object : TimePickerDialog.OnTimeSetListener {
-            override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+        val timePickerDialog = TimePickerDialog(requireContext(),
+            { _, hourOfDay, minutes ->
                 calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                calendar.set(Calendar.MINUTE, minute)
+                calendar.set(Calendar.MINUTE, minutes)
                 setExpiryTimeHandler()
-            }
-        }, hour, minute, false)
+            }, hour, minute, false)
         timePickerDialog.show();
     }
     

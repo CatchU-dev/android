@@ -1,6 +1,7 @@
 package com.isaacsufyan.catchu.presentation.fragments.demo_graphic
 
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.fragment.findNavController
+import com.google.gson.Gson
 import com.isaacsufyan.catchu.R
 import com.isaacsufyan.catchu.base.BaseFragment
 import com.isaacsufyan.catchu.databinding.FragmentDemoGraphicAndMedicalHistoryBinding
@@ -62,15 +64,15 @@ class DemoGraphicAndMedicalHistoryFragment : BaseFragment() {
         val edtRegularlyMedicine = binding.includeSeg3.edtRegularlyMedicine.textToString()
         rawMeasurements.educationYear = educationYear
         rawMeasurements.hasDiabetesYears = edtDiabetesYear
-        rawMeasurements.regularlyScheduledMedicines = edtRegularlyMedicine
+        rawMeasurements.regularlyScheduledMedicines = edtRegularlyMedicine.toInt()
         rawMeasurements.subjectid = Random().nextInt(5)
     }
 
     private fun getCurrentDateAndSet() {
-        val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        val date = SimpleDateFormat("MM-dd-yyyy", Locale.getDefault()).format(Date())
         rawMeasurements.testdate = date
         val age =
-            (Calendar.getInstance(Locale.ENGLISH)[Calendar.YEAR] - rawMeasurements.selectedYear)
+            (Calendar.getInstance(Locale.ENGLISH)[Calendar.YEAR] - rawMeasurements.selectedYear?.toInt()!!)
         binding.includeSeg0.edtDOB.setText(age.toString())
         binding.includeSeg0.edtDOB.isEnabled = false
         val color = ResourcesCompat.getColor(resources, R.color.blue_light, null)

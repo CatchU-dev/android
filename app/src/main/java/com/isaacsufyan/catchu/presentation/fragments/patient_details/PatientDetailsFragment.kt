@@ -254,9 +254,9 @@ class PatientDetailsFragment : BaseFragment() {
         val dateFormat = SimpleDateFormat("MM-dd-yyyy", Locale.getDefault())
         val dob = dateFormat.format(calendar.time)
         binding.edtDOB.setText(dob)
-        rawMeasurements.selectedYear = year
-        rawMeasurements.selectedMonth = month+1
-        rawMeasurements.selectedDate = day
+        rawMeasurements.selectedYear = year.toString()
+        rawMeasurements.selectedMonth = (month+1).toString()
+        rawMeasurements.selectedDate = day.toString()
     }
 
     private fun navigateToTermsAndConditionScreen(termAndConditionURL: String?) {

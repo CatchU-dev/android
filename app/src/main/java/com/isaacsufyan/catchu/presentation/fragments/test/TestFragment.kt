@@ -4,11 +4,13 @@ import android.content.Context
 import android.content.DialogInterface
 import android.media.MediaPlayer
 import android.os.*
+import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.gson.Gson
 import com.isaacsufyan.catchu.BuildConfig
 import com.isaacsufyan.catchu.R
 import com.isaacsufyan.catchu.base.BaseFragment
@@ -354,19 +356,19 @@ class TestFragment : BaseFragment() {
         for (i in 0 until 45) {
             if (answersNone.indexExists(i)) {
                 answerNone = answersNone[i]
-                params["C$i"] = (answerNone * 1000).toInt()
+                params["C$i"] = answerNone.toInt()
             }
             if (answersVis.indexExists(i)) {
                 answerVis = answersVis[i]
-                params["V$i"] = (answerVis * 1000).toInt()
+                params["V$i"] = answerVis.toInt()
             }
             if (answersVisAndSoma.indexExists(i)) {
                 answerVisSoma = answersVisAndSoma[i]
-                params["VS$i"] = (answerVisSoma * 1000).toInt()
+                params["VS$i"] = answerVisSoma.toInt()
             }
             if (answersSoma.indexExists(i)) {
                 answerSoma = answersSoma[i]
-                params["S$i"] = (answerSoma * 1000).toInt()
+                params["S$i"] = answerSoma.toInt()
             }
         }
 
@@ -374,7 +376,7 @@ class TestFragment : BaseFragment() {
         rawMeasurements.testValues = params
         val rawMeasurementModel = RawMeasurementModel()
         rawMeasurementModel.test = viewModel.testId
-        rawMeasurementModel.rawMeasurements = rawMeasurements
+        rawMeasurementModel.rawMeasurements = rawMeasurements.apply { practiseTestStatus = "pass" }
         stateEvent = StateEvent.CreateRawMeasurement(rawMeasurementModel)
         viewModel.resetResponseModel()
         viewModel.setStateEvent(stateEvent as StateEvent.CreateRawMeasurement)

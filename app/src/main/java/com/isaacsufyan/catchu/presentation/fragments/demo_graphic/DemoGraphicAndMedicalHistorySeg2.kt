@@ -232,6 +232,7 @@ class DemoGraphicAndMedicalHistorySeg2 constructor(
 
     private fun setVisionProblem(eAnswer: EAnswer) {
         fragment.rawMeasurements.hasVisionProblem = eAnswer.value
+        fragment.rawMeasurements.visualImpairments = eAnswer.value
         binding.tvVisionError.visibility = View.GONE
         val view = binding.includeVisionProblems.root
         when (eAnswer) {
