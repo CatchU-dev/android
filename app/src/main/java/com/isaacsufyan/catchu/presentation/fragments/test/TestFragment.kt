@@ -27,6 +27,7 @@ import com.isaacsufyan.catchu.presentation.fragments.SharedViewModel
 import com.isaacsufyan.catchu.presentation.fragments.test_completed.TestCompletedFragment
 import com.isaacsufyan.catchu.utils.indexExists
 import com.isaacsufyan.catchu.utils.showDialog
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -70,12 +71,14 @@ class TestFragment : BaseFragment() {
     private var runnable: Runnable? = null
 
     private var practiceRetried: Boolean = false
+    private var failedAttempts: Int = 0
 
     private var accuracyThreshold = 0.7 // 70%
     private val params = HashMap<String, Any>()
     private var stateEvent: StateEvent? = null
 
     private var batchCompleted = false
+    private var isOnTestCompleteScreen = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -200,6 +203,7 @@ class TestFragment : BaseFragment() {
             currentStim = 0
 
             if (practiceRetried) {
+                failedAttempts = 2
                 uploadResultsToServer()
                 mediaPlayer.stop()
                 return
@@ -346,12 +350,15 @@ class TestFragment : BaseFragment() {
     }
 
     private fun uploadResultsToServer() {
-        sortAnswerArrays()
-        var answerNone: Double
-        var answerVis: Double
-        var answerVisSoma: Double
-        var answerSoma: Double
-        val params = HashMap<String, Int>()
+        mainActivity.testInProgress.value = false
+        mainActivity.isInternetConnected.observe(viewLifecycleOwner, androidx.lifecycle.Observer { t ->
+            if (t && !isOnTestCompleteScreen) {
+                sortAnswerArrays()
+                var answerNone: Double
+                var answerVis: Double
+                var answerVisSoma: Double
+                var answerSoma: Double
+                val params = HashMap<String, Int>()
 
         for (i in 0 until 45) {
             if (answersNone.indexExists(i)) {
@@ -372,14 +379,50 @@ class TestFragment : BaseFragment() {
             }
         }
 
+                if (practiceRetried) {
+                    for (i in 0 until 45) {
+                        params["C$i"] = 0
+                        params["V$i"] = 0
+                        params["VS$i"] = 0
+                        params["S$i"] = 0
+                    }
+                } else {
+                    for (i in 0 until 45) {
+                        if (answersNone.indexExists(i)) {
+                            answerNone = answersNone[i]
+                            params["C$i"] = (answerNone).toInt()
+                        }
+                        if (answersVis.indexExists(i)) {
+                            answerVis = answersVis[i]
+                            params["V$i"] = (answerVis).toInt()
+                        }
+                        if (answersVisAndSoma.indexExists(i)) {
+                            answerVisSoma = answersVisAndSoma[i]
+                            params["VS$i"] = (answerVisSoma).toInt()
+                        }
+                        if (answersSoma.indexExists(i)) {
+                            answerSoma = answersSoma[i]
+                            params["S$i"] = (answerSoma).toInt()
+                        }
+                    }
+                }
+                if (practiceRetried) {
+                    rawMeasurements.practise_test_status = "fail"
+                }
 
-        rawMeasurements.testValues = params
-        val rawMeasurementModel = RawMeasurementModel()
-        rawMeasurementModel.test = viewModel.testId
-        rawMeasurementModel.rawMeasurements = rawMeasurements.apply { practiseTestStatus = "pass" }
-        stateEvent = StateEvent.CreateRawMeasurement(rawMeasurementModel)
-        viewModel.resetResponseModel()
-        viewModel.setStateEvent(stateEvent as StateEvent.CreateRawMeasurement)
+                rawMeasurements.testValues = params
+                rawMeasurements.visualImpairments = rawMeasurements.hasVisionProblem
+
+                val rawMeasurementModel = RawMeasurementModel()
+                rawMeasurementModel.test = viewModel.testId
+                rawMeasurementModel.rawMeasurements = rawMeasurements
+                rawMeasurementModel.rawMeasurements = rawMeasurements.apply { practiseTestStatus = "pass" }
+                stateEvent = StateEvent.CreateRawMeasurement(rawMeasurementModel)
+                viewModel.resetResponseModel()
+                viewModel.setStateEvent(stateEvent as StateEvent.CreateRawMeasurement)
+
+            }
+        })
     }
 
     private fun sortAnswerArrays() {
@@ -470,11 +513,21 @@ class TestFragment : BaseFragment() {
                 }
                 is DataState.Failure -> {
                     mainActivity.showProgress(false)
-                    showOkDialog("Code: ${it.code} Message: ${it.message}")
+//                    showOkDialog("Code: ${it.code} Message: ${it.message}")
+                    showOkDialog("Code: ${it.code} Message: ${resources.getString(R.string.test_error_msg)}", object : IDialogOnClickListener {
+                        override fun onOk(dialog: AlertDialog) {
+                            returnToCommunity(dialog)
+                        }
+                    })
                 }
                 is DataState.Error -> {
                     mainActivity.showProgress(false)
-                    showOkDialog(it.exception.message.toString())
+//                    showOkDialog(it.exception.message.toString(), object : IDialogOnClickListener {
+                    showOkDialog(resources.getString(R.string.test_error_msg), object : IDialogOnClickListener {
+                        override fun onOk(dialog: AlertDialog) {
+                            returnToCommunity(dialog)
+                        }
+                    })
                 }
 
                 is DataState.Idle -> {
@@ -552,7 +605,12 @@ class TestFragment : BaseFragment() {
         viewModel.testId?.let {
             args["testId"] = it
             args["debug"] = params
-            args["test_status"] = if (invalidReport) "Failed" else "Success"
+            if (failedAttempts == 2) {
+                args["test_status"] = "Failed"
+            } else {
+//                args["test_status"] = if (invalidReport) "Failed" else "Success"
+                args["test_status"] = "Success"
+            }
             args["invalidReport"] = invalidReport
             args["environment"] = BuildConfig.Environment
         }
@@ -580,7 +638,20 @@ class TestFragment : BaseFragment() {
             }
         }
         val dialog = TestCompletedFragment(dialogListener)
+        isOnTestCompleteScreen = true
         dialog.show(childFragmentManager, "TestCompletedFragment")
+    }
+
+    private fun returnToCommunity(dialog: AlertDialog) {
+        mediaPlayer.stop()
+        if(viewModel.isSingleTest) {
+            mainActivity.finish()
+        } else {
+            dialog.dismiss()
+            val action = TestFragmentDirections.actionTestCompleteToCommunityId()
+            mainActivity.testInProgress.value = false
+            findNavController().navigate(action)
+        }
     }
 
     override fun onDestroyView() {
@@ -595,6 +666,7 @@ class TestFragment : BaseFragment() {
         } else {
             TestFragmentDirections.actionTestCompleteToPatientProfile()
         }
+        mainActivity.testInProgress.value = false
         findNavController().navigate(action)
     }
 
@@ -619,5 +691,13 @@ class TestFragment : BaseFragment() {
         binding.btnNo.visibility = View.GONE
         binding.btnYes.visibility = View.GONE
         return dialog
+    }
+    private fun timeIntervalSince1970(): Long {
+        val dateFormatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        val currentTimeMillis = System.currentTimeMillis()
+        val currentDate = Date(currentTimeMillis)
+        val formattedCurrentDate = dateFormatter.format(currentDate)
+        val parsedCurrentDate = dateFormatter.parse(formattedCurrentDate)!!
+        return (parsedCurrentDate.time / 1000)
     }
 }

@@ -46,6 +46,15 @@
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@+id/languageFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_languageFragment_to_otpVerificationFragment"
+            app:destination="@id/otpVerificationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@+id/languageFragment"
+            app:popUpToInclusive="true"/>
 
     </fragment>
 
@@ -161,6 +170,15 @@
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@+id/termsAndConditionFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_termsAndConditionFragment_to_otpVerificationFragment"
+            app:destination="@id/otpVerificationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@+id/termsAndConditionFragment"
+            app:popUpToInclusive="true"/>
 
     </fragment>
 
@@ -236,5 +254,29 @@
         android:id="@+id/practiceTestCompleteDialogFragment"
         android:name="com.isaacsufyan.catchu.presentation.fragments.practice_test_completed.PracticeTestCompletedFragment"
         tools:layout="@layout/fragment_practice_test_completed"/>
+    <fragment
+        android:id="@+id/otpVerificationFragment"
+        android:name="com.isaacsufyan.catchu.presentation.fragments.otp_verification.OtpVerificationFragment"
+        android:label="fragment_otp_verification"
+        tools:layout="@layout/fragment_otp_verification">
+        <action
+            android:id="@+id/action_otpVerificationFragment_to_termsAndConditionFragment"
+            app:destination="@id/termsAndConditionFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@+id/otpVerificationFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_otpVerificationFragment_to_instructionBeforeTesting"
+            app:destination="@id/instructionBeforeTesting"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@+id/otpVerificationFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
 
 </navigation>

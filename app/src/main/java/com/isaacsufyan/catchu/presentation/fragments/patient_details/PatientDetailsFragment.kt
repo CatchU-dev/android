@@ -6,6 +6,7 @@ import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.isaacsufyan.catchu.R
@@ -14,11 +15,9 @@ import com.isaacsufyan.catchu.databinding.FragmentPatientDetailsBinding
 import com.isaacsufyan.catchu.domain.event.StateEvent
 import com.isaacsufyan.catchu.domain.model.ResponseModel
 import com.isaacsufyan.catchu.domain.state.DataState
+import com.isaacsufyan.catchu.framework.interfaces.IDialogOnClickListener
 import com.isaacsufyan.catchu.presentation.fragments.SharedViewModel
-import com.isaacsufyan.catchu.utils.hideSoftKeyboard
-import com.isaacsufyan.catchu.utils.isNullOrEmpty
-import com.isaacsufyan.catchu.utils.parseDateFormat
-import com.isaacsufyan.catchu.utils.textToString
+import com.isaacsufyan.catchu.utils.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -88,6 +87,13 @@ class PatientDetailsFragment : BaseFragment() {
         binding.edtFirstName.inputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
         binding.edtLastName.inputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
         binding.edtDOB.inputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
+//        mainActivity.isInternetConnected.observe(viewLifecycleOwner) {
+//            if (!it) {
+//                mainActivity.getDialogRef().observe(viewLifecycleOwner) {diag ->
+//                    diag?.dismiss()
+//                }
+//            }
+//        }
         subscriber()
 
     }
@@ -119,12 +125,28 @@ class PatientDetailsFragment : BaseFragment() {
 
                 }
                 is DataState.Failure -> {
-                    mainActivity.showProgress(false)
-                    showOkDialog("Code: ${it.code} Message: ${it.message}")
+                    if (stateEvent is StateEvent.ValidatePatientToken) {
+                        mainActivity.showProgress(false)
+                        if(mainActivity.isInternetConnected.value == true) {
+                            showOkDialog("Code: ${it.code} Message: ${it.message}",
+                                object : IDialogOnClickListener {
+                                    override fun onOk(dialog: AlertDialog) {
+                                        mainActivity.finish()
+                                    }
+                                })
+                        }
+                    } else {
+                        mainActivity.showProgress(false)
+                        if(mainActivity.isInternetConnected.value == true) {
+                            showOkDialog("Code: ${it.code} Message: ${it.message}")
+                        }
+                    }
                 }
                 is DataState.Error -> {
                     mainActivity.showProgress(false)
-                    showOkDialog(it.exception.message.toString())
+                    if(mainActivity.isInternetConnected.value == true) {
+                        showOkDialog(it.exception.message.toString())
+                    }
                 }
 
                 is DataState.Idle -> {

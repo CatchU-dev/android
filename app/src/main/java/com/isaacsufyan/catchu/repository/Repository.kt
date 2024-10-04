@@ -397,4 +397,47 @@ class Repository(
             emit(DataState.Error(e))
         }
     }
+
+    fun sendOtpToPatient(
+        testId: RequestBody
+    ) = flow {
+        emit(DataState.Loading)
+        try {
+            val response = apiService.sendOtpToPatient(testId)
+            if (response.status) {
+                emit(DataState.Success(response))
+            } else {
+                emit(
+                    DataState.Failure(
+                        response.code ?: -1,
+                        response.message ?: "No Message from Server"
+                    )
+                )
+            }
+        } catch (e: Exception) {
+            emit(DataState.Error(e))
+        }
+    }
+
+    fun verifyPatientOtp(
+        testId: RequestBody,
+        otp: RequestBody
+    ) = flow {
+        emit(DataState.Loading)
+        try {
+            val response = apiService.verifyPatientOtp(testId, otp)
+            if (response.status) {
+                emit(DataState.Success(response))
+            } else {
+                emit(
+                    DataState.Failure(
+                        response.code ?: -1,
+                        response.message ?: "No Message from Server"
+                    )
+                )
+            }
+        } catch (e: Exception) {
+            emit(DataState.Error(e))
+        }
+    }
 }

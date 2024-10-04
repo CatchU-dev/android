@@ -48,6 +48,12 @@
     <string name="medication_for_diabetes">Estás tomando medicamentos para la diabetes?</string>
     <string name="oral_medication">Medicamentos orales (pastillas)?</string>
     <string name="taking_insulin">Está tomando insulina?</string>
+    <string name="otp_verification">Verificación OTP</string>
+    <string name="enter_otp">Ingresar OTP</string>
+    <string name="resend_otp">Reenviar</string>
+    <string name="otp_verify">Verificar</string>
+    <string name="did_not_get_otp">¿No obtuviste OTP?</string>
+    <string name="resend_code_in">Reenviar en</string>
 
     <string name="injections">Inyecciones que no sean de insulina</string>
     <string name="depression">Depresión</string>
@@ -125,5 +131,10 @@
     <string name="step_1_info_2">• Debajo de la barra de navegación o de su opción actual, toque el botón silencioso</string>
     <string name="step_2_info_1">• Presione el botón de Subir volumen para ajustar el volumen</string>
     <string name="the_expiry_date_must_be_a_future_date">La fecha de expiración debe ser una fecha futura.</string>
+
+    <string name="test_error_msg">Se produjo algún problema al recopilar los resultados de la prueba. Es posible que deba volver a tomar la prueba. Asegúrate de que tu conexión a Internet sea estable</string>
+
+    <string name="no_internet_title">Sin conexión a Internet</string>
+    <string name="no_internet_msg">¡Ups! Parece que no estás conectado a Internet. Conéctese a Internet para continuar.</string>
 
 </resources>

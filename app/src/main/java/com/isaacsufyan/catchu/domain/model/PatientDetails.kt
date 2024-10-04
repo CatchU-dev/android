@@ -9,6 +9,10 @@ data class PatientDetails(
     @Expose
     var patient_Id: Int? = null,
 
+    @SerializedName("test_id")
+    @Expose
+    var test_id: Int? = null,
+
     @SerializedName("patient_id")
     @Expose
     var patientId: Int? = null,

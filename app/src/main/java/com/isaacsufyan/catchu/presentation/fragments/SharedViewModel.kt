@@ -32,6 +32,12 @@ class SharedViewModel @Inject constructor(
     val getLanguage: LiveData<String> = prefService.getLanguage().asLiveData()
     val searchPurposeList: LiveData<List<String>> = MutableLiveData(listOf("No", "Yes"))
     val languageList: LiveData<List<String>> = MutableLiveData(listOf("English", "Spanish"))
+    private val _keyEvent:MutableLiveData<Int> = MutableLiveData(-1)
+    val keyEvent:LiveData<Int> get() = _keyEvent
+
+    fun setEvent(code:Int){
+        _keyEvent.value = code
+    }
 
     fun setLanguage(language: String) {
         viewModelScope.launch {
@@ -190,6 +196,18 @@ class SharedViewModel @Inject constructor(
 
             is StateEvent.BatchTestStatus -> {
                 repository.batchTestStatus(stateEvent.groupTestId)
+                    .onEach { _responseModel.value = it }
+                    .catch { DataState.Error(it as Exception) }
+                    .launchIn(viewModelScope)
+            }
+            is StateEvent.SendOtpToPatient -> {
+                repository.sendOtpToPatient(testId = stateEvent.testId)
+                    .onEach { _responseModel.value = it }
+                    .catch { DataState.Error(it as Exception) }
+                    .launchIn(viewModelScope)
+            }
+            is StateEvent.verifyPatientOtp -> {
+                repository.verifyPatientOtp(testId = stateEvent.testId, otp = stateEvent.otp)
                     .onEach { _responseModel.value = it }
                     .catch { DataState.Error(it as Exception) }
                     .launchIn(viewModelScope)
