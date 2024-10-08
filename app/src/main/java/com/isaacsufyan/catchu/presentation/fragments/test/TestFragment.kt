@@ -350,9 +350,9 @@ class TestFragment : BaseFragment() {
     }
 
     private fun uploadResultsToServer() {
-        mainActivity.testInProgress.value = false
-        mainActivity.isInternetConnected.observe(viewLifecycleOwner, androidx.lifecycle.Observer { t ->
-            if (t && !isOnTestCompleteScreen) {
+//        mainActivity.testInProgress.value = false
+//        mainActivity.isInternetConnected.observe(viewLifecycleOwner, androidx.lifecycle.Observer { t ->
+//            if (t && !isOnTestCompleteScreen) {
                 sortAnswerArrays()
                 var answerNone: Double
                 var answerVis: Double
@@ -407,7 +407,9 @@ class TestFragment : BaseFragment() {
                     }
                 }
                 if (practiceRetried) {
-                    rawMeasurements.practise_test_status = "fail"
+                    rawMeasurements.practiseTestStatus = "fail"
+                } else {
+                    rawMeasurements.practiseTestStatus = "pass"
                 }
 
                 rawMeasurements.testValues = params
@@ -416,13 +418,12 @@ class TestFragment : BaseFragment() {
                 val rawMeasurementModel = RawMeasurementModel()
                 rawMeasurementModel.test = viewModel.testId
                 rawMeasurementModel.rawMeasurements = rawMeasurements
-                rawMeasurementModel.rawMeasurements = rawMeasurements.apply { practiseTestStatus = "pass" }
                 stateEvent = StateEvent.CreateRawMeasurement(rawMeasurementModel)
                 viewModel.resetResponseModel()
                 viewModel.setStateEvent(stateEvent as StateEvent.CreateRawMeasurement)
 
-            }
-        })
+//            }
+//        })
     }
 
     private fun sortAnswerArrays() {
@@ -491,16 +492,19 @@ class TestFragment : BaseFragment() {
                         } else {
                             showCompleteTestScreen()
                         }
-                    } else if (stateEvent is StateEvent.VerifyGroupTestAlgo) {
+                    }
+                    else if (stateEvent is StateEvent.VerifyGroupTestAlgo) {
                         if (it.data.status) {
                             if (viewModel.isSingleTest) showCompleteTestScreen()
                             else batchTestStatus()
                         }
-                    } else if (stateEvent is StateEvent.BatchTestStatus) {
+                    }
+                    else if (stateEvent is StateEvent.BatchTestStatus) {
                         if (it.data.status) {
                             batchCompleted = it.data.data?.batchCompleted ?: false
                             showCompleteTestScreen()
-                        } else {
+                        }
+                        else {
                             showOkDialog(
                                 it.data.message.toString(),
                                 object : IDialogOnClickListener {
