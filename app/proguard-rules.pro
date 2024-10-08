@@ -21,3 +21,28 @@
 #-renamesourcefileattribute SourceFile
 -keep class com.isaacsufyan.catchu.domain.model.** { *; }
 #-keep class com.isaacsufyan.catchu.domain.enum.** { *; }
+
+# Keep the Gson annotations
+-keepattributes Signature,RuntimeVisibleAnnotations
+
+# Keep Gson classes
+-keep class com.google.gson.** { *; }
+
+
+# Preserve Retrofit and its CallAdapterFactory
+-keep class retrofit2.adapter.completablefuture.** { *; }
+-keep class retrofit2.** { *; }
+-keepclassmembers class retrofit2.** { *; }
+
+# Preserve generic type information for classes using CompletableFuture
+-keep class java.util.concurrent.CompletableFuture { *; }
+-keepattributes Signature
+
+# Keep generic information for the methods in Retrofit's CallAdapterFactory
+-keepclassmembers class * {
+    public static retrofit2.CompletableFutureCallAdapterFactory create(...);
+}
+
+# Prevent warnings from Retrofit classes
+-dontwarn retrofit2.**
+
