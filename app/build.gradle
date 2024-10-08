@@ -44,19 +44,19 @@ android {
     flavorDimensions "environment"
     productFlavors {
         qa {
-            versionCode 12
+            versionCode 13
             versionName "2.1"
             buildConfigField "String", "BASE_URL", '"https://qa.catchu.net/"'
             buildConfigField "String", "Environment", '"QA"'
         }
         stagging {
-            versionCode 12
+            versionCode 13
             versionName "2.1"
             buildConfigField "String", "BASE_URL", '"https://stage.catchu.net/"'
             buildConfigField "String", "Environment", '"Staging"'
         }
         prod {
-            versionCode 12
+            versionCode 13
             versionName "2.1"
             buildConfigField "String", "BASE_URL", '"https://my.catchu.net/"'
             buildConfigField "String", "Environment", '"Production"'
