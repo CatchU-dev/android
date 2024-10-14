@@ -44,19 +44,19 @@ android {
     flavorDimensions "environment"
     productFlavors {
         qa {
-            versionCode 13
+            versionCode 14
             versionName "2.1"
             buildConfigField "String", "BASE_URL", '"https://qa.catchu.net/"'
             buildConfigField "String", "Environment", '"QA"'
         }
         stagging {
-            versionCode 13
+            versionCode 14
             versionName "2.1"
             buildConfigField "String", "BASE_URL", '"https://stage.catchu.net/"'
             buildConfigField "String", "Environment", '"Staging"'
         }
         prod {
-            versionCode 13
+            versionCode 14
             versionName "2.1"
             buildConfigField "String", "BASE_URL", '"https://my.catchu.net/"'
             buildConfigField "String", "Environment", '"Production"'
@@ -73,8 +73,8 @@ android {
         }
 
         release {
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
+            shrinkResources false
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

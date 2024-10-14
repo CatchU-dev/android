@@ -23,7 +23,7 @@
 #-keep class com.isaacsufyan.catchu.domain.enum.** { *; }
 
 # Keep the Gson annotations
--keepattributes Signature,RuntimeVisibleAnnotations
+-keepattributes RuntimeVisibleAnnotations
 
 # Keep Gson classes
 -keep class com.google.gson.** { *; }
@@ -45,4 +45,36 @@
 
 # Prevent warnings from Retrofit classes
 -dontwarn retrofit2.**
+-dontwarn okhttp3.**
+
+
+# Keep classes that use reflection with ParameterizedType
+-keepclassmembers class * {
+    *;
+}
+
+# Keep specific types that are parameterized
+-keep class com.isaacsufyan.catchu.** { *; }
+
+# Keep fields or methods that require reflection
+-keepclassmembers class * {
+    @java.lang.reflect.ParameterizedType <fields>;
+    @java.lang.reflect.ParameterizedType <methods>;
+}
+-keepattributes *Annotation*
+
+-keepclassmembers class com.isaacsufyan.catchu.domain.model.ResponseModel {
+    <fields>;
+}
+
+# Keep generic types for Retrofit responses
+-keepattributes Exceptions
+-keep class com.isaacsufyan.catchu.domain.model.ResponseModel { *; }
+
+# Keep Retrofit interfaces and methods
+-keep interface retrofit2.** { *; }
+
+# Keep your Retrofit API interface
+-keep interface com.isaacsufyan.catchu.framework.datastore.network.abstraction.ApiService { *; }
+
 
