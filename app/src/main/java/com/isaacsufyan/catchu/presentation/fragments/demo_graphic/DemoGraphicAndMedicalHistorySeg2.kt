@@ -153,6 +153,7 @@ class DemoGraphicAndMedicalHistorySeg2 constructor(
         val view = binding.includeKidneyDiseaseSubQuestions.root
         when (eAnswer) {
             EAnswer.NO -> {
+                fragment.rawMeasurements.onDialysis = EAnswer.NO.value
                 binding.tvChronicKidneyNo.background =
                     fragment.getBackground(R.drawable.view_bg_round_filled_navy)
                 binding.tvChronicKidneyYes.background =
@@ -237,6 +238,8 @@ class DemoGraphicAndMedicalHistorySeg2 constructor(
         val view = binding.includeVisionProblems.root
         when (eAnswer) {
             EAnswer.NO -> {
+                fragment.rawMeasurements.hasVisionLoss = EAnswer.NO.value
+                fragment.rawMeasurements.hasCorrectiveLenses = EAnswer.NO.value
                 binding.tvVisionNo.background =
                     fragment.getBackground(R.drawable.view_bg_round_filled_navy)
                 binding.tvVisionYes.background =
@@ -317,6 +320,7 @@ class DemoGraphicAndMedicalHistorySeg2 constructor(
         val view = binding.includeHearingProblems.root
         when (eAnswer) {
             EAnswer.NO -> {
+                fragment.rawMeasurements.hasHearingAid = EAnswer.NO.value
                 binding.tvHearingProblemNo.background =
                     fragment.getBackground(R.drawable.view_bg_round_filled_navy)
                 binding.tvHearingProblemYes.background =
@@ -397,6 +401,7 @@ class DemoGraphicAndMedicalHistorySeg2 constructor(
         val view = binding.includeFallInPastOneYearSubQuestions.root
         when (eAnswer) {
             EAnswer.NO -> {
+                fragment.rawMeasurements.hasHadAFracture = EAnswer.NO.value
                 binding.tvFallInPastOneYearNo.background =
                     fragment.getBackground(R.drawable.view_bg_round_filled_navy)
                 binding.tvFallInPastOneYearYes.background =
@@ -482,6 +487,7 @@ class DemoGraphicAndMedicalHistorySeg2 constructor(
         val view = binding.includeFallInPastFiveYearSubQuestions.root
         when (eAnswer) {
             EAnswer.NO -> {
+                fragment.rawMeasurements.hasHadAFracturePastFiveYears = EAnswer.NO.value
                 binding.tvFallInPastFiveYearNo.background =
                     fragment.getBackground(R.drawable.view_bg_round_filled_navy)
                 binding.tvFallInPastFiveYearYes.background =

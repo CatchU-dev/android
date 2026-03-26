@@ -328,13 +328,13 @@ class DemoGraphicAndMedicalHistorySeg1 constructor(
     private fun setDiabetes(eAnswer: EAnswer) {
         fragment.rawMeasurements.hasDiabetes = eAnswer.value
         if(eAnswer.value == 0){
+            fragment.rawMeasurements.hasDiabetesTakMedicine = eAnswer.value
             fragment.rawMeasurements.hasDiabetesTakOralMedicine = eAnswer.value
+            fragment.rawMeasurements.hasDiabetesTakInsulin = eAnswer.value
+            fragment.rawMeasurements.hasDiabetesTakInjection = eAnswer.value
             fragment.rawMeasurements.hasDiabetesVision = eAnswer.value
             fragment.rawMeasurements.hasDiabetesKidney = eAnswer.value
             fragment.rawMeasurements.hasDiabetesNerve = eAnswer.value
-            fragment.rawMeasurements.hasDiabetesTakOralMedicine = eAnswer.value
-            fragment.rawMeasurements.hasDiabetesTakOralMedicine = eAnswer.value
-            fragment.rawMeasurements.hasDiabetesTakInsulin = eAnswer.value
         }
         binding.tvDiabetesError.visibility = View.GONE
         val view = binding.includeDiabetesSubQuestions.root
@@ -481,6 +481,9 @@ class DemoGraphicAndMedicalHistorySeg1 constructor(
         val view = binding.includeDiabetesSubQuestions.clDiabetesTakingMedicine
         when (eAnswer) {
             EAnswer.NO -> {
+                fragment.rawMeasurements.hasDiabetesTakOralMedicine = EAnswer.NO.value
+                fragment.rawMeasurements.hasDiabetesTakInsulin = EAnswer.NO.value
+                fragment.rawMeasurements.hasDiabetesTakInjection = EAnswer.NO.value
                 binding.includeDiabetesSubQuestions.tvDiabetesTakingMedicineNo.background =
                     fragment.getBackground(R.drawable.view_bg_round_filled_navy)
                 binding.includeDiabetesSubQuestions.tvDiabetesTakingMedicineYes.background =
