@@ -1,15 +1,31 @@
 *.iml
 .gradle
-/local.properties
+local.properties
+
+# Android Studio / IntelliJ IDEA generated files
 /.idea/caches
 /.idea/libraries
 /.idea/modules.xml
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
-.DS_Store
+/.idea/compiler.xml
+/.idea/gradle.xml
+/.idea/misc.xml
+/.idea/vcs.xml
+/.idea/AndroidProjectSystem.xml
+/.idea/deploymentTargetSelector.xml
+/.idea/deviceManager.xml
+/.idea/runConfigurations.xml
+
+# Build output
 /build
 /captures
+app/prod/
+
+# NDK
 .externalNativeBuild
 .cxx
-local.properties
+
+# macOS
+.DS_Store
