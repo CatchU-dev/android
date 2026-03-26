@@ -160,6 +160,8 @@ class DemoGraphicAndMedicalHistorySeg3(
         val view = binding.includeWalkingProblem.root
         when (eAnswer) {
             EAnswer.NO -> {
+                fragment.rawMeasurements.hasDifficultyWalkingUseCane = EAnswer.NO.value
+                fragment.rawMeasurements.hasDifficultyWalkingUseWalker = EAnswer.NO.value
                 binding.tvWalkingProblemNo.background =
                     fragment.getBackground(R.drawable.view_bg_round_filled_navy)
                 binding.tvWalkingProblemYes.background =

@@ -80,6 +80,8 @@ class TestFragment : BaseFragment() {
     private var batchCompleted = false
     private var isOnTestCompleteScreen = false
 
+    private val EEG_FLASH_DURATION_MS = 100L
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mediaPlayer = MediaPlayer.create(requireContext(), R.raw.white_noise)
@@ -103,11 +105,33 @@ class TestFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.resetResponseModel()
         generateStimuli()
+        showAllPhotodiodes()
         showInitialAlert()
         binding.tvStartText.setOnClickListener {
             recordResponse()
         }
         subscriber()
+    }
+
+    private fun flashPhotodiode(view: View, durationMs: Long = EEG_FLASH_DURATION_MS) {
+        view.visibility = View.VISIBLE
+        Handler(Looper.getMainLooper()).postDelayed({
+            view.visibility = View.INVISIBLE
+        }, durationMs)
+    }
+
+    private fun showAllPhotodiodes() {
+        binding.vPhotodiode1.visibility = View.VISIBLE
+        binding.vPhotodiode2.visibility = View.VISIBLE
+        binding.vPhotodiode3.visibility = View.VISIBLE
+        binding.vPhotodiode4.visibility = View.VISIBLE
+    }
+
+    private fun hideAllPhotodiodes() {
+        binding.vPhotodiode1.visibility = View.INVISIBLE
+        binding.vPhotodiode2.visibility = View.INVISIBLE
+        binding.vPhotodiode3.visibility = View.INVISIBLE
+        binding.vPhotodiode4.visibility = View.INVISIBLE
     }
 
     private fun recordResponse() {
@@ -120,6 +144,7 @@ class TestFragment : BaseFragment() {
                 proceedToNextStimulus()
             }
         } else {
+            hideAllPhotodiodes()
             Handler(Looper.getMainLooper()).postDelayed({
                 proceedToNextStimulus()
             }, 1000)
@@ -284,6 +309,7 @@ class TestFragment : BaseFragment() {
 
     private fun showNoneStimulus(func: () -> Unit) {
         setDisplayTimeStamp()
+        flashPhotodiode(binding.vPhotodiode4)
         func()
     }
 
@@ -292,6 +318,7 @@ class TestFragment : BaseFragment() {
         binding.ivVisStimulusRight.visibility = View.VISIBLE
         setDisplayTimeStamp()
         generator.vibrate(100)
+        flashPhotodiode(binding.vPhotodiode3)
 
         Handler(Looper.getMainLooper()).postDelayed({
             binding.ivVisStimulusLeft.visibility = View.INVISIBLE
@@ -304,6 +331,7 @@ class TestFragment : BaseFragment() {
     private fun showSomaStim(func: () -> Unit) {
         generator.vibrate(100)
         setDisplayTimeStamp()
+        flashPhotodiode(binding.vPhotodiode2)
         func()
     }
 
@@ -311,6 +339,7 @@ class TestFragment : BaseFragment() {
         binding.ivVisStimulusLeft.visibility = View.VISIBLE
         binding.ivVisStimulusRight.visibility = View.VISIBLE
         setDisplayTimeStamp()
+        flashPhotodiode(binding.vPhotodiode1)
 
         Handler(Looper.getMainLooper()).postDelayed({
             binding.ivVisStimulusLeft.visibility = View.INVISIBLE
