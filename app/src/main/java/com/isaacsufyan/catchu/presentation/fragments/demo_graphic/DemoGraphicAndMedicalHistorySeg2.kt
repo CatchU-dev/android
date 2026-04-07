@@ -6,6 +6,7 @@ import android.widget.AdapterView
 import com.isaacsufyan.catchu.R
 import com.isaacsufyan.catchu.adapter.MaterialArrayAdapter
 import com.isaacsufyan.catchu.domain.enum.EAnswer
+import com.isaacsufyan.catchu.domain.model.RawMeasurements
 
 class DemoGraphicAndMedicalHistorySeg2 constructor(
     var fragment: DemoGraphicAndMedicalHistoryFragment
@@ -146,6 +147,62 @@ class DemoGraphicAndMedicalHistorySeg2 constructor(
             }
         }
     }
+
+    fun applyPrefill(data: RawMeasurements) {
+        // Chronic Kidney Disease + dialysis sub-question
+        data.hasChronicKidney?.let { ckValue ->
+            setChronicDisease(eAnswerFrom(ckValue))
+            if (ckValue == EAnswer.YES.value) {
+                data.onDialysis?.let { setOnDialysis(eAnswerFrom(it)) }
+            }
+        }
+
+        // Vision problems + sub-questions (vision loss rate, corrective lenses)
+        data.hasVisionProblem?.let { visionValue ->
+            setVisionProblem(eAnswerFrom(visionValue))
+            if (visionValue == EAnswer.YES.value) {
+                // hasVisionLoss: -1 = unknown/skip, 1=Mild, 2=Moderate, 3=Severe
+                data.hasVisionLoss?.takeIf { it > 0 }?.let { visionLoss ->
+                    val vpRateList = listOf("Mild", "Moderate", "Severe")
+                    val index = visionLoss - 1
+                    if (index in vpRateList.indices) {
+                        val rateText = vpRateList[index]
+                        binding.includeVisionProblems.edtVisionRate.setText(rateText, false)
+                        fragment.rawMeasurements.hasVisionLoss = visionLoss
+                    }
+                }
+                data.hasCorrectiveLenses?.let { setVisionGlasses(eAnswerFrom(it)) }
+            }
+        }
+
+        // Hearing problems + hearing aid sub-question
+        data.hasSevereHearingLoss?.let { hearingValue ->
+            setHearingProblem(eAnswerFrom(hearingValue))
+            if (hearingValue == EAnswer.YES.value) {
+                data.hasHearingAid?.let { setHearingAid(eAnswerFrom(it)) }
+            }
+        }
+
+        // Fall in past 1 year + fracture sub-question
+        data.hasHadAFall?.let { fallValue ->
+            setFallInOneYear(eAnswerFrom(fallValue))
+            if (fallValue == EAnswer.YES.value) {
+                data.hasHadAFracture?.let { setFallInOneYearFracture(eAnswerFrom(it)) }
+            }
+        }
+
+        // Fall in past 5 years + fracture sub-question
+        data.hasHadAFallPastFiveYears?.let { fall5Value ->
+            setFallInFiveYear(eAnswerFrom(fall5Value))
+            if (fall5Value == EAnswer.YES.value) {
+                data.hasHadAFracturePastFiveYears?.let { setFallInFiveYearFracture(eAnswerFrom(it)) }
+            }
+        }
+    }
+
+    // Helper: converts an Int value (0 or 1) to EAnswer
+    private fun eAnswerFrom(value: Int): EAnswer =
+        if (value == EAnswer.YES.value) EAnswer.YES else EAnswer.NO
 
     private fun setChronicDisease(eAnswer: EAnswer) {
         fragment.rawMeasurements.hasChronicKidney = eAnswer.value

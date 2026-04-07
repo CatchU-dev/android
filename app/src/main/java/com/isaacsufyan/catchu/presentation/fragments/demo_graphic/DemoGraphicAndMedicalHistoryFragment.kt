@@ -9,10 +9,14 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.activityViewModels
 import com.google.gson.Gson
 import com.isaacsufyan.catchu.R
 import com.isaacsufyan.catchu.base.BaseFragment
 import com.isaacsufyan.catchu.databinding.FragmentDemoGraphicAndMedicalHistoryBinding
+import com.isaacsufyan.catchu.domain.model.RawMeasurements
+import com.isaacsufyan.catchu.domain.state.DataState
+import com.isaacsufyan.catchu.presentation.fragments.SharedViewModel
 import com.isaacsufyan.catchu.utils.hideSoftKeyboard
 import com.isaacsufyan.catchu.utils.showSnackBar
 import com.isaacsufyan.catchu.utils.textToString
@@ -24,6 +28,7 @@ class DemoGraphicAndMedicalHistoryFragment : BaseFragment() {
 
     private var _binding: FragmentDemoGraphicAndMedicalHistoryBinding? = null
     val binding get() = _binding!!
+    private val viewModel by activityViewModels<SharedViewModel>()
     private var seg0: DemoGraphicAndMedicalHistorySeg0? = null
     private var seg1: DemoGraphicAndMedicalHistorySeg1? = null
     private var seg2: DemoGraphicAndMedicalHistorySeg2? = null
@@ -44,6 +49,16 @@ class DemoGraphicAndMedicalHistoryFragment : BaseFragment() {
         seg2 = DemoGraphicAndMedicalHistorySeg2(this)
         seg3 = DemoGraphicAndMedicalHistorySeg3(this)
         val validation = DemoGraphicAndMedicalHistoryValidation(this)
+
+        // Apply prefill if data is already available (prefill arrived before this screen loaded).
+        // Also observe the LiveData to handle the case where prefill arrives after this screen loads.
+        viewModel.prefillData?.let { applyPrefill(it) }
+
+        viewModel.prefillResponseModel.observe(viewLifecycleOwner) { state ->
+            if (state is DataState.Success) {
+                state.data.data?.let { applyPrefill(it) }
+            }
+        }
 
         binding.btnStartTrail.setOnClickListener {
             it.hideSoftKeyboard()
@@ -78,6 +93,13 @@ class DemoGraphicAndMedicalHistoryFragment : BaseFragment() {
         binding.includeSeg0.edtDOB.isEnabled = false
         val color = ResourcesCompat.getColor(resources, R.color.blue_light, null)
         binding.includeSeg0.edtDOBLayout.boxBackgroundColor = color
+    }
+
+    private fun applyPrefill(data: RawMeasurements) {
+        seg0?.applyPrefill(data)
+        seg1?.applyPrefill(data)
+        seg2?.applyPrefill(data)
+        seg3?.applyPrefill(data)
     }
 
     fun getPrimaryColor(): Int {

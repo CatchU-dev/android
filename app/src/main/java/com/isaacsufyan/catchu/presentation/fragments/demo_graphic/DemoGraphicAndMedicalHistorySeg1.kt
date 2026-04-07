@@ -4,6 +4,7 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import com.isaacsufyan.catchu.R
 import com.isaacsufyan.catchu.domain.enum.EAnswer
+import com.isaacsufyan.catchu.domain.model.RawMeasurements
 import com.isaacsufyan.catchu.utils.hideSoftKeyboard
 
 class DemoGraphicAndMedicalHistorySeg1 constructor(
@@ -1052,6 +1053,84 @@ class DemoGraphicAndMedicalHistorySeg1 constructor(
             }
         }
     }
+
+    fun applyPrefill(data: RawMeasurements) {
+        // Hypertension
+        data.hasHypertension?.let { setHypertension(eAnswerFrom(it)) }
+
+        // Arthritis
+        data.hasArthritis?.let { setArthritics(eAnswerFrom(it)) }
+
+        // Diabetes + nested sub-questions
+        data.hasDiabetes?.let { diabetesValue ->
+            setDiabetes(eAnswerFrom(diabetesValue))
+            if (diabetesValue == EAnswer.YES.value) {
+                data.hasDiabetesVision?.let { setDiabetesVision(eAnswerFrom(it)) }
+                data.hasDiabetesKidney?.let { setDiabetesKidney(eAnswerFrom(it)) }
+                data.hasDiabetesNerve?.let { setDiabetesNerve(eAnswerFrom(it)) }
+                data.hasDiabetesYears?.let {
+                    binding.includeDiabetesSubQuestions.edtDiabetesYear.setText(it)
+                    fragment.rawMeasurements.hasDiabetesYears = it
+                }
+                // hasDiabetesTakMedicine may not come from the API;
+                // infer from oral/insulin/injection fields
+                val takeMedicineValue = data.hasDiabetesTakMedicine
+                    ?: if (data.hasDiabetesTakOralMedicine != null ||
+                        data.hasDiabetesTakInsulin != null ||
+                        data.hasDiabetesTakInjection != null
+                    ) EAnswer.YES.value else null
+                takeMedicineValue?.let { tv ->
+                    setDiabetesTakingMedicine(eAnswerFrom(tv))
+                    if (tv == EAnswer.YES.value) {
+                        data.hasDiabetesTakOralMedicine?.let { setDiabetesOralMedicine(eAnswerFrom(it)) }
+                        data.hasDiabetesTakInsulin?.let { setDiabetesInsulinMedicine(eAnswerFrom(it)) }
+                        data.hasDiabetesTakInjection?.let { setDiabetesInjectionMedicine(eAnswerFrom(it)) }
+                    }
+                }
+            }
+        }
+
+        data.hasDepression?.let { setDepression(eAnswerFrom(it)) }
+        // hasCOPD maps to the "Chronic/COPD" question
+        data.hasCOPD?.let { setChronic(eAnswerFrom(it)) }
+        data.hasOsteoporosis?.let { setOsteoporosis(eAnswerFrom(it)) }
+        // hasAnxiety is @SerializedName("hasAngina") — Anxiety/Angina question on the form
+        data.hasAnxiety?.let { setAnxiety(eAnswerFrom(it)) }
+        data.hasStroke?.let { setStroke(eAnswerFrom(it)) }
+
+        // Heart disease + nested sub-questions
+        // hasHeartDisease may not be in the API response; infer from CHF/MI sub-fields
+        val heartDiseaseValue = data.hasHeartDisease
+            ?: if (data.hasHeartFailure == EAnswer.YES.value || data.hasMI == EAnswer.YES.value)
+                EAnswer.YES.value else null
+        heartDiseaseValue?.let { hdValue ->
+            setHeartDisease(eAnswerFrom(hdValue))
+            if (hdValue == EAnswer.YES.value) {
+                data.hasHeartFailure?.let { setHeartFailure(eAnswerFrom(it)) }
+                data.hasMI?.let { setMI(eAnswerFrom(it)) }
+            }
+        }
+
+        data.hasPD?.let { setParkinson(eAnswerFrom(it)) }
+
+        // Memory problems + nested sub-question (Dementia/AD)
+        data.hasMemoryProblems?.let { mpValue ->
+            setMemoryProblem(eAnswerFrom(mpValue))
+            if (mpValue == EAnswer.YES.value) {
+                data.hasDementia?.let { setDementia(eAnswerFrom(it)) }
+            }
+        }
+
+        // hasHighCholesterol is @SerializedName("hasTIA") in the model
+        data.hasHighCholesterol?.let { setHighCholesterol(eAnswerFrom(it)) }
+        // hasSeizure is @SerializedName("hasEpilepsy")
+        data.hasSeizure?.let { setSeizure(eAnswerFrom(it)) }
+        data.hasNeuropathy?.let { setNeuropathy(eAnswerFrom(it)) }
+    }
+
+    // Helper: converts an Int value (0 or 1) to EAnswer
+    private fun eAnswerFrom(value: Int): EAnswer =
+        if (value == EAnswer.YES.value) EAnswer.YES else EAnswer.NO
 
     private fun setNeuropathy(eAnswer: EAnswer) {
         fragment.rawMeasurements.hasNeuropathy = eAnswer.value

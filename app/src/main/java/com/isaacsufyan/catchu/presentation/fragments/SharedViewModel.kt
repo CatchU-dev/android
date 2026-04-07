@@ -2,6 +2,8 @@ package com.isaacsufyan.catchu.presentation.fragments
 
 import androidx.lifecycle.*
 import com.isaacsufyan.catchu.domain.event.StateEvent
+import com.isaacsufyan.catchu.domain.model.PatientPrefillResponse
+import com.isaacsufyan.catchu.domain.model.RawMeasurements
 import com.isaacsufyan.catchu.domain.model.ResponseModel
 import com.isaacsufyan.catchu.domain.state.DataState
 import com.isaacsufyan.catchu.framework.datastore.preference.abstraction.PrefService
@@ -29,6 +31,8 @@ class SharedViewModel @Inject constructor(
 
     var termsAndConditionUrl: String? = null
 
+    var prefillData: RawMeasurements? = null
+
     val getLanguage: LiveData<String> = prefService.getLanguage().asLiveData()
     val searchPurposeList: LiveData<List<String>> = MutableLiveData(listOf("No", "Yes"))
     val languageList: LiveData<List<String>> = MutableLiveData(listOf("English", "Spanish"))
@@ -52,6 +56,10 @@ class SharedViewModel @Inject constructor(
     private val _responseModelGetActiveGroupList = MutableLiveData<DataState<ResponseModel>>()
     val responseModelGetActiveGroupList: LiveData<DataState<ResponseModel>>
         get() = _responseModelGetActiveGroupList
+
+    private val _prefillResponseModel = MutableLiveData<DataState<PatientPrefillResponse>>()
+    val prefillResponseModel: LiveData<DataState<PatientPrefillResponse>>
+        get() = _prefillResponseModel
 
 
     fun setStateEvent(stateEvent: StateEvent) {
@@ -209,6 +217,24 @@ class SharedViewModel @Inject constructor(
             is StateEvent.verifyPatientOtp -> {
                 repository.verifyPatientOtp(testId = stateEvent.testId, otp = stateEvent.otp)
                     .onEach { _responseModel.value = it }
+                    .catch { DataState.Error(it as Exception) }
+                    .launchIn(viewModelScope)
+            }
+
+            is StateEvent.GetPatientPrefill -> {
+                repository.getPatientPrefill(
+                    firstName = stateEvent.firstName,
+                    lastName = stateEvent.lastName,
+                    dob = stateEvent.dob
+                )
+                    .onEach { state ->
+                        // Store prefillData directly in the ViewModel scope so it survives
+                        // fragment view destruction during navigation (T&C → Instructions → Demographics)
+                        if (state is DataState.Success) {
+                            prefillData = state.data.data
+                        }
+                        _prefillResponseModel.value = state
+                    }
                     .catch { DataState.Error(it as Exception) }
                     .launchIn(viewModelScope)
             }

@@ -1,5 +1,6 @@
 package com.isaacsufyan.catchu.framework.datastore.network.abstraction
 
+import com.isaacsufyan.catchu.domain.model.PatientPrefillResponse
 import com.isaacsufyan.catchu.domain.model.RawMeasurementModel
 import com.isaacsufyan.catchu.domain.model.ResponseModel
 import okhttp3.RequestBody
@@ -63,6 +64,12 @@ interface ApiService {
     suspend fun createRawMeasurement(
         rawMeasurementModel: RawMeasurementModel
     ): ResponseModel
+
+    suspend fun getPatientPrefill(
+        firstName: String,
+        lastName: String,
+        dob: String
+    ): PatientPrefillResponse
 
     suspend fun verifyGroupTestAlgo(
         url: String,
