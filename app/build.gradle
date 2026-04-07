@@ -56,8 +56,8 @@ android {
             buildConfigField "String", "Environment", '"Staging"'
         }
         prod {
-            versionCode 17
-            versionName "2.2"
+            versionCode 20
+            versionName "2.6"
             buildConfigField "String", "BASE_URL", '"https://my.catchu.net/"'
             buildConfigField "String", "Environment", '"Production"'
         }

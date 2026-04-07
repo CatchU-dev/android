@@ -1,5 +1,6 @@
 package com.isaacsufyan.catchu.framework.datastore.network.api
 
+import com.isaacsufyan.catchu.domain.model.PatientPrefillResponse
 import com.isaacsufyan.catchu.domain.model.RawMeasurementModel
 import com.isaacsufyan.catchu.domain.model.ResponseModel
 import okhttp3.RequestBody
@@ -56,6 +57,13 @@ interface RestApis {
     suspend fun terminateGroupTest(
         @Path("Id") groupTestId: Int
     ): ResponseModel
+
+    @GET("api/community/patient_prefill/")
+    suspend fun getPatientPrefill(
+        @Query("first_name") firstName: String,
+        @Query("last_name") lastName: String,
+        @Query("dob") dob: String
+    ): Response<PatientPrefillResponse>
 
     @FormUrlEncoded
     @POST("api/community/validate_patient/")

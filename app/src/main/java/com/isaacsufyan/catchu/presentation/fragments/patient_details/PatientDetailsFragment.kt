@@ -81,6 +81,13 @@ class PatientDetailsFragment : BaseFragment() {
                 } else {
                     val newDob = parseDateFormat(dob, "MM-dd-yyyy", "yyyy-MM-dd")
                     callValidatePersonApi(firstName, lastName, newDob)
+                    viewModel.setStateEvent(
+                        StateEvent.GetPatientPrefill(
+                            firstName = firstName,
+                            lastName = lastName,
+                            dob = newDob
+                        )
+                    )
                 }
             }
         }

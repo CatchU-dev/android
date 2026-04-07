@@ -6,6 +6,7 @@ import com.isaacsufyan.catchu.R
 import com.isaacsufyan.catchu.adapter.MaterialArrayAdapter
 import com.isaacsufyan.catchu.domain.enum.EAnswer
 import com.isaacsufyan.catchu.domain.enum.EGender
+import com.isaacsufyan.catchu.domain.model.RawMeasurements
 import com.isaacsufyan.catchu.utils.hideSoftKeyboard
 
 class DemoGraphicAndMedicalHistorySeg0(
@@ -123,6 +124,46 @@ class DemoGraphicAndMedicalHistorySeg0(
                 fragment.rawMeasurements.selectedRace = position + 1
                 materialAdapter.updateColor(selectedText)
             }
+    }
+
+    fun applyPrefill(data: RawMeasurements) {
+        // Gender: "1"=Male, "2"=Female, "3"=Other
+        data.selectedGender?.let { gender ->
+            when (gender) {
+                EGender.MALE.value -> selectGender(EGender.MALE)
+                EGender.FEMALE.value -> selectGender(EGender.FEMALE)
+                EGender.OTHER.value -> selectGender(EGender.OTHER)
+            }
+        }
+
+        // Race: API returns 1-7 mapping to the list index (position + 1)
+        data.selectedRace?.let { race ->
+            val raceList = listOf(
+                "American Indian/Alaska Native",
+                "Asian",
+                "Native Hawaiian or Other Pacific Island",
+                "Black/African American",
+                "White",
+                "More than one race",
+                "Unknown/Prefer not to say"
+            )
+            if (race in 1..raceList.size) {
+                val raceText = raceList[race - 1]
+                binding.edtRadicalCategory.setText(raceText, false)
+                fragment.rawMeasurements.selectedRace = race
+            }
+        }
+
+        // Hispanic/Latino: 0=No, 1=Yes
+        data.isHispanicOrLatin?.let { hispanic ->
+            setHispanicOrLatina(if (hispanic == EAnswer.YES.value) EAnswer.YES else EAnswer.NO)
+        }
+
+        // Education year
+        data.educationYear?.let { year ->
+            binding.edtYearOfEducation.setText(year)
+            fragment.rawMeasurements.educationYear = year
+        }
     }
 
     private fun setHispanicOrLatina(eAnswer: EAnswer) {
