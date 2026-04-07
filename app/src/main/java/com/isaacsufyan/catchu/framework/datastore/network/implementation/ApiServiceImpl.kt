@@ -2,6 +2,7 @@ package com.isaacsufyan.catchu.framework.datastore.network.implementation
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.isaacsufyan.catchu.domain.model.PatientPrefillResponse
 import com.isaacsufyan.catchu.domain.model.RawMeasurementModel
 import com.isaacsufyan.catchu.domain.model.ResponseModel
 import com.isaacsufyan.catchu.framework.datastore.network.abstraction.ApiService
@@ -158,6 +159,20 @@ class ApiServiceImpl @Inject constructor(private val restApis: RestApis) : ApiSe
             response.body()!!
         } else {
             val type = object : TypeToken<ResponseModel>() {}.type
+            Gson().fromJson(response.errorBody()!!.charStream(), type)
+        }
+    }
+
+    override suspend fun getPatientPrefill(
+        firstName: String,
+        lastName: String,
+        dob: String
+    ): PatientPrefillResponse {
+        val response = restApis.getPatientPrefill(firstName, lastName, dob)
+        return if (response.isSuccessful) {
+            response.body()!!
+        } else {
+            val type = object : TypeToken<PatientPrefillResponse>() {}.type
             Gson().fromJson(response.errorBody()!!.charStream(), type)
         }
     }

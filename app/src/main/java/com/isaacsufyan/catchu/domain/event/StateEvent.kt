@@ -58,4 +58,10 @@ sealed class StateEvent {
 
     class verifyPatientOtp (var testId: RequestBody, var otp: RequestBody): StateEvent()
 
+    class GetPatientPrefill(
+        val firstName: String,
+        val lastName: String,
+        val dob: String
+    ) : StateEvent()
+
 }

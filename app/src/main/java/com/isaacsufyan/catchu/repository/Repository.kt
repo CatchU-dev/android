@@ -2,6 +2,7 @@ package com.isaacsufyan.catchu.repository
 
 import android.util.Log
 import com.google.gson.Gson
+import com.isaacsufyan.catchu.domain.model.PatientPrefillResponse
 import com.isaacsufyan.catchu.domain.model.RawMeasurementModel
 import com.isaacsufyan.catchu.domain.model.ResponseModel
 import com.isaacsufyan.catchu.domain.state.DataState
@@ -339,6 +340,29 @@ class Repository(
         emit(DataState.Loading)
         try {
             val response = apiService.createRawMeasurement(rawMeasurementModel)
+            if (response.status) {
+                emit(DataState.Success(response))
+            } else {
+                emit(
+                    DataState.Failure(
+                        response.code ?: -1,
+                        response.message ?: "No Message from Server"
+                    )
+                )
+            }
+        } catch (e: Exception) {
+            emit(DataState.Error(e))
+        }
+    }
+
+    fun getPatientPrefill(
+        firstName: String,
+        lastName: String,
+        dob: String
+    ) = flow<DataState<PatientPrefillResponse>> {
+        emit(DataState.Loading)
+        try {
+            val response = apiService.getPatientPrefill(firstName, lastName, dob)
             if (response.status) {
                 emit(DataState.Success(response))
             } else {

@@ -4,6 +4,7 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import com.isaacsufyan.catchu.R
 import com.isaacsufyan.catchu.domain.enum.EAnswer
+import com.isaacsufyan.catchu.domain.model.RawMeasurements
 import com.isaacsufyan.catchu.utils.hideSoftKeyboard
 
 class DemoGraphicAndMedicalHistorySeg3(
@@ -103,6 +104,34 @@ class DemoGraphicAndMedicalHistorySeg3(
             }
         }
     }
+
+    fun applyPrefill(data: RawMeasurements) {
+        data.hasFearOfFalling?.let { setFearOfFalling(eAnswerFrom(it)) }
+        data.canWalkWithoutBreak?.let { setWalkWithoutBreakingBreak(eAnswerFrom(it)) }
+
+        // Difficulty walking + cane/walker sub-questions
+        data.hasDifficultyWalking?.let { walkValue ->
+            setWalkingProblem(eAnswerFrom(walkValue))
+            if (walkValue == EAnswer.YES.value) {
+                data.hasDifficultyWalkingUseCane?.let { setWalkingProblemUseCane(eAnswerFrom(it)) }
+                data.hasDifficultyWalkingUseWalker?.let { setWalkingProblemUseWalker(eAnswerFrom(it)) }
+            }
+        }
+
+        data.hasDifficultyGettingUp?.let { setLowChairDifficulty(eAnswerFrom(it)) }
+        data.hasToHoldOntoWalls?.let { setHoldWallWhileWalk(eAnswerFrom(it)) }
+        data.hasDifficultyWithBalance?.let { setDifficultyWithBalance(eAnswerFrom(it)) }
+
+        // Number of regularly scheduled medicines
+        data.regularlyScheduledMedicines?.let { count ->
+            binding.edtRegularlyMedicine.setText(count.toString())
+            fragment.rawMeasurements.regularlyScheduledMedicines = count
+        }
+    }
+
+    // Helper: converts an Int value (0 or 1) to EAnswer
+    private fun eAnswerFrom(value: Int): EAnswer =
+        if (value == EAnswer.YES.value) EAnswer.YES else EAnswer.NO
 
     private fun setFearOfFalling(eAnswer: EAnswer) {
         fragment.rawMeasurements.hasFearOfFalling = eAnswer.value
