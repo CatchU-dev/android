@@ -374,6 +374,7 @@ class DemoGraphicAndMedicalHistorySeg2 constructor(
         val view = binding.includeHearingProblems.root
         when (eAnswer) {
             EAnswer.NO -> {
+                fragment.rawMeasurements.hasHearingAid = EAnswer.NO.value
                 binding.tvHearingProblemNo.background =
                     fragment.getBackground(R.drawable.view_bg_round_filled_navy)
                 binding.tvHearingProblemYes.background =

@@ -81,13 +81,6 @@ class PatientDetailsFragment : BaseFragment() {
                 } else {
                     val newDob = parseDateFormat(dob, "MM-dd-yyyy", "yyyy-MM-dd")
                     callValidatePersonApi(firstName, lastName, newDob)
-                    viewModel.setStateEvent(
-                        StateEvent.GetPatientPrefill(
-                            firstName = firstName,
-                            lastName = lastName,
-                            dob = newDob
-                        )
-                    )
                 }
             }
         }
@@ -178,6 +171,18 @@ class PatientDetailsFragment : BaseFragment() {
             val patientId = data.data?.patientDetails?.patientId
             patientId?.let { id ->
                 viewModel.patientId = id
+                val dobApi = parseDateFormat(
+                    binding.edtDOB.text.toString(),
+                    "MM-dd-yyyy",
+                    "yyyy-MM-dd"
+                )
+                viewModel.setStateEvent(
+                    StateEvent.GetPatientPrefill(
+                        firstName = binding.edtFirstName.textToString(),
+                        lastName = binding.edtLastName.textToString(),
+                        dob = dobApi
+                    )
+                )
                 createPatientTestWithinGroup(id)
             } ?: run {
                 showOkDialog("Invalidate Patient")
