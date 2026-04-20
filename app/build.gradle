@@ -56,8 +56,8 @@ android {
             buildConfigField "String", "Environment", '"Staging"'
         }
         prod {
-            versionCode 20
-            versionName "2.6"
+            versionCode 19
+            versionName "2.9"
             buildConfigField "String", "BASE_URL", '"https://my.catchu.net/"'
             buildConfigField "String", "Environment", '"Production"'
         }
@@ -101,7 +101,6 @@ android {
             enableSplit = false
         }
     }
-    buildToolsVersion '35.0.0'
     namespace 'com.isaacsufyan.catchu'
 }
 

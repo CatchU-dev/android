@@ -378,81 +378,87 @@ class TestFragment : BaseFragment() {
         removeDisplayTimeStamp = Date().time.toDouble()
     }
 
-    private fun uploadResultsToServer() {
-//        mainActivity.testInProgress.value = false
-//        mainActivity.isInternetConnected.observe(viewLifecycleOwner, androidx.lifecycle.Observer { t ->
-//            if (t && !isOnTestCompleteScreen) {
-                sortAnswerArrays()
-                var answerNone: Double
-                var answerVis: Double
-                var answerVisSoma: Double
-                var answerSoma: Double
-                val params = HashMap<String, Int>()
+    /** Reaction times in ms; avoids NaN/Inf and overflow when sending as Int. */
+    private fun reactionMsToPayloadInt(ms: Double): Int {
+        if (ms.isNaN() || ms.isInfinite()) return 0
+        return ms.coerceIn(Int.MIN_VALUE.toDouble(), Int.MAX_VALUE.toDouble()).toInt()
+    }
 
-        for (i in 0 until 45) {
-            if (answersNone.indexExists(i)) {
-                answerNone = answersNone[i]
-                params["C$i"] = answerNone.toInt()
-            }
-            if (answersVis.indexExists(i)) {
-                answerVis = answersVis[i]
-                params["V$i"] = answerVis.toInt()
-            }
-            if (answersVisAndSoma.indexExists(i)) {
-                answerVisSoma = answersVisAndSoma[i]
-                params["VS$i"] = answerVisSoma.toInt()
-            }
-            if (answersSoma.indexExists(i)) {
-                answerSoma = answersSoma[i]
-                params["S$i"] = answerSoma.toInt()
+    private fun uploadResultsToServer() {
+        val testId = viewModel.testId
+        if (testId == null) {
+            showOkDialog(resources.getString(R.string.something_get_wrong_contact_support_engineer))
+            return
+        }
+
+        val unsortedParams = HashMap<String, Int>()
+        for (i in answersVis.indices) unsortedParams["V$i"] = reactionMsToPayloadInt(answersVis[i])
+        for (i in answersSoma.indices) unsortedParams["S$i"] = reactionMsToPayloadInt(answersSoma[i])
+        for (i in answersVisAndSoma.indices) {
+            unsortedParams["VS$i"] = reactionMsToPayloadInt(answersVisAndSoma[i])
+        }
+        for (i in answersNone.indices) unsortedParams["C$i"] = reactionMsToPayloadInt(answersNone[i])
+
+        if (practiceRetried) {
+            unsortedParams.clear()
+            for (i in 0 until 45) {
+                unsortedParams["C$i"] = 0
+                unsortedParams["V$i"] = 0
+                unsortedParams["VS$i"] = 0
+                unsortedParams["S$i"] = 0
             }
         }
 
-                if (practiceRetried) {
-                    for (i in 0 until 45) {
-                        params["C$i"] = 0
-                        params["V$i"] = 0
-                        params["VS$i"] = 0
-                        params["S$i"] = 0
-                    }
-                } else {
-                    for (i in 0 until 45) {
-                        if (answersNone.indexExists(i)) {
-                            answerNone = answersNone[i]
-                            params["C$i"] = (answerNone).toInt()
-                        }
-                        if (answersVis.indexExists(i)) {
-                            answerVis = answersVis[i]
-                            params["V$i"] = (answerVis).toInt()
-                        }
-                        if (answersVisAndSoma.indexExists(i)) {
-                            answerVisSoma = answersVisAndSoma[i]
-                            params["VS$i"] = (answerVisSoma).toInt()
-                        }
-                        if (answersSoma.indexExists(i)) {
-                            answerSoma = answersSoma[i]
-                            params["S$i"] = (answerSoma).toInt()
-                        }
-                    }
+        sortAnswerArrays()
+        var answerNone: Double
+        var answerVis: Double
+        var answerVisSoma: Double
+        var answerSoma: Double
+        val params = HashMap<String, Int>()
+
+        if (practiceRetried) {
+            for (i in 0 until 45) {
+                params["C$i"] = 0
+                params["V$i"] = 0
+                params["VS$i"] = 0
+                params["S$i"] = 0
+            }
+        } else {
+            for (i in 0 until 45) {
+                if (answersNone.indexExists(i)) {
+                    answerNone = answersNone[i]
+                    params["C$i"] = reactionMsToPayloadInt(answerNone)
                 }
-                if (practiceRetried) {
-                    rawMeasurements.practiseTestStatus = "fail"
-                } else {
-                    rawMeasurements.practiseTestStatus = "pass"
+                if (answersVis.indexExists(i)) {
+                    answerVis = answersVis[i]
+                    params["V$i"] = reactionMsToPayloadInt(answerVis)
                 }
+                if (answersVisAndSoma.indexExists(i)) {
+                    answerVisSoma = answersVisAndSoma[i]
+                    params["VS$i"] = reactionMsToPayloadInt(answerVisSoma)
+                }
+                if (answersSoma.indexExists(i)) {
+                    answerSoma = answersSoma[i]
+                    params["S$i"] = reactionMsToPayloadInt(answerSoma)
+                }
+            }
+        }
+        if (practiceRetried) {
+            rawMeasurements.practiseTestStatus = "fail"
+        } else {
+            rawMeasurements.practiseTestStatus = "pass"
+        }
 
-                rawMeasurements.testValues = params
-                rawMeasurements.visualImpairments = rawMeasurements.hasVisionProblem
+        rawMeasurements.testValues = params
+        rawMeasurements.visualImpairments = rawMeasurements.hasVisionProblem
 
-                val rawMeasurementModel = RawMeasurementModel()
-                rawMeasurementModel.test = viewModel.testId
-                rawMeasurementModel.rawMeasurements = rawMeasurements
-                stateEvent = StateEvent.CreateRawMeasurement(rawMeasurementModel)
-                viewModel.resetResponseModel()
-                viewModel.setStateEvent(stateEvent as StateEvent.CreateRawMeasurement)
-
-//            }
-//        })
+        val rawMeasurementModel = RawMeasurementModel()
+        rawMeasurementModel.test = testId
+        rawMeasurementModel.rawMeasurements = rawMeasurements
+        rawMeasurementModel.unsortedRawMeasurements = unsortedParams
+        stateEvent = StateEvent.CreateRawMeasurement(rawMeasurementModel)
+        viewModel.resetResponseModel()
+        viewModel.setStateEvent(stateEvent as StateEvent.CreateRawMeasurement)
     }
 
     private fun sortAnswerArrays() {

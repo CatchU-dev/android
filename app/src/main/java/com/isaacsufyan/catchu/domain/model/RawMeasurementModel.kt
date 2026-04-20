@@ -13,5 +13,9 @@ data class RawMeasurementModel(
 
     @SerializedName("raw_measurements")
     @Expose
-    var rawMeasurements: RawMeasurements? = null
+    var rawMeasurements: RawMeasurements? = null,
+
+    @SerializedName("unsorted_raw_measurements")
+    @Expose
+    var unsortedRawMeasurements: HashMap<String, Int>? = null
 )

@@ -169,11 +169,28 @@ class ApiServiceImpl @Inject constructor(private val restApis: RestApis) : ApiSe
         dob: String
     ): PatientPrefillResponse {
         val response = restApis.getPatientPrefill(firstName, lastName, dob)
+        val type = object : TypeToken<PatientPrefillResponse>() {}.type
         return if (response.isSuccessful) {
-            response.body()!!
+            response.body() ?: PatientPrefillResponse(
+                status = false,
+                code = response.code(),
+                message = "Empty response body",
+                data = null
+            )
         } else {
-            val type = object : TypeToken<PatientPrefillResponse>() {}.type
-            Gson().fromJson(response.errorBody()!!.charStream(), type)
+            val err = response.errorBody()?.charStream()?.use { stream ->
+                try {
+                    Gson().fromJson(stream, type) as? PatientPrefillResponse
+                } catch (_: Exception) {
+                    null
+                }
+            }
+            err ?: PatientPrefillResponse(
+                status = false,
+                code = response.code(),
+                message = response.message(),
+                data = null
+            )
         }
     }
 
