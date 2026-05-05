@@ -49,14 +49,6 @@ class RawMeasurements {
     @Expose
     var selectedGender: String? = null
 
-    @SerializedName("studySite")
-    @Expose
-    var studySite: String? = null
-
-    @SerializedName("studyId")
-    @Expose
-    var studyId: String? = null
-
     @SerializedName("labWave")
     @Expose
     var labWave: String? = null
@@ -260,6 +252,14 @@ class RawMeasurements {
     @SerializedName("regularlyScheduledMedicines")
     @Expose
     var regularlyScheduledMedicines: Int? = null
+
+    @SerializedName("StudySite")
+    @Expose
+    var studySite: String = ""
+
+    @SerializedName("StudyID")
+    @Expose
+    var studyId: String = ""
 
     @SerializedName("ResPurp")
     @Expose
