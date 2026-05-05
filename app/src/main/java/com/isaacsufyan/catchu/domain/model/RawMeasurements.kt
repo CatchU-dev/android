@@ -49,6 +49,34 @@ class RawMeasurements {
     @Expose
     var selectedGender: String? = null
 
+    @SerializedName("studySite")
+    @Expose
+    var studySite: String? = null
+
+    @SerializedName("studyId")
+    @Expose
+    var studyId: String? = null
+
+    @SerializedName("labWave")
+    @Expose
+    var labWave: String? = null
+
+    @SerializedName("labFirstName")
+    @Expose
+    var labFirstName: String? = null
+
+    @SerializedName("labLastName")
+    @Expose
+    var labLastName: String? = null
+
+    @SerializedName("labDateOfBirth")
+    @Expose
+    var labDateOfBirth: String? = null
+
+    @SerializedName("isLabTest")
+    @Expose
+    var isLabTest: Boolean? = null
+
     @SerializedName("hasHypertension")
     @Expose
     var hasHypertension: Int? = null

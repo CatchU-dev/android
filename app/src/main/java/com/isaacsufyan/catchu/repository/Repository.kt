@@ -2,6 +2,7 @@ package com.isaacsufyan.catchu.repository
 
 import android.util.Log
 import com.google.gson.Gson
+import com.isaacsufyan.catchu.domain.model.LabSessionRequest
 import com.isaacsufyan.catchu.domain.model.PatientPrefillResponse
 import com.isaacsufyan.catchu.domain.model.RawMeasurementModel
 import com.isaacsufyan.catchu.domain.model.ResponseModel
@@ -459,6 +460,34 @@ class Repository(
                         response.message ?: "No Message from Server"
                     )
                 )
+            }
+        } catch (e: Exception) {
+            emit(DataState.Error(e))
+        }
+    }
+
+    fun createLabSession(request: LabSessionRequest) = flow {
+        emit(DataState.Loading)
+        try {
+            val response = apiService.createLabSession(request)
+            if (response.status) {
+                emit(DataState.Success(response))
+            } else {
+                emit(DataState.Failure(response.code ?: -1, response.message ?: "No Message from Server"))
+            }
+        } catch (e: Exception) {
+            emit(DataState.Error(e))
+        }
+    }
+
+    fun labTestReport(testId: Int) = flow {
+        emit(DataState.Loading)
+        try {
+            val response = apiService.labTestReport(testId)
+            if (response.status) {
+                emit(DataState.Success(response))
+            } else {
+                emit(DataState.Failure(response.code ?: -1, response.message ?: "No Message from Server"))
             }
         } catch (e: Exception) {
             emit(DataState.Error(e))

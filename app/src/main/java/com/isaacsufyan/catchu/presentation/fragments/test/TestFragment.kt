@@ -121,17 +121,17 @@ class TestFragment : BaseFragment() {
     }
 
     private fun showAllPhotodiodes() {
-        binding.vPhotodiode1.visibility = View.VISIBLE
-        binding.vPhotodiode2.visibility = View.VISIBLE
-        binding.vPhotodiode3.visibility = View.VISIBLE
-        binding.vPhotodiode4.visibility = View.VISIBLE
+        binding.photodiodeRow.vPhotodiode1.visibility = View.VISIBLE
+        binding.photodiodeRow.vPhotodiode2.visibility = View.VISIBLE
+        binding.photodiodeRow.vPhotodiode3.visibility = View.VISIBLE
+        binding.photodiodeRow.vPhotodiode4.visibility = View.VISIBLE
     }
 
     private fun hideAllPhotodiodes() {
-        binding.vPhotodiode1.visibility = View.INVISIBLE
-        binding.vPhotodiode2.visibility = View.INVISIBLE
-        binding.vPhotodiode3.visibility = View.INVISIBLE
-        binding.vPhotodiode4.visibility = View.INVISIBLE
+        binding.photodiodeRow.vPhotodiode1.visibility = View.INVISIBLE
+        binding.photodiodeRow.vPhotodiode2.visibility = View.INVISIBLE
+        binding.photodiodeRow.vPhotodiode3.visibility = View.INVISIBLE
+        binding.photodiodeRow.vPhotodiode4.visibility = View.INVISIBLE
     }
 
     private fun recordResponse() {
@@ -309,7 +309,7 @@ class TestFragment : BaseFragment() {
 
     private fun showNoneStimulus(func: () -> Unit) {
         setDisplayTimeStamp()
-        flashPhotodiode(binding.vPhotodiode4)
+        flashPhotodiode(binding.photodiodeRow.vPhotodiode4)
         func()
     }
 
@@ -318,7 +318,7 @@ class TestFragment : BaseFragment() {
         binding.ivVisStimulusRight.visibility = View.VISIBLE
         setDisplayTimeStamp()
         generator.vibrate(100)
-        flashPhotodiode(binding.vPhotodiode3)
+        flashPhotodiode(binding.photodiodeRow.vPhotodiode3)
 
         Handler(Looper.getMainLooper()).postDelayed({
             binding.ivVisStimulusLeft.visibility = View.INVISIBLE
@@ -331,7 +331,7 @@ class TestFragment : BaseFragment() {
     private fun showSomaStim(func: () -> Unit) {
         generator.vibrate(100)
         setDisplayTimeStamp()
-        flashPhotodiode(binding.vPhotodiode2)
+        flashPhotodiode(binding.photodiodeRow.vPhotodiode2)
         func()
     }
 
@@ -339,7 +339,7 @@ class TestFragment : BaseFragment() {
         binding.ivVisStimulusLeft.visibility = View.VISIBLE
         binding.ivVisStimulusRight.visibility = View.VISIBLE
         setDisplayTimeStamp()
-        flashPhotodiode(binding.vPhotodiode1)
+        flashPhotodiode(binding.photodiodeRow.vPhotodiode1)
 
         Handler(Looper.getMainLooper()).postDelayed({
             binding.ivVisStimulusLeft.visibility = View.INVISIBLE
@@ -451,6 +451,9 @@ class TestFragment : BaseFragment() {
 
         rawMeasurements.testValues = params
         rawMeasurements.visualImpairments = rawMeasurements.hasVisionProblem
+        if (BuildConfig.IS_LAB_BUILD) {
+            rawMeasurements.isLabTest = true
+        }
 
         val rawMeasurementModel = RawMeasurementModel()
         rawMeasurementModel.test = testId
@@ -518,13 +521,22 @@ class TestFragment : BaseFragment() {
                     mainActivity.showProgress(false)
                     if (stateEvent is StateEvent.CreateRawMeasurement) {
                         if (it.data.status) {
-                            val result = if (practiceRetried) {
-                                verifySuccessfulPracticeTrails()
+                            if (BuildConfig.IS_LAB_BUILD) {
+                                submitLabTestReport()
                             } else {
-                                !verifySuccessfulTest()
+                                val result = if (practiceRetried) {
+                                    verifySuccessfulPracticeTrails()
+                                } else {
+                                    !verifySuccessfulTest()
+                                }
+                                verifyGroupTestAlgo(result)
                             }
-                            verifyGroupTestAlgo(result)
                         } else {
+                            showCompleteTestScreen()
+                        }
+                    }
+                    else if (stateEvent is StateEvent.LabTestReport) {
+                        if (it.data.status) {
                             showCompleteTestScreen()
                         }
                     }
@@ -638,8 +650,15 @@ class TestFragment : BaseFragment() {
         return (answerVisPercentage >= accuracyThreshold && answersSomaPercentage >= accuracyThreshold && answersVisAndSomaPercentage >= accuracyThreshold)
     }
 
+    private fun submitLabTestReport() {
+        val testId = viewModel.testId ?: return
+        stateEvent = StateEvent.LabTestReport(testId)
+        viewModel.resetResponseModel()
+        viewModel.setStateEvent(stateEvent as StateEvent.LabTestReport)
+    }
+
     private fun verifyGroupTestAlgo(invalidReport: Boolean) {
-        val url = "https://5ioxsjwd31.execute-api.us-east-1.amazonaws.com/algorithm/algorithm"
+        val url = BuildConfig.ALGORITHM_API_URL
         val args = HashMap<String, Any>()
         viewModel.testId?.let {
             args["testId"] = it
@@ -683,12 +702,16 @@ class TestFragment : BaseFragment() {
 
     private fun returnToCommunity(dialog: AlertDialog) {
         mediaPlayer.stop()
-        if(viewModel.isSingleTest) {
+        dialog.dismiss()
+        mainActivity.testInProgress.value = false
+        if (BuildConfig.IS_LAB_BUILD) {
+            findNavController().navigate(R.id.action_test_to_lab_finalization)
+            return
+        }
+        if (viewModel.isSingleTest) {
             mainActivity.finish()
         } else {
-            dialog.dismiss()
             val action = TestFragmentDirections.actionTestCompleteToCommunityId()
-            mainActivity.testInProgress.value = false
             findNavController().navigate(action)
         }
     }
@@ -700,12 +723,16 @@ class TestFragment : BaseFragment() {
     }
 
     private fun handleCompleteTest() {
+        mainActivity.testInProgress.value = false
+        if (BuildConfig.IS_LAB_BUILD) {
+            findNavController().navigate(R.id.action_test_to_lab_finalization)
+            return
+        }
         val action = if (batchCompleted) {
             TestFragmentDirections.actionTestCompleteToCommunityId()
         } else {
             TestFragmentDirections.actionTestCompleteToPatientProfile()
         }
-        mainActivity.testInProgress.value = false
         findNavController().navigate(action)
     }
 

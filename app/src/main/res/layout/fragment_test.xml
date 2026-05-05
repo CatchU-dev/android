@@ -13,58 +13,14 @@
         app:layout_constraintBottom_toTopOf="@+id/tvStartText"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- PD1 – Visual – chain head, spread style = equal gaps on left/between/right -->
-        <View
-            android:id="@+id/vPhotodiode1"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:layout_marginTop="20dp"
-            android:background="#FFFFFF"
-            android:visibility="invisible"
-            app:layout_constraintEnd_toStartOf="@+id/vPhotodiode2"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible" />
-
-        <!-- PD2 – Somatosensory -->
-        <View
-            android:id="@+id/vPhotodiode2"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:layout_marginTop="20dp"
-            android:background="#FFFFFF"
-            android:visibility="invisible"
-            app:layout_constraintEnd_toStartOf="@+id/vPhotodiode3"
-            app:layout_constraintStart_toEndOf="@+id/vPhotodiode1"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible" />
-
-        <!-- PD3 – VS (Visual + Somatosensory) -->
-        <View
-            android:id="@+id/vPhotodiode3"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:layout_marginTop="20dp"
-            android:background="#FFFFFF"
-            android:visibility="invisible"
-            app:layout_constraintEnd_toStartOf="@+id/vPhotodiode4"
-            app:layout_constraintStart_toEndOf="@+id/vPhotodiode2"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible" />
-
-        <!-- PD4 – Catch (no stimulus) – chain tail -->
-        <View
-            android:id="@+id/vPhotodiode4"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:layout_marginTop="20dp"
-            android:background="#FFFFFF"
-            android:visibility="invisible"
+        <include
+            android:id="@+id/photodiodeRow"
+            layout="@layout/include_photodiode_row"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/vPhotodiode3"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivVisStimulusLeft"

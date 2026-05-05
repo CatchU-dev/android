@@ -136,4 +136,27 @@
     <string name="no_internet_title">No Internet Connection</string>
     <string name="no_internet_msg">Oops! It looks like you\'re not connected to the internet. Please connect to the internet to proceed further.</string>
 
+    <string name="lab_next">Next</string>
+    <string name="lab_repeat">Repeat</string>
+    <string name="lab_continue">Continue</string>
+    <string name="lab_details_title">Study Details</string>
+    <string name="lab_study_site">Study Site</string>
+    <string name="lab_study_id">Study ID</string>
+    <string name="lab_wave">Wave</string>
+    <string name="lab_first_name">First Name</string>
+    <string name="lab_last_name">Last Name</string>
+    <string name="lab_date_of_birth">Date of Birth (YYYY-MM-DD)</string>
+    <string name="lab_gender">Gender</string>
+    <string name="lab_finalization_title">Test Complete</string>
+    <string name="lab_finalization_subtitle">Data submitted successfully. Participant summary:</string>
+    <string name="lab_new_participant">New Participant</string>
+    <string name="lab_finish">Finish</string>
+
+    <string-array name="lab_gender_options">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Non-binary</item>
+        <item>Prefer not to say</item>
+    </string-array>
+
 </resources>

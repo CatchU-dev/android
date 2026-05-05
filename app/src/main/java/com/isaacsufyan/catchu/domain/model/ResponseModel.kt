@@ -83,6 +83,11 @@ data class Data(
     @Expose
     var id: Int? = null,
 
+    //  Create Lab Test API
+    @SerializedName("test_id")
+    @Expose
+    var testId: Int? = null,
+
     //  TermsAndCondition API
 
     @SerializedName("accepted")

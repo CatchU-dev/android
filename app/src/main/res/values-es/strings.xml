@@ -137,4 +137,24 @@
     <string name="no_internet_title">Sin conexión a Internet</string>
     <string name="no_internet_msg">¡Ups! Parece que no estás conectado a Internet. Conéctese a Internet para continuar.</string>
 
+    <string name="lab_next">Siguiente</string>
+    <string name="lab_repeat">Repetir</string>
+    <string name="lab_continue">Continuar</string>
+    <string name="lab_details_title">Detalles del estudio</string>
+    <string name="lab_study_site">Sitio del estudio</string>
+    <string name="lab_study_id">ID del estudio</string>
+    <string name="lab_wave">Ola</string>
+    <string name="lab_gender">Género</string>
+    <string name="lab_finalization_title">Prueba completada</string>
+    <string name="lab_finalization_subtitle">Datos enviados correctamente. Resumen del participante:</string>
+    <string name="lab_new_participant">Nuevo participante</string>
+    <string name="lab_finish">Finalizar</string>
+
+    <string-array name="lab_gender_options">
+        <item>Masculino</item>
+        <item>Femenino</item>
+        <item>No binario</item>
+        <item>Prefiero no decirlo</item>
+    </string-array>
+
 </resources>

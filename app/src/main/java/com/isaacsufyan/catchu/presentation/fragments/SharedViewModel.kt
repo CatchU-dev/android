@@ -2,6 +2,7 @@ package com.isaacsufyan.catchu.presentation.fragments
 
 import androidx.lifecycle.*
 import com.isaacsufyan.catchu.domain.event.StateEvent
+import com.isaacsufyan.catchu.domain.model.LabSessionRequest
 import com.isaacsufyan.catchu.domain.model.PatientPrefillResponse
 import com.isaacsufyan.catchu.domain.model.RawMeasurements
 import com.isaacsufyan.catchu.domain.model.ResponseModel
@@ -235,6 +236,30 @@ class SharedViewModel @Inject constructor(
                         }
                         _prefillResponseModel.value = state
                     }
+                    .catch { DataState.Error(it as Exception) }
+                    .launchIn(viewModelScope)
+            }
+
+            is StateEvent.CreateLabSession -> {
+                repository.createLabSession(
+                    LabSessionRequest(
+                        studySite   = stateEvent.studySite,
+                        studyId     = stateEvent.studyId,
+                        wave        = stateEvent.wave,
+                        firstName   = stateEvent.firstName,
+                        lastName    = stateEvent.lastName,
+                        dateOfBirth = stateEvent.dateOfBirth,
+                        gender      = stateEvent.gender
+                    )
+                )
+                    .onEach { _responseModel.value = it }
+                    .catch { DataState.Error(it as Exception) }
+                    .launchIn(viewModelScope)
+            }
+
+            is StateEvent.LabTestReport -> {
+                repository.labTestReport(stateEvent.testId)
+                    .onEach { _responseModel.value = it }
                     .catch { DataState.Error(it as Exception) }
                     .launchIn(viewModelScope)
             }

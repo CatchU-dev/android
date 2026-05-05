@@ -354,9 +354,7 @@ class OtpVerificationFragment : BaseFragment(), TextWatcher {
         if (data.status) {
             viewModel.isSingleTest = true
             viewModel.patientId?.let { it1 ->
-                checkTermsAndConditionAgreeAPI(
-                    patientID = it1
-                )
+                checkTermsAndConditionAgreeAPI(patientID = it1)
             }
         }
     }

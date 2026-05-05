@@ -64,4 +64,16 @@ sealed class StateEvent {
         val dob: String
     ) : StateEvent()
 
+    class CreateLabSession(
+        val studySite:   String,
+        val studyId:     String,
+        val wave:        String,
+        val firstName:   String,
+        val lastName:    String,
+        val dateOfBirth: String,
+        val gender:      String
+    ) : StateEvent()
+
+    class LabTestReport(val testId: Int) : StateEvent()
+
 }

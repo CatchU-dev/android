@@ -1,5 +1,6 @@
 package com.isaacsufyan.catchu.framework.datastore.network.abstraction
 
+import com.isaacsufyan.catchu.domain.model.LabSessionRequest
 import com.isaacsufyan.catchu.domain.model.PatientPrefillResponse
 import com.isaacsufyan.catchu.domain.model.RawMeasurementModel
 import com.isaacsufyan.catchu.domain.model.ResponseModel
@@ -88,4 +89,8 @@ interface ApiService {
         testId: RequestBody,
         otp: RequestBody
     ): ResponseModel
+
+    suspend fun createLabSession(request: LabSessionRequest): ResponseModel
+
+    suspend fun labTestReport(testId: Int): ResponseModel
 }

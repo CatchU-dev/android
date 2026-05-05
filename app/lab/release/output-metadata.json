@@ -1,0 +1,37 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.isaacsufyan.catchu",
+  "variantName": "labRelease",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 20,
+      "versionName": "3.0-lab",
+      "outputFile": "CatchU_lab-release_V3.0-lab.20.apk"
+    }
+  ],
+  "elementType": "File",
+  "baselineProfiles": [
+    {
+      "minApi": 28,
+      "maxApi": 30,
+      "baselineProfiles": [
+        "baselineProfiles/1/CatchU_lab-release_V3.0-lab.20.dm"
+      ]
+    },
+    {
+      "minApi": 31,
+      "maxApi": 2147483647,
+      "baselineProfiles": [
+        "baselineProfiles/0/CatchU_lab-release_V3.0-lab.20.dm"
+      ]
+    }
+  ],
+  "minSdkVersionForDexing": 26
+}

@@ -24,6 +24,7 @@ android {
     }
 
     buildFeatures {
+        buildConfig true
         dataBinding true
         viewBinding true
     }
@@ -48,18 +49,33 @@ android {
             versionName "2.1"
             buildConfigField "String", "BASE_URL", '"https://qa.catchu.net/"'
             buildConfigField "String", "Environment", '"QA"'
+            buildConfigField "boolean", "IS_LAB_BUILD", "false"
+            buildConfigField "String", "ALGORITHM_API_URL", '"https://5ioxsjwd31.execute-api.us-east-1.amazonaws.com/algorithm/algorithm"'
         }
         stagging {
             versionCode 14
             versionName "2.1"
             buildConfigField "String", "BASE_URL", '"https://stage.catchu.net/"'
             buildConfigField "String", "Environment", '"Staging"'
+            buildConfigField "boolean", "IS_LAB_BUILD", "false"
+            buildConfigField "String", "ALGORITHM_API_URL", '"https://5ioxsjwd31.execute-api.us-east-1.amazonaws.com/algorithm/algorithm"'
         }
         prod {
             versionCode 19
             versionName "2.9"
             buildConfigField "String", "BASE_URL", '"https://my.catchu.net/"'
             buildConfigField "String", "Environment", '"Production"'
+            buildConfigField "boolean", "IS_LAB_BUILD", "false"
+            buildConfigField "String", "ALGORITHM_API_URL", '"https://5ioxsjwd31.execute-api.us-east-1.amazonaws.com/algorithm/algorithm"'
+        }
+        lab {
+            versionCode 20
+            versionName "3.0-lab"
+//            buildConfigField "String", "BASE_URL", '"https://qa.catchu.net/"'
+            buildConfigField "String", "BASE_URL", '"https://my.catchu.net/"'
+            buildConfigField "String", "Environment", '"Lab"'
+            buildConfigField "boolean", "IS_LAB_BUILD", "true"
+            buildConfigField "String", "ALGORITHM_API_URL", '"https://5ioxsjwd31.execute-api.us-east-1.amazonaws.com/algorithm/algorithm"'
         }
     }
 

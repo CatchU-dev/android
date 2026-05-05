@@ -2,6 +2,7 @@ package com.isaacsufyan.catchu.framework.datastore.network.implementation
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.isaacsufyan.catchu.domain.model.LabSessionRequest
 import com.isaacsufyan.catchu.domain.model.PatientPrefillResponse
 import com.isaacsufyan.catchu.domain.model.RawMeasurementModel
 import com.isaacsufyan.catchu.domain.model.ResponseModel
@@ -229,6 +230,26 @@ class ApiServiceImpl @Inject constructor(private val restApis: RestApis) : ApiSe
 
     override suspend fun verifyPatientOtp(testId: RequestBody, otp: RequestBody): ResponseModel {
         val response = restApis.verifyPatientOtp(testId, otp)
+        return if (response.isSuccessful) {
+            response.body()!!
+        } else {
+            val type = object : TypeToken<ResponseModel>() {}.type
+            Gson().fromJson(response.errorBody()!!.charStream(), type)
+        }
+    }
+
+    override suspend fun createLabSession(request: LabSessionRequest): ResponseModel {
+        val response = restApis.createLabSession(request)
+        return if (response.isSuccessful) {
+            response.body()!!
+        } else {
+            val type = object : TypeToken<ResponseModel>() {}.type
+            Gson().fromJson(response.errorBody()!!.charStream(), type)
+        }
+    }
+
+    override suspend fun labTestReport(testId: Int): ResponseModel {
+        val response = restApis.labTestReport(testId)
         return if (response.isSuccessful) {
             response.body()!!
         } else {

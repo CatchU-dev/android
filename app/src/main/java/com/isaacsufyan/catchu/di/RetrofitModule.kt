@@ -1,7 +1,5 @@
 package com.isaacsufyan.catchu.di
 
-import android.app.Application
-import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.isaacsufyan.catchu.BuildConfig
@@ -11,7 +9,6 @@ import com.isaacsufyan.catchu.framework.datastore.network.implementation.ApiServ
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -31,15 +28,10 @@ object RetrofitModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(
-        @ApplicationContext appContext: Context,): OkHttpClient {
-        val httpClient: OkHttpClient.Builder = OkHttpClient.Builder()
-//        return httpClient.build()
-
+    fun provideOkHttpClient(): OkHttpClient {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         val builder = OkHttpClient().newBuilder().apply {
-            // Add the base headers interceptor next
             if (BuildConfig.DEBUG) {
                 addInterceptor(interceptor)
             }

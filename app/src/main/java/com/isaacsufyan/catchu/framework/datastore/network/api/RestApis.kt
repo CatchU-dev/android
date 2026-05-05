@@ -1,5 +1,6 @@
 package com.isaacsufyan.catchu.framework.datastore.network.api
 
+import com.isaacsufyan.catchu.domain.model.LabSessionRequest
 import com.isaacsufyan.catchu.domain.model.PatientPrefillResponse
 import com.isaacsufyan.catchu.domain.model.RawMeasurementModel
 import com.isaacsufyan.catchu.domain.model.ResponseModel
@@ -132,6 +133,17 @@ interface RestApis {
     suspend fun verifyPatientOtp(
         @Part("test_id") test_id: RequestBody,
         @Part("otp") otp: RequestBody,
+    ): Response<ResponseModel>
+
+    @POST("api/community/create_lab_test/")
+    suspend fun createLabSession(
+        @Body request: LabSessionRequest
+    ): Response<ResponseModel>
+
+    @FormUrlEncoded
+    @POST("api/test/lab_test_report/")
+    suspend fun labTestReport(
+        @Field("test_id") testId: Int
     ): Response<ResponseModel>
 
 }

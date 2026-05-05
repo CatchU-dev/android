@@ -15,8 +15,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.fragment.NavHostFragment
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import com.google.gson.Gson
+import com.isaacsufyan.catchu.BuildConfig
 import com.isaacsufyan.catchu.R
 import com.isaacsufyan.catchu.base.BaseActivity
 import com.isaacsufyan.catchu.databinding.ActivityMainBinding
@@ -54,6 +56,7 @@ class MainActivity : BaseActivity() {
             }
         }
         setContentView(binding.root)
+        setupNavigationGraph()
         dialog = this.DialogNoInternet(
             message = resources.getString(R.string.no_internet_msg),
             R.drawable.terminate_icon,
@@ -86,6 +89,17 @@ class MainActivity : BaseActivity() {
                 }
             }
         }
+    }
+
+    private fun setupNavigationGraph() {
+        val navHost =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
+        val navController = navHost.navController
+        val graph = navController.navInflater.inflate(R.navigation.mobile_navigation)
+        graph.setStartDestination(
+            if (BuildConfig.IS_LAB_BUILD) R.id.sensorSetupFragment else R.id.launchFragment
+        )
+        navController.graph = graph
     }
 
     private fun getDynamicLink() {

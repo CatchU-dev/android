@@ -6,6 +6,46 @@
     app:startDestination="@+id/launchFragment">
 
     <fragment
+        android:id="@+id/sensorSetupFragment"
+        android:name="com.isaacsufyan.catchu.presentation.fragments.lab.sensor_setup.SensorSetupFragment"
+        tools:layout="@layout/fragment_sensor_setup">
+
+        <action
+            android:id="@+id/action_sensorSetup_to_photodiodeSync"
+            app:destination="@id/photodiodeSyncFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/photodiodeSyncFragment"
+        android:name="com.isaacsufyan.catchu.presentation.fragments.lab.photodiode_sync.PhotodiodeSyncFragment"
+        tools:layout="@layout/fragment_photodiode_sync">
+
+        <action
+            android:id="@+id/action_photodiodeSync_to_labDetails"
+            app:destination="@id/labLoginFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/labLoginFragment"
+        android:name="com.isaacsufyan.catchu.presentation.fragments.lab.login.LabLoginFragment"
+        tools:layout="@layout/fragment_lab_login" />
+
+    <fragment
+        android:id="@+id/labFinalizationFragment"
+        android:name="com.isaacsufyan.catchu.presentation.fragments.lab.finalization.LabFinalizationFragment"
+        tools:layout="@layout/fragment_lab_finalization" />
+
+    <fragment
         android:id="@+id/launchFragment"
         android:name="com.isaacsufyan.catchu.presentation.fragments.launch.LaunchFragment"
         tools:layout="@layout/fragment_launch">
@@ -241,6 +281,16 @@
         <action
             android:id="@+id/action_test_complete_to_community_id"
             app:destination="@id/communityIdentificationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@+id/testFragment"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_test_to_lab_finalization"
+            app:destination="@id/labFinalizationFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
