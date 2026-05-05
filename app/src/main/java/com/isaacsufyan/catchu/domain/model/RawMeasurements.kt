@@ -233,6 +233,14 @@ class RawMeasurements {
     @Expose
     var regularlyScheduledMedicines: Int? = null
 
+    @SerializedName("StudySite")
+    @Expose
+    var studySite: String = ""
+
+    @SerializedName("StudyID")
+    @Expose
+    var studyId: String = ""
+
     @SerializedName("ResPurp")
     @Expose
     var researchPurpose: String = "NO"
