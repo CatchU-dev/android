@@ -88,4 +88,6 @@ interface ApiService {
         testId: RequestBody,
         otp: RequestBody
     ): ResponseModel
+
+    suspend fun submitPostTestFeedback(testId: Int, feedback: String): ResponseModel
 }

@@ -119,6 +119,16 @@
     <string name="second_practice_test_message">Let’s try that again.  Remember, as soon as you feel, see, or feel and see a stimulus, please be sure to press the gray response button as quickly as possible.  When you are ready to try the practice test again, press the gray response area.</string>
     <string name="test_purpose_question">Is this test for research purposes?</string>
 
+    <string name="post_test_research_title">What would you like to do next?</string>
+    <string name="post_test_research_subtitle">Choose an option to continue.</string>
+    <string name="post_test_share_feedback">Share feedback / leave comments</string>
+    <string name="post_test_back_to_group">Go back to group test</string>
+    <string name="post_test_exit">Exit</string>
+    <string name="post_test_feedback_hint">Your comments (optional details welcome)</string>
+    <string name="post_test_feedback_empty">Please enter feedback before submitting.</string>
+    <string name="post_test_feedback_sent">Thank you. Your feedback was sent.</string>
+    <string name="post_test_feedback_error">Could not send feedback. Please try again.</string>
+
     <string name="something_get_wrong_contact_support_engineer">Something Get Wrong - Contact Support Engineer</string>
     <string name="required">Required</string>
     <string name="select">Select</string>

@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken
 import com.isaacsufyan.catchu.domain.model.PatientPrefillResponse
 import com.isaacsufyan.catchu.domain.model.RawMeasurementModel
 import com.isaacsufyan.catchu.domain.model.ResponseModel
+import com.isaacsufyan.catchu.domain.model.TestFeedbackRequest
 import com.isaacsufyan.catchu.framework.datastore.network.abstraction.ApiService
 import com.isaacsufyan.catchu.framework.datastore.network.api.RestApis
 import okhttp3.RequestBody
@@ -229,6 +230,18 @@ class ApiServiceImpl @Inject constructor(private val restApis: RestApis) : ApiSe
 
     override suspend fun verifyPatientOtp(testId: RequestBody, otp: RequestBody): ResponseModel {
         val response = restApis.verifyPatientOtp(testId, otp)
+        return if (response.isSuccessful) {
+            response.body()!!
+        } else {
+            val type = object : TypeToken<ResponseModel>() {}.type
+            Gson().fromJson(response.errorBody()!!.charStream(), type)
+        }
+    }
+
+    override suspend fun submitPostTestFeedback(testId: Int, feedback: String): ResponseModel {
+        val response = restApis.createTestFeedback(
+            TestFeedbackRequest(testId = testId, feedback = feedback)
+        )
         return if (response.isSuccessful) {
             response.body()!!
         } else {

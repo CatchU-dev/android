@@ -464,4 +464,23 @@ class Repository(
             emit(DataState.Error(e))
         }
     }
+
+    fun submitPostTestFeedback(testId: Int, feedback: String) = flow {
+        emit(DataState.Loading)
+        try {
+            val response = apiService.submitPostTestFeedback(testId, feedback)
+            if (response.status) {
+                emit(DataState.Success(response))
+            } else {
+                emit(
+                    DataState.Failure(
+                        response.code ?: -1,
+                        response.message ?: "No Message from Server"
+                    )
+                )
+            }
+        } catch (e: Exception) {
+            emit(DataState.Error(e))
+        }
+    }
 }

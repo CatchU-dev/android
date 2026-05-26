@@ -64,4 +64,9 @@ sealed class StateEvent {
         val dob: String
     ) : StateEvent()
 
+    class SubmitPostTestFeedback(
+        val testId: Int,
+        val feedback: String
+    ) : StateEvent()
+
 }

@@ -18,7 +18,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SharedViewModel @Inject constructor(
     private val repository: Repository,
-    private val prefService: PrefService
+    private val prefService: PrefService,
+    private val rawMeasurements: RawMeasurements,
 ) : ViewModel() {
 
     var token: String? = null
@@ -28,6 +29,9 @@ class SharedViewModel @Inject constructor(
     var testId: Int? = null
     var communityId: Int? = null
     var isSingleTest = false
+
+    /** When false, the research-purpose dropdown is hidden (GONE) and post-test research UI is skipped. */
+    var isResearchPurposeDropdownVisible: Boolean = true
 
     var termsAndConditionUrl: String? = null
 
@@ -61,6 +65,33 @@ class SharedViewModel @Inject constructor(
     val prefillResponseModel: LiveData<DataState<PatientPrefillResponse>>
         get() = _prefillResponseModel
 
+    private val _postTestFeedbackState = MutableLiveData<DataState<ResponseModel>>()
+    val postTestFeedbackState: LiveData<DataState<ResponseModel>>
+        get() = _postTestFeedbackState
+
+    fun resetPostTestFeedbackState() {
+        _postTestFeedbackState.value = DataState.Idle
+    }
+
+    /**
+     * Clears session-scoped IDs and form state when the user exits the post-test flow back to
+     * [com.isaacsufyan.catchu.presentation.fragments.language.LanguageFragment].
+     */
+    fun clearSessionForLanguageRestart() {
+        token = null
+        groupId = null
+        patientId = null
+        testId = null
+        communityId = null
+        isSingleTest = false
+        termsAndConditionUrl = null
+        prefillData = null
+        isResearchPurposeDropdownVisible = true
+        rawMeasurements.resetForNewSessionAfterExit()
+        resetResponseModel()
+        resetPostTestFeedbackState()
+        _prefillResponseModel.value = DataState.Idle
+    }
 
     fun setStateEvent(stateEvent: StateEvent) {
         when (stateEvent) {
@@ -236,6 +267,16 @@ class SharedViewModel @Inject constructor(
                         _prefillResponseModel.value = state
                     }
                     .catch { DataState.Error(it as Exception) }
+                    .launchIn(viewModelScope)
+            }
+
+            is StateEvent.SubmitPostTestFeedback -> {
+                repository.submitPostTestFeedback(
+                    testId = stateEvent.testId,
+                    feedback = stateEvent.feedback
+                )
+                    .onEach { _postTestFeedbackState.value = it }
+                    .catch { _postTestFeedbackState.value = DataState.Error(it as Exception) }
                     .launchIn(viewModelScope)
             }
         }

@@ -637,6 +637,10 @@ class TestFragment : BaseFragment() {
         }
     }
 
+    private fun isPostTestResearchFlow(): Boolean =
+        viewModel.isResearchPurposeDropdownVisible &&
+            rawMeasurements.researchPurpose.equals("yes", ignoreCase = true)
+
     private fun showCompleteTestScreen() {
         mediaPlayer.stop()
         val dialogListener = object : DialogInterface {
@@ -647,7 +651,10 @@ class TestFragment : BaseFragment() {
                 handleCompleteTest()
             }
         }
-        val dialog = TestCompletedFragment(dialogListener)
+        val dialog = TestCompletedFragment(
+            dialogListener,
+            deferSingleTestFinishForResearchPostFlow = isPostTestResearchFlow()
+        )
         isOnTestCompleteScreen = true
         dialog.show(childFragmentManager, "TestCompletedFragment")
     }
@@ -671,12 +678,18 @@ class TestFragment : BaseFragment() {
     }
 
     private fun handleCompleteTest() {
+        mainActivity.testInProgress.value = false
+        if (isPostTestResearchFlow()) {
+            findNavController().navigate(
+                TestFragmentDirections.actionTestFragmentToPostTestResearchOptionsFragment()
+            )
+            return
+        }
         val action = if (batchCompleted) {
             TestFragmentDirections.actionTestCompleteToCommunityId()
         } else {
             TestFragmentDirections.actionTestCompleteToPatientProfile()
         }
-        mainActivity.testInProgress.value = false
         findNavController().navigate(action)
     }
 

@@ -3,6 +3,7 @@ package com.isaacsufyan.catchu.framework.datastore.network.api
 import com.isaacsufyan.catchu.domain.model.PatientPrefillResponse
 import com.isaacsufyan.catchu.domain.model.RawMeasurementModel
 import com.isaacsufyan.catchu.domain.model.ResponseModel
+import com.isaacsufyan.catchu.domain.model.TestFeedbackRequest
 import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -132,6 +133,11 @@ interface RestApis {
     suspend fun verifyPatientOtp(
         @Part("test_id") test_id: RequestBody,
         @Part("otp") otp: RequestBody,
+    ): Response<ResponseModel>
+
+    @POST("api/test/create_test_feedback/")
+    suspend fun createTestFeedback(
+        @Body body: TestFeedbackRequest
     ): Response<ResponseModel>
 
 }
