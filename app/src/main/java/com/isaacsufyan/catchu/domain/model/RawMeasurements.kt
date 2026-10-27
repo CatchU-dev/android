@@ -253,6 +253,14 @@ class RawMeasurements {
     @Expose
     var testValues : HashMap<String, Int>? = null
 
+    @SerializedName("practise_test_values")
+    @Expose
+    var practiseTestValues: HashMap<String, Int>? = null
+
+    @SerializedName("practise_test_values_2")
+    @Expose
+    var practiseTestValues2: HashMap<String, Int>? = null
+
     @SerializedName("platform")
     @Expose
     var platform : String = "Android"
@@ -328,6 +336,8 @@ class RawMeasurements {
         researchPurpose = d.researchPurpose
         consent = d.consent
         testValues = d.testValues
+        practiseTestValues = d.practiseTestValues
+        practiseTestValues2 = d.practiseTestValues2
         platform = d.platform
         platform_version = d.platform_version
     }
