@@ -49,7 +49,7 @@ interface RestApis {
         @Path("Id") groupId: Int
     ): ResponseModel
 
-    @POST("api/community/resume_batch_test/{Id}")
+    @GET("api/community/resume_batch_test/{Id}")
     suspend fun resumeBatchTest(
         @Path("Id") groupTestId: Int
     ): ResponseModel

@@ -20,20 +20,48 @@ class SharedViewModel @Inject constructor(
     private val repository: Repository,
     private val prefService: PrefService,
     private val rawMeasurements: RawMeasurements,
+    private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
     var token: String? = null
-    var groupId: Int? = null
-    var patientId: Int? = null
 
-    var testId: Int? = null
-    var communityId: Int? = null
+    // Backed by SavedStateHandle so these survive process death instead of resetting to null when the
+    // back stack is restored (fragments like CurrentGroupTestFragment/GroupTestDetailsFragment show a
+    // generic error dialog on entry if their id is null).
+    var groupId: Int?
+        get() = savedStateHandle.get<Int>(KEY_GROUP_ID)
+        set(value) {
+            savedStateHandle[KEY_GROUP_ID] = value
+        }
+
+    var communityId: Int?
+        get() = savedStateHandle.get<Int>(KEY_COMMUNITY_ID)
+        set(value) {
+            savedStateHandle[KEY_COMMUNITY_ID] = value
+        }
+
+    var patientId: Int?
+        get() = savedStateHandle.get<Int>(KEY_PATIENT_ID)
+        set(value) {
+            savedStateHandle[KEY_PATIENT_ID] = value
+        }
+
+    var testId: Int?
+        get() = savedStateHandle.get<Int>(KEY_TEST_ID)
+        set(value) {
+            savedStateHandle[KEY_TEST_ID] = value
+        }
+
+    var termsAndConditionUrl: String?
+        get() = savedStateHandle.get<String>(KEY_TERMS_URL)
+        set(value) {
+            savedStateHandle[KEY_TERMS_URL] = value
+        }
+
     var isSingleTest = false
 
     /** When false, the research-purpose dropdown is hidden (GONE) and post-test research UI is skipped. */
     var isResearchPurposeDropdownVisible: Boolean = true
-
-    var termsAndConditionUrl: String? = null
 
     var prefillData: RawMeasurements? = null
 
@@ -285,5 +313,13 @@ class SharedViewModel @Inject constructor(
     fun resetResponseModel() {
         _responseModel.value = DataState.Idle
         _responseModelGetActiveGroupList.value = DataState.Idle
+    }
+
+    companion object {
+        private const val KEY_GROUP_ID = "groupId"
+        private const val KEY_COMMUNITY_ID = "communityId"
+        private const val KEY_PATIENT_ID = "patientId"
+        private const val KEY_TEST_ID = "testId"
+        private const val KEY_TERMS_URL = "termsAndConditionUrl"
     }
 }
