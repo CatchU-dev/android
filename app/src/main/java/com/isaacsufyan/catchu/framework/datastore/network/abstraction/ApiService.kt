@@ -93,4 +93,6 @@ interface ApiService {
     suspend fun createLabSession(request: LabSessionRequest): ResponseModel
 
     suspend fun labTestReport(testId: Int): ResponseModel
+
+    suspend fun submitPostTestFeedback(testId: Int, feedback: String): ResponseModel
 }

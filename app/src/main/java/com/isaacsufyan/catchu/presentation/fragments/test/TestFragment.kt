@@ -72,6 +72,7 @@ class TestFragment : BaseFragment() {
 
     private var practiceRetried: Boolean = false
     private var failedAttempts: Int = 0
+    private var practiceAttempt1Values: HashMap<String, Int>? = null
 
     private var accuracyThreshold = 0.7 // 70%
     private val params = HashMap<String, Any>()
@@ -234,6 +235,7 @@ class TestFragment : BaseFragment() {
                 return
             }
 
+            practiceAttempt1Values = buildPracticeValuesMap()
             practiceRetried = true
             showInitialAlert(message = resources.getString(R.string.second_practice_test_message))
             canAnswer = true
@@ -384,6 +386,15 @@ class TestFragment : BaseFragment() {
         return ms.coerceIn(Int.MIN_VALUE.toDouble(), Int.MAX_VALUE.toDouble()).toInt()
     }
 
+    /** Snapshot of the current practice attempt's per-trial reaction times, keyed like the real test's V/S/VS values. */
+    private fun buildPracticeValuesMap(): HashMap<String, Int> {
+        val values = HashMap<String, Int>()
+        for (i in trialAnswersVis.indices) values["V$i"] = reactionMsToPayloadInt(trialAnswersVis[i])
+        for (i in trialAnswersSoma.indices) values["S$i"] = reactionMsToPayloadInt(trialAnswersSoma[i])
+        for (i in trialAnswersVisAndSoma.indices) values["VS$i"] = reactionMsToPayloadInt(trialAnswersVisAndSoma[i])
+        return values
+    }
+
     private fun uploadResultsToServer() {
         val testId = viewModel.testId
         if (testId == null) {
@@ -399,7 +410,11 @@ class TestFragment : BaseFragment() {
         }
         for (i in answersNone.indices) unsortedParams["C$i"] = reactionMsToPayloadInt(answersNone[i])
 
-        if (practiceRetried) {
+        // failedAttempts == 2 means the patient failed practice twice and never started the
+        // real test; a single retry that was later passed must not wipe real-test data.
+        val practiceFailed = failedAttempts == 2
+
+        if (practiceFailed) {
             unsortedParams.clear()
             for (i in 0 until 45) {
                 unsortedParams["C$i"] = 0
@@ -416,7 +431,7 @@ class TestFragment : BaseFragment() {
         var answerSoma: Double
         val params = HashMap<String, Int>()
 
-        if (practiceRetried) {
+        if (practiceFailed) {
             for (i in 0 until 45) {
                 params["C$i"] = 0
                 params["V$i"] = 0
@@ -443,10 +458,14 @@ class TestFragment : BaseFragment() {
                 }
             }
         }
+        rawMeasurements.practiseTestStatus = if (practiceFailed) "fail" else "pass"
+
         if (practiceRetried) {
-            rawMeasurements.practiseTestStatus = "fail"
+            rawMeasurements.practiseTestValues = practiceAttempt1Values
+            rawMeasurements.practiseTestValues2 = buildPracticeValuesMap()
         } else {
-            rawMeasurements.practiseTestStatus = "pass"
+            rawMeasurements.practiseTestValues = buildPracticeValuesMap()
+            rawMeasurements.practiseTestValues2 = null
         }
 
         rawMeasurements.testValues = params
@@ -685,6 +704,10 @@ class TestFragment : BaseFragment() {
         }
     }
 
+    private fun isPostTestResearchFlow(): Boolean =
+        viewModel.isResearchPurposeDropdownVisible &&
+            rawMeasurements.researchPurpose.equals("yes", ignoreCase = true)
+
     private fun showCompleteTestScreen() {
         mediaPlayer.stop()
         val dialogListener = object : DialogInterface {
@@ -695,7 +718,10 @@ class TestFragment : BaseFragment() {
                 handleCompleteTest()
             }
         }
-        val dialog = TestCompletedFragment(dialogListener)
+        val dialog = TestCompletedFragment(
+            dialogListener,
+            deferSingleTestFinishForResearchPostFlow = isPostTestResearchFlow()
+        )
         isOnTestCompleteScreen = true
         dialog.show(childFragmentManager, "TestCompletedFragment")
     }
@@ -726,6 +752,12 @@ class TestFragment : BaseFragment() {
         mainActivity.testInProgress.value = false
         if (BuildConfig.IS_LAB_BUILD) {
             findNavController().navigate(R.id.action_test_to_lab_finalization)
+            return
+        }
+        if (isPostTestResearchFlow()) {
+            findNavController().navigate(
+                TestFragmentDirections.actionTestFragmentToPostTestResearchOptionsFragment()
+            )
             return
         }
         val action = if (batchCompleted) {

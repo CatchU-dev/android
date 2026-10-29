@@ -120,6 +120,16 @@
     <string name="second_practice_test_message">Inténtemoslo de nuevo. Recuerda, tan pronto cómo sientas o vea un estímulo, porfavor asegúrate de presionar el boton gris tan rápido cómo pueda. Cuando esté listo para tomar el test de práctica, de click en el botón gris</string>
     <string name="test_purpose_question">Esta prueba es con fines de investigación?</string>
 
+    <string name="post_test_research_title">¿Qué le gustaría hacer a continuación?</string>
+    <string name="post_test_research_subtitle">Elija una opción para continuar.</string>
+    <string name="post_test_share_feedback">Compartir comentarios / dejar comentarios</string>
+    <string name="post_test_back_to_group">Volver a la prueba grupal</string>
+    <string name="post_test_exit">Salir</string>
+    <string name="post_test_feedback_hint">Sus comentarios</string>
+    <string name="post_test_feedback_empty">Ingrese comentarios antes de enviar.</string>
+    <string name="post_test_feedback_sent">Gracias. Sus comentarios fueron enviados.</string>
+    <string name="post_test_feedback_error">No se pudieron enviar los comentarios. Inténtelo de nuevo.</string>
+
     <string name="select">Seleccione</string>
     <string name="something_get_wrong_contact_support_engineer">Algo salió mal - Póngase en contacto con el ingeniero de soporte</string>
     <string name="required">Requerido</string>

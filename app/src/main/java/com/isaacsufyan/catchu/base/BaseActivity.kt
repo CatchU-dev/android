@@ -1,22 +1,23 @@
 package com.isaacsufyan.catchu.base
 
 import android.app.Dialog
-import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
 import android.webkit.WebView
-import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.IntentSenderRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.appupdate.AppUpdateOptions
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.isaacsufyan.catchu.R
-import com.isaacsufyan.catchu.utils.NetworkConnection
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -24,8 +25,17 @@ import dagger.hilt.android.AndroidEntryPoint
 open class BaseActivity : AppCompatActivity() {
 
     private var progressDialog: Dialog? = null
-    private val MY_REQUEST_CODE: Int = 700
     private val TAG: String = "BASE_ACTIVITY"
+
+    private val appUpdateManager by lazy { AppUpdateManagerFactory.create(this) }
+
+    private val updateLauncher: ActivityResultLauncher<IntentSenderRequest> =
+        registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
+            if (result.resultCode != RESULT_OK) {
+                Log.d(TAG, "Update flow failed or cancelled. Result code: ${result.resultCode}")
+                checkForAppUpdate()
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,14 +51,11 @@ open class BaseActivity : AppCompatActivity() {
             )
             progressDialog?.setContentView(R.layout.progress_dialog)
         }
-//        val networkConnection= NetworkConnection(applicationContext)
-//        networkConnection.observe(this) { isConnected ->
-//            if (isConnected) {
-//                Toast.makeText(this, "Internet Connected", Toast.LENGTH_SHORT).show()
-//            } else {
-//                Toast.makeText(this, "Internet Disconnected", Toast.LENGTH_SHORT).show()
-//            }
-//        }
+        checkForAppUpdate()
+    }
+
+    override fun onResume() {
+        super.onResume()
         checkForAppUpdate()
     }
 
@@ -82,45 +89,31 @@ open class BaseActivity : AppCompatActivity() {
         this.window.setFlags(
             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-        );
+        )
     }
 
     fun freeBackgroundTouchesHandler() {
-        this.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        this.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
     }
 
     fun checkForAppUpdate() {
         Log.d(TAG, "checkForAppUpdate: ")
-        val appUpdateManager = AppUpdateManagerFactory.create(this)
-        val appUpdateInfoTask = appUpdateManager.appUpdateInfo
-        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
-            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+        appUpdateManager.appUpdateInfo.addOnSuccessListener { appUpdateInfo ->
+            if ((appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                        || appUpdateInfo.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS)
                 && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
             ) {
-                // Request the update.
-                Log.d(TAG, "UPDATE AVAILABLE")
+                Log.d(TAG, "UPDATE AVAILABLE / IN PROGRESS — starting immediate update flow")
                 appUpdateManager.startUpdateFlowForResult(
                     appUpdateInfo,
-                    AppUpdateType.IMMEDIATE,
-                    this,
-                    MY_REQUEST_CODE)
+                    updateLauncher,
+                    AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE).build()
+                )
             } else {
-                Log.d(TAG, "NO UPDATE AVAILABLE")
+                Log.d(TAG, "NO UPDATE AVAILABLE — availability: ${appUpdateInfo.updateAvailability()}")
             }
+        }.addOnFailureListener { e ->
+            Log.e(TAG, "Update check failed: ${e.message}")
         }
     }
-
-    @Deprecated("Deprecated in Java")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == MY_REQUEST_CODE) {
-            if (resultCode != RESULT_OK) {
-                // If the update is cancelled or fails,
-                // you can request to start the update again.
-                Log.d(TAG, "Update flow failed! Result code: $resultCode")
-                checkForAppUpdate()
-            }
-        }
-    }
-
 }

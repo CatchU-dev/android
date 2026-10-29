@@ -76,4 +76,9 @@ sealed class StateEvent {
 
     class LabTestReport(val testId: Int) : StateEvent()
 
+    class SubmitPostTestFeedback(
+        val testId: Int,
+        val feedback: String
+    ) : StateEvent()
+
 }

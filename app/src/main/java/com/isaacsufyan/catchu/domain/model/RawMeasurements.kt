@@ -273,6 +273,14 @@ class RawMeasurements {
     @Expose
     var testValues : HashMap<String, Int>? = null
 
+    @SerializedName("practise_test_values")
+    @Expose
+    var practiseTestValues: HashMap<String, Int>? = null
+
+    @SerializedName("practise_test_values_2")
+    @Expose
+    var practiseTestValues2: HashMap<String, Int>? = null
+
     @SerializedName("platform")
     @Expose
     var platform : String = "Android"
@@ -280,6 +288,79 @@ class RawMeasurements {
     @SerializedName("platform_version")
     @Expose
     var platform_version: String = Build.VERSION.RELEASE
+
+    /**
+     * Resets demographics / test payload fields to match a new [RawMeasurements] instance.
+     * Used when returning to the language screen for a clean session (singleton instance).
+     */
+    fun resetForNewSessionAfterExit() {
+        val d = RawMeasurements()
+        subjectid = d.subjectid
+        testdate = d.testdate
+        selectedYear = d.selectedYear
+        selectedMonth = d.selectedMonth
+        practiseTestStatus = d.practiseTestStatus
+        selectedDate = d.selectedDate
+        selectedRace = d.selectedRace
+        isHispanicOrLatin = d.isHispanicOrLatin
+        educationYear = d.educationYear
+        selectedGender = d.selectedGender
+        hasHypertension = d.hasHypertension
+        hasArthritis = d.hasArthritis
+        hasDiabetes = d.hasDiabetes
+        hasDiabetesYears = d.hasDiabetesYears
+        hasDiabetesVision = d.hasDiabetesVision
+        hasDiabetesKidney = d.hasDiabetesKidney
+        hasDiabetesNerve = d.hasDiabetesNerve
+        hasDiabetesTakMedicine = d.hasDiabetesTakMedicine
+        hasDiabetesTakOralMedicine = d.hasDiabetesTakOralMedicine
+        hasDiabetesTakInsulin = d.hasDiabetesTakInsulin
+        hasDiabetesTakInjection = d.hasDiabetesTakInjection
+        hasDepression = d.hasDepression
+        hasCOPD = d.hasCOPD
+        hasOsteoporosis = d.hasOsteoporosis
+        hasAnxiety = d.hasAnxiety
+        hasStroke = d.hasStroke
+        hasHeartDisease = d.hasHeartDisease
+        hasHeartFailure = d.hasHeartFailure
+        hasMI = d.hasMI
+        hasPD = d.hasPD
+        hasMemoryProblems = d.hasMemoryProblems
+        hasDementia = d.hasDementia
+        hasHighCholesterol = d.hasHighCholesterol
+        hasSeizure = d.hasSeizure
+        hasNeuropathy = d.hasNeuropathy
+        hasChronicKidney = d.hasChronicKidney
+        onDialysis = d.onDialysis
+        hasVisionProblem = d.hasVisionProblem
+        visualImpairments = d.visualImpairments
+        hasVisionLoss = d.hasVisionLoss
+        hasCorrectiveLenses = d.hasCorrectiveLenses
+        hasSevereHearingLoss = d.hasSevereHearingLoss
+        hasHearingAid = d.hasHearingAid
+        hasHadAFall = d.hasHadAFall
+        hasHadAFracture = d.hasHadAFracture
+        hasHadAFallPastFiveYears = d.hasHadAFallPastFiveYears
+        hasHadAFracturePastFiveYears = d.hasHadAFracturePastFiveYears
+        hasFearOfFalling = d.hasFearOfFalling
+        canWalkWithoutBreak = d.canWalkWithoutBreak
+        hasDifficultyWalking = d.hasDifficultyWalking
+        hasDifficultyWalkingUseCane = d.hasDifficultyWalkingUseCane
+        hasDifficultyWalkingUseWalker = d.hasDifficultyWalkingUseWalker
+        hasDifficultyGettingUp = d.hasDifficultyGettingUp
+        hasToHoldOntoWalls = d.hasToHoldOntoWalls
+        hasDifficultyWithBalance = d.hasDifficultyWithBalance
+        regularlyScheduledMedicines = d.regularlyScheduledMedicines
+        studySite = d.studySite
+        studyId = d.studyId
+        researchPurpose = d.researchPurpose
+        consent = d.consent
+        testValues = d.testValues
+        practiseTestValues = d.practiseTestValues
+        practiseTestValues2 = d.practiseTestValues2
+        platform = d.platform
+        platform_version = d.platform_version
+    }
 
 
 //    var platform_version: Int = android.os.Build.VERSION.SDK_INT
