@@ -1,5 +1,6 @@
 package com.isaacsufyan.catchu.presentation.fragments
 
+import com.isaacsufyan.catchu.utils.LabSession
 import androidx.lifecycle.*
 import com.isaacsufyan.catchu.domain.event.StateEvent
 import com.isaacsufyan.catchu.domain.model.LabSessionRequest
@@ -57,6 +58,13 @@ class SharedViewModel @Inject constructor(
         get() = savedStateHandle.get<String>(KEY_TERMS_URL)
         set(value) {
             savedStateHandle[KEY_TERMS_URL] = value
+        }
+
+    /** Lab build: number of 60-trial blocks the tester picked on the lab login screen. */
+    var labNumBlocks: Int
+        get() = savedStateHandle.get<Int>(KEY_LAB_NUM_BLOCKS) ?: LabSession.DEFAULT_BLOCKS
+        set(value) {
+            savedStateHandle[KEY_LAB_NUM_BLOCKS] = value
         }
 
     var isSingleTest = false
@@ -308,7 +316,8 @@ class SharedViewModel @Inject constructor(
                         firstName   = stateEvent.firstName,
                         lastName    = stateEvent.lastName,
                         dateOfBirth = stateEvent.dateOfBirth,
-                        gender      = stateEvent.gender
+                        gender      = stateEvent.gender,
+                        numBlocks   = stateEvent.numBlocks
                     )
                 )
                     .onEach { _responseModel.value = it }
@@ -346,5 +355,6 @@ class SharedViewModel @Inject constructor(
         private const val KEY_PATIENT_ID = "patientId"
         private const val KEY_TEST_ID = "testId"
         private const val KEY_TERMS_URL = "termsAndConditionUrl"
+        private const val KEY_LAB_NUM_BLOCKS = "labNumBlocks"
     }
 }

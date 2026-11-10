@@ -8,6 +8,7 @@
     <string name="preferred_language">Idioma preferido para la prueba:</string>
     <string name="task_instructions_first_break_text">Has terminado el primero de los tres bloques. Tómate un descanso de 20 segundos. La próxima sesión comenzará inmediatamente en 20 segundos.</string>
     <string name="task_instructions_second_break_text">Has terminado el segundo de los tres bloques. Tómate un descanso de 20 segundos. La próxima sesión comenzará inmediatamente en 20 segundos.</string>
+    <string name="lab_break_text">Has terminado el bloque %1$d de %2$d. Tómate un descanso de 20 segundos. El próximo bloque comenzará inmediatamente en 20 segundos.</string>
     <string name="time_for_break">Tiempo para un descanso</string>
     <string name="practice_test">Examen de práctica</string>
     <string name="practice_test_start_msg">Comencemos con una prueba de práctica. Tan pronto como sienta, vea o sienta y vea un estímulo, presione el área de respuesta gris lo más rápido posible. Cuando esté listo para comenzar la prueba de práctica, presione el área de respuesta gris.</string>
@@ -155,6 +156,7 @@
     <string name="lab_study_id">ID del estudio</string>
     <string name="lab_wave">Ola</string>
     <string name="lab_gender">Género</string>
+    <string name="lab_num_blocks">Número de bloques (60 ensayos cada uno)</string>
     <string name="lab_finalization_title">Prueba completada</string>
     <string name="lab_finalization_subtitle">Datos enviados correctamente. Resumen del participante:</string>
     <string name="lab_new_participant">Nuevo participante</string>

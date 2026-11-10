@@ -69,8 +69,8 @@ android {
             buildConfigField "String", "ALGORITHM_API_URL", '"https://5ioxsjwd31.execute-api.us-east-1.amazonaws.com/algorithm/algorithm"'
         }
         lab {
-            versionCode 20
-            versionName "3.0-lab"
+            versionCode 21
+            versionName "3.1-lab"
 //            buildConfigField "String", "BASE_URL", '"https://qa.catchu.net/"'
             buildConfigField "String", "BASE_URL", '"https://my.catchu.net/"'
             buildConfigField "String", "Environment", '"Lab"'

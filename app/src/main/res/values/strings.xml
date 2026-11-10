@@ -7,6 +7,7 @@
     <string name="preferred_language">Preferred Language For Testing</string>
     <string name="task_instructions_first_break_text">You have finished the first of three blocks. Please take a 20 second rest. The next session will start immediately in 20 seconds</string>
     <string name="task_instructions_second_break_text">You have finished the second of three blocks. Please take a 20 second rest. The next session will start immediately in 20 seconds</string>
+    <string name="lab_break_text">You have finished block %1$d of %2$d. Please take a 20 second rest. The next block will start immediately in 20 seconds</string>
     <string name="time_for_break">Time for a Break</string>
     <string name="practice_test">Practice Test</string>
     <string name="practice_test_start_msg">Let\'s start with a practice test.  As soon as you feel, see, or feel and see a stimulus, please press the gray response area as quickly as possible. When you are ready to start the practice test, press the gray response area.</string>
@@ -157,6 +158,7 @@
     <string name="lab_last_name">Last Name</string>
     <string name="lab_date_of_birth">Date of Birth (YYYY-MM-DD)</string>
     <string name="lab_gender">Gender</string>
+    <string name="lab_num_blocks">Number of blocks (60 trials each)</string>
     <string name="lab_finalization_title">Test Complete</string>
     <string name="lab_finalization_subtitle">Data submitted successfully. Participant summary:</string>
     <string name="lab_new_participant">New Participant</string>

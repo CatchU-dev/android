@@ -71,7 +71,8 @@ sealed class StateEvent {
         val firstName:   String,
         val lastName:    String,
         val dateOfBirth: String,
-        val gender:      String
+        val gender:      String,
+        val numBlocks:   Int
     ) : StateEvent()
 
     class LabTestReport(val testId: Int) : StateEvent()

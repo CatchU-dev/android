@@ -10,5 +10,6 @@ data class LabSessionRequest(
     @SerializedName("first_name")    @Expose val firstName:   String,
     @SerializedName("last_name")     @Expose val lastName:    String,
     @SerializedName("dob")           @Expose val dateOfBirth: String,
-    @SerializedName("gender")        @Expose val gender:      String
+    @SerializedName("gender")        @Expose val gender:      String,
+    @SerializedName("num_blocks")    @Expose val numBlocks:   Int
 )

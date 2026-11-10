@@ -15,6 +15,9 @@ import java.util.Locale
  */
 object LabSession {
 
+    const val DEFAULT_BLOCKS = 3
+    val BLOCK_OPTIONS = listOf(3, 4, 5, 6, 7, 8, 9)
+
     fun prepareRawMeasurementsForTest(rawMeasurements: RawMeasurements, patientId: Int?) {
         rawMeasurements.testdate =
             SimpleDateFormat("MM-dd-yyyy", Locale.getDefault()).format(Date())
