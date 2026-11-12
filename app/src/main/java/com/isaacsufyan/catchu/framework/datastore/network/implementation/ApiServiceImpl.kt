@@ -6,6 +6,7 @@ import com.isaacsufyan.catchu.domain.model.LabSessionRequest
 import com.isaacsufyan.catchu.domain.model.PatientPrefillResponse
 import com.isaacsufyan.catchu.domain.model.RawMeasurementModel
 import com.isaacsufyan.catchu.domain.model.ResponseModel
+import com.isaacsufyan.catchu.domain.model.TestFeedbackRequest
 import com.isaacsufyan.catchu.framework.datastore.network.abstraction.ApiService
 import com.isaacsufyan.catchu.framework.datastore.network.api.RestApis
 import okhttp3.RequestBody
@@ -250,6 +251,18 @@ class ApiServiceImpl @Inject constructor(private val restApis: RestApis) : ApiSe
 
     override suspend fun labTestReport(testId: Int): ResponseModel {
         val response = restApis.labTestReport(testId)
+        return if (response.isSuccessful) {
+            response.body()!!
+        } else {
+            val type = object : TypeToken<ResponseModel>() {}.type
+            Gson().fromJson(response.errorBody()!!.charStream(), type)
+        }
+    }
+
+    override suspend fun submitPostTestFeedback(testId: Int, feedback: String): ResponseModel {
+        val response = restApis.createTestFeedback(
+            TestFeedbackRequest(testId = testId, feedback = feedback)
+        )
         return if (response.isSuccessful) {
             response.body()!!
         } else {

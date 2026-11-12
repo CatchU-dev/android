@@ -46,6 +46,15 @@ class LabLoginFragment : BaseFragment() {
             ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, genderOptions)
         )
 
+        binding.actvBlocks.setAdapter(
+            ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_dropdown_item_1line,
+                LabSession.BLOCK_OPTIONS.map { it.toString() }
+            )
+        )
+        binding.actvBlocks.setText(LabSession.DEFAULT_BLOCKS.toString(), false)
+
         val dobClickListener = View.OnClickListener { showDatePicker() }
         binding.edtDateOfBirth.setOnClickListener(dobClickListener)
         binding.tilDateOfBirth.setEndIconOnClickListener(dobClickListener)
@@ -121,10 +130,14 @@ class LabLoginFragment : BaseFragment() {
                 firstName   = binding.edtFirstName.textToString(),
                 lastName    = binding.edtLastName.textToString(),
                 dateOfBirth = binding.edtDateOfBirth.textToString(),
-                gender      = binding.actvGender.text.toString()
+                gender      = binding.actvGender.text.toString(),
+                numBlocks   = selectedNumBlocks()
             )
         )
     }
+
+    private fun selectedNumBlocks(): Int =
+        binding.actvBlocks.text.toString().toIntOrNull() ?: LabSession.DEFAULT_BLOCKS
 
     private fun observeResponse() {
         viewModel.responseModel.observe(viewLifecycleOwner) { state ->
@@ -135,6 +148,7 @@ class LabLoginFragment : BaseFragment() {
                     val testId = state.data.data?.testId
                     if (state.data.status && testId != null) {
                         viewModel.testId = testId
+                        viewModel.labNumBlocks = selectedNumBlocks()
                         rawMeasurements.studySite      = binding.edtStudySite.textToString()
                         rawMeasurements.studyId        = binding.edtStudyId.textToString()
                         rawMeasurements.labWave        = binding.edtWave.textToString()

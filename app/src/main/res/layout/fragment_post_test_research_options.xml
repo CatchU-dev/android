@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="@dimen/_20sdp">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvPostTestTitle"
+        style="@style/TextViewHeadingStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:gravity="center"
+        android:text="@string/post_test_research_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvPostTestSubtitle"
+        style="@style/TextViewNormalStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:gravity="center"
+        android:text="@string/post_test_research_subtitle"
+        android:textColor="@color/gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPostTestTitle" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnShareFeedback"
+        style="@style/MaterialButtonStyleFilled"
+        android:layout_width="0dp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:text="@string/post_test_share_feedback"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPostTestSubtitle" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBackToGroupTest"
+        style="@style/MaterialButtonStyleFilled"
+        android:layout_width="0dp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:text="@string/post_test_back_to_group"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnShareFeedback" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnExit"
+        style="@style/MaterialButtonStyleFilled"
+        android:layout_width="0dp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:text="@string/post_test_exit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnBackToGroupTest"
+        app:layout_constraintVertical_bias="0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

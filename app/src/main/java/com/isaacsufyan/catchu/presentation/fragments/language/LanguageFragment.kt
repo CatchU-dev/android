@@ -33,6 +33,8 @@ class LanguageFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.isResearchPurposeDropdownVisible =
+            binding.edtResearchPurposeDropDown.visibility == View.VISIBLE
         viewModel.searchPurposeList.observe(viewLifecycleOwner) { setupResearchPurpose(it) }
         viewModel.languageList.observe(viewLifecycleOwner) { setupLanguageDropDown(it) }
         binding.btnContinue.setOnClickListener {

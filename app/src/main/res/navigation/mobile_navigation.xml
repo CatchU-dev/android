@@ -298,6 +298,34 @@
             app:popUpTo="@+id/testFragment"
             app:popUpToInclusive="true" />
 
+        <action
+            android:id="@+id/action_testFragment_to_postTestResearchOptionsFragment"
+            app:destination="@id/postTestResearchOptionsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/testFragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/postTestResearchOptionsFragment"
+        android:name="com.isaacsufyan.catchu.presentation.fragments.post_test_research.PostTestResearchOptionsFragment"
+        android:label="@string/post_test_research_title"
+        tools:layout="@layout/fragment_post_test_research_options">
+
+        <action
+            android:id="@+id/action_postTestResearch_to_currentGroup"
+            app:destination="@id/currentGroupTestFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/currentGroupTestFragment"
+            app:popUpToInclusive="false" />
+
     </fragment>
 
     <dialog

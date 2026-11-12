@@ -19,7 +19,10 @@ import com.isaacsufyan.catchu.framework.interfaces.IDialogOnClickListener
 import com.isaacsufyan.catchu.presentation.activities.main.MainActivity
 import com.isaacsufyan.catchu.presentation.fragments.SharedViewModel
 
-class TestCompletedFragment(var dialogListener: DialogInterface) : DialogFragment() {
+class TestCompletedFragment(
+    var dialogListener: DialogInterface,
+    private val deferSingleTestFinishForResearchPostFlow: Boolean = false
+) : DialogFragment() {
 
     private var _binding: FragmentTestCompletedBinding? = null
     private val binding get() = _binding!!
@@ -63,7 +66,7 @@ class TestCompletedFragment(var dialogListener: DialogInterface) : DialogFragmen
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnStaffMemberClickHere.setOnClickListener {
-            if (viewModel.isSingleTest) {
+            if (viewModel.isSingleTest && !deferSingleTestFinishForResearchPostFlow) {
                 mainActivity.finish()
             }
             dismiss()

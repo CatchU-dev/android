@@ -17,5 +17,18 @@ data class RawMeasurementModel(
 
     @SerializedName("unsorted_raw_measurements")
     @Expose
-    var unsortedRawMeasurements: HashMap<String, Int>? = null
+    var unsortedRawMeasurements: HashMap<String, Int>? = null,
+
+    // Lab build only (isLabTest); null for live so these keys are not sent.
+    @SerializedName("lab_config")
+    @Expose
+    var labConfig: LabConfig? = null,
+
+    @SerializedName("practice_trials")
+    @Expose
+    var practiceTrials: List<LabPracticeTrial>? = null,
+
+    @SerializedName("trials")
+    @Expose
+    var trials: List<LabTrial>? = null
 )

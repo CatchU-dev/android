@@ -4,6 +4,7 @@ import com.isaacsufyan.catchu.domain.model.LabSessionRequest
 import com.isaacsufyan.catchu.domain.model.PatientPrefillResponse
 import com.isaacsufyan.catchu.domain.model.RawMeasurementModel
 import com.isaacsufyan.catchu.domain.model.ResponseModel
+import com.isaacsufyan.catchu.domain.model.TestFeedbackRequest
 import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -49,7 +50,7 @@ interface RestApis {
         @Path("Id") groupId: Int
     ): ResponseModel
 
-    @POST("api/community/resume_batch_test/{Id}")
+    @GET("api/community/resume_batch_test/{Id}")
     suspend fun resumeBatchTest(
         @Path("Id") groupTestId: Int
     ): ResponseModel
@@ -144,6 +145,11 @@ interface RestApis {
     @POST("api/test/lab_test_report/")
     suspend fun labTestReport(
         @Field("test_id") testId: Int
+    ): Response<ResponseModel>
+
+    @POST("api/test/create_test_feedback/")
+    suspend fun createTestFeedback(
+        @Body body: TestFeedbackRequest
     ): Response<ResponseModel>
 
 }

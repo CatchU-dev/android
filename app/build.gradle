@@ -11,12 +11,12 @@ plugins {
 
 android {
 
-    compileSdk 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId "com.isaacsufyan.catchu"
-        minSdk 26
-        targetSdk 35
+        minSdk = 26
+        targetSdk = 36
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -61,16 +61,16 @@ android {
             buildConfigField "String", "ALGORITHM_API_URL", '"https://5ioxsjwd31.execute-api.us-east-1.amazonaws.com/algorithm/algorithm"'
         }
         prod {
-            versionCode 19
-            versionName "2.9"
+            versionCode 22
+            versionName "3.2"
             buildConfigField "String", "BASE_URL", '"https://my.catchu.net/"'
             buildConfigField "String", "Environment", '"Production"'
             buildConfigField "boolean", "IS_LAB_BUILD", "false"
             buildConfigField "String", "ALGORITHM_API_URL", '"https://5ioxsjwd31.execute-api.us-east-1.amazonaws.com/algorithm/algorithm"'
         }
         lab {
-            versionCode 20
-            versionName "3.0-lab"
+            versionCode 21
+            versionName "3.1-lab"
 //            buildConfigField "String", "BASE_URL", '"https://qa.catchu.net/"'
             buildConfigField "String", "BASE_URL", '"https://my.catchu.net/"'
             buildConfigField "String", "Environment", '"Lab"'
@@ -104,12 +104,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
 
     bundle {
@@ -142,8 +142,8 @@ dependencies {
 //    debugImplementation "com.github.chuckerteam.chucker:library:4.0.0"
 //    releaseImplementation "com.github.chuckerteam.chucker:library-no-op:4.0.0"
 
-    implementation "com.google.dagger:hilt-android:2.54"
-    kapt 'com.google.dagger:hilt-compiler:2.54'
+    implementation "com.google.dagger:hilt-android:2.56.1"
+    kapt 'com.google.dagger:hilt-compiler:2.56.1'
     implementation "androidx.hilt:hilt-navigation-fragment:1.2.0"
 
     implementation "com.github.bumptech.glide:glide:4.16.0"

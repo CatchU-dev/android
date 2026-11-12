@@ -2,7 +2,9 @@ package com.isaacsufyan.catchu.presentation.fragments.patient_details
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.text.Editable
 import android.text.InputType
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,14 +50,41 @@ class PatientDetailsFragment : BaseFragment() {
             viewModel.setStateEvent(stateEvent as StateEvent.ValidatePatientToken)
         }
 
-        binding.edtDOB.setOnClickListener {
+        binding.edtDOBLayout.setEndIconOnClickListener {
             it.hideSoftKeyboard()
             selectDate()
         }
 
+        binding.edtDOB.addTextChangedListener(object : TextWatcher {
+            private var isFormatting = false
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                if (isFormatting || s == null) return
+                isFormatting = true
+                val digits = s.filter { it.isDigit() }
+                val sb = StringBuilder()
+                for (i in digits.indices) {
+                    if ((i == 2 || i == 4) && sb.length < 10) sb.append('-')
+                    if (sb.length < 10) sb.append(digits[i])
+                }
+                s.replace(0, s.length, sb)
+                isFormatting = false
+            }
+        })
+
         binding.btnContinue.setOnClickListener {
             it.hideSoftKeyboard()
             if (validation()) {
+                val dobText = binding.edtDOB.text.toString()
+                val sdf = SimpleDateFormat("MM-dd-yyyy", Locale.getDefault())
+                sdf.isLenient = false
+                sdf.parse(dobText)?.let { parsed ->
+                    val cal = Calendar.getInstance().apply { time = parsed }
+                    rawMeasurements.selectedYear  = cal.get(Calendar.YEAR).toString()
+                    rawMeasurements.selectedMonth = (cal.get(Calendar.MONTH) + 1).toString()
+                    rawMeasurements.selectedDate  = cal.get(Calendar.DAY_OF_MONTH).toString()
+                }
                 val firstName = binding.edtFirstName.textToString()
                 val lastName = binding.edtLastName.textToString()
                 val dob = binding.edtDOB.text.toString()
@@ -93,7 +122,6 @@ class PatientDetailsFragment : BaseFragment() {
         }
         binding.edtFirstName.inputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
         binding.edtLastName.inputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
-        binding.edtDOB.inputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
 //        mainActivity.isInternetConnected.observe(viewLifecycleOwner) {
 //            if (!it) {
 //                mainActivity.getDialogRef().observe(viewLifecycleOwner) {diag ->
@@ -269,9 +297,22 @@ class PatientDetailsFragment : BaseFragment() {
         } else if (binding.edtDOB.isNullOrEmpty()) {
             binding.edtDOBLayout.error = "Required"
             false
+        } else if (!isValidDob(binding.edtDOB.text.toString())) {
+            binding.edtDOBLayout.error = "Invalid date or date is in the future (MM-DD-YYYY)"
+            false
         } else {
             true
         }
+    }
+
+    private fun isValidDob(dob: String): Boolean {
+        if (dob.length != 10) return false
+        return try {
+            val sdf = SimpleDateFormat("MM-dd-yyyy", Locale.getDefault())
+            sdf.isLenient = false
+            val parsed = sdf.parse(dob) ?: return false
+            !parsed.after(Date())
+        } catch (e: Exception) { false }
     }
 
     private fun selectDate() {

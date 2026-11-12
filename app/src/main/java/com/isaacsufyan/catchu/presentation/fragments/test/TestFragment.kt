@@ -19,12 +19,16 @@ import com.isaacsufyan.catchu.databinding.FragmentTestBinding
 import com.isaacsufyan.catchu.domain.*
 import com.isaacsufyan.catchu.domain.enum.EStimulusType
 import com.isaacsufyan.catchu.domain.event.StateEvent
+import com.isaacsufyan.catchu.domain.model.LabConfig
+import com.isaacsufyan.catchu.domain.model.LabPracticeTrial
+import com.isaacsufyan.catchu.domain.model.LabTrial
 import com.isaacsufyan.catchu.domain.model.RawMeasurementModel
 import com.isaacsufyan.catchu.domain.model.Stimulus
 import com.isaacsufyan.catchu.domain.state.DataState
 import com.isaacsufyan.catchu.framework.interfaces.IDialogOnClickListener
 import com.isaacsufyan.catchu.presentation.fragments.SharedViewModel
 import com.isaacsufyan.catchu.presentation.fragments.test_completed.TestCompletedFragment
+import com.isaacsufyan.catchu.utils.StimulusSequence
 import com.isaacsufyan.catchu.utils.indexExists
 import com.isaacsufyan.catchu.utils.showDialog
 import java.text.SimpleDateFormat
@@ -54,6 +58,16 @@ class TestFragment : BaseFragment() {
     private var isPaused = false
     private var breakOneTaken = false
     private var breakTwoTaken = false
+    private val labBreaksTaken = mutableSetOf<Int>()
+
+    // Lab build: protocol changes (balanced blocks, tester-chosen block count, per-trial payload).
+    private val isLab = BuildConfig.IS_LAB_BUILD
+    private val numBlocks get() = viewModel.labNumBlocks
+    private val valuesPerType get() = if (isLab) numBlocks * StimulusSequence.PER_TYPE_PER_BLOCK else 45
+    private val labTrials = mutableListOf<LabTrial>()
+    private val labPracticeTrials = mutableListOf<LabPracticeTrial>()
+    private val uiHandler = Handler(Looper.getMainLooper())
+    private var advancePending = false
 
     private var answersVis = mutableListOf<Double>()
     private var answersSoma = mutableListOf<Double>()
@@ -72,6 +86,7 @@ class TestFragment : BaseFragment() {
 
     private var practiceRetried: Boolean = false
     private var failedAttempts: Int = 0
+    private var practiceAttempt1Values: HashMap<String, Int>? = null
 
     private var accuracyThreshold = 0.7 // 70%
     private val params = HashMap<String, Any>()
@@ -115,7 +130,7 @@ class TestFragment : BaseFragment() {
 
     private fun flashPhotodiode(view: View, durationMs: Long = EEG_FLASH_DURATION_MS) {
         view.visibility = View.VISIBLE
-        Handler(Looper.getMainLooper()).postDelayed({
+        uiHandler.postDelayed({
             view.visibility = View.INVISIBLE
         }, durationMs)
     }
@@ -144,9 +159,21 @@ class TestFragment : BaseFragment() {
                 proceedToNextStimulus()
             }
         } else {
+            // Repeated taps on the start / instruction screen used to queue several advances, which
+            // made stimuli fire together. Only the first tap counts, until the next stimulus
+            // presentation (handleStimPresentation) clears the flag.
+            if (advancePending) return
+            advancePending = true
             hideAllPhotodiodes()
-            Handler(Looper.getMainLooper()).postDelayed({
-                proceedToNextStimulus()
+            uiHandler.postDelayed({
+                if (isLab) {
+                    // Lab: the start tap must not consume a trial.
+                    canAnswer = false
+                    resetTimeStamps()
+                    scheduleNextStimulus()
+                } else {
+                    proceedToNextStimulus()
+                }
             }, 1000)
         }
     }
@@ -157,12 +184,19 @@ class TestFragment : BaseFragment() {
         setAnswer()
         currentStim += 1
         resetTimeStamps()
+        scheduleNextStimulus()
+    }
 
+    private fun scheduleNextStimulus() {
         if (currentStim < stims.size) {
-            val randomWaitTime = kotlin.random.Random.nextDouble(1.0, 4.0)
-            Handler(Looper.getMainLooper()).postDelayed({
+            val waitMs = if (isLab) {
+                kotlin.random.Random.nextLong(1000L, 3001L)
+            } else {
+                kotlin.random.Random.nextDouble(1.0, 4.0).toLong() * 1000
+            }
+            uiHandler.postDelayed({
                 handleStimPresentation()
-            }, randomWaitTime.toLong() * 1000)
+            }, waitMs)
         } else {
             trialMode = false
             uploadResultsToServer()
@@ -175,6 +209,7 @@ class TestFragment : BaseFragment() {
         }
         var reactionTime = responseTimeStamp - displayTimeStamp
         if (reactionTime < 0) reactionTime = 0.0
+        if (isLab) recordLabTrial(reactionTime)
 
         when (currentType) {
             EStimulusType.NONE -> {
@@ -207,12 +242,65 @@ class TestFragment : BaseFragment() {
 
     private fun inTrail() = currentStim < 15
 
+    private fun labTypeCode(type: EStimulusType) = when (type) {
+        EStimulusType.VISUAL -> "V"
+        EStimulusType.SOMA_TO_SENSORY -> "S"
+        EStimulusType.VIS_AND_SOMA -> "VS"
+        EStimulusType.NONE -> "C"
+    }
+
+    /** A real response is always > 0 ms (the window opens after the 100 ms stimulus); a miss stays 0. */
+    private fun recordLabTrial(reactionTime: Double) {
+        val type = currentType ?: return
+        val responded = responseTimeStamp > 0.0
+        val rtMs = if (responded) reactionMsToPayloadInt(reactionTime) else null
+        val code = labTypeCode(type)
+        if (inTrail()) {
+            labPracticeTrials.add(
+                LabPracticeTrial(
+                    attempt = if (practiceRetried) 2 else 1,
+                    trialNumber = currentStim + 1,
+                    type = code,
+                    rtMs = rtMs,
+                    responded = responded
+                )
+            )
+        } else {
+            val mainIndex = currentStim - StimulusSequence.PRACTICE_SIZE
+            // Catch trial: no response is the correct behaviour (hit), a response is a false alarm.
+            val outcome = if (type == EStimulusType.NONE) {
+                if (responded) "false_alarm" else "hit"
+            } else {
+                if (responded) "hit" else "miss"
+            }
+            labTrials.add(
+                LabTrial(
+                    trialNumber = mainIndex + 1,
+                    block = mainIndex / StimulusSequence.BLOCK_SIZE + 1,
+                    type = code,
+                    rtMs = rtMs,
+                    responded = responded,
+                    outcome = outcome
+                )
+            )
+        }
+    }
+
+    /** Lab: the block number that just ended when a block boundary is reached at [index], else null. */
+    private fun labBreakNumber(index: Int): Int? {
+        val mainIndex = index - StimulusSequence.PRACTICE_SIZE
+        return if (mainIndex > 0 && mainIndex % StimulusSequence.BLOCK_SIZE == 0) {
+            mainIndex / StimulusSequence.BLOCK_SIZE
+        } else null
+    }
+
     private fun handleStimPresentation() {
+        advancePending = false
         if (isPaused) {
             return
         }
         trialMode = true
-        if (currentStim == 0) {
+        if (currentStim == 0 && !isLab) {
             showInitialAlert()
         } else if (currentStim == 15 && !mainInstructionShown && verifySuccessfulPracticeTrails()) {
             if (mediaPlayer.isPlaying) mediaPlayer.pause()
@@ -234,16 +322,25 @@ class TestFragment : BaseFragment() {
                 return
             }
 
+            practiceAttempt1Values = buildPracticeValuesMap()
             practiceRetried = true
             showInitialAlert(message = resources.getString(R.string.second_practice_test_message))
-            canAnswer = true
+            if (isLab) {
+                // Wait for the start tap (which no longer consumes a trial) instead of arming a response.
+                canAnswer = false
+                trialMode = false
+            } else {
+                canAnswer = true
+            }
             trialAnswersVis.clear()
             trialAnswersSoma.clear()
             trialAnswersVisAndSoma.clear()
             currentType = null
-        } else if (currentStim == 74 && !breakOneTaken) {
+        } else if (isLab && labBreakNumber(currentStim)?.let { it !in labBreaksTaken } == true) {
+            showBreakAlert(labBreakNumber(currentStim)!!)
+        } else if (!isLab && currentStim == 74 && !breakOneTaken) {
             showBreakAlert(1)
-        } else if (currentStim == 134 && !breakTwoTaken) {
+        } else if (!isLab && currentStim == 134 && !breakTwoTaken) {
             showBreakAlert(2)
         } else {
             if (!mediaPlayer.isPlaying) mediaPlayer.start()
@@ -283,18 +380,22 @@ class TestFragment : BaseFragment() {
     private fun showBreakAlert(breakNumber: Int) {
         val message: String
 
-        if (breakNumber == 1) {
+        if (isLab) {
+            // The live texts only know "first" and "second of three"; lab runs have numBlocks - 1 breaks.
+            message = resources.getString(R.string.lab_break_text, breakNumber, numBlocks)
+        } else if (breakNumber == 1) {
             message = resources.getString(R.string.task_instructions_first_break_text)
             breakOneTaken = true
         } else {
             message = resources.getString(R.string.task_instructions_second_break_text)
             breakTwoTaken = true
         }
+        labBreaksTaken.add(breakNumber)
 
         val dialog = createDialog(message)
         dialog.show()
 
-        val handler = Handler(Looper.getMainLooper())
+        val handler = uiHandler
         val runnableDialog = Runnable { if (dialog.isShowing) dialog.dismiss() }
         val runnableTest = Runnable { handleStimPresentation() }
 
@@ -303,14 +404,20 @@ class TestFragment : BaseFragment() {
             handler.removeCallbacks(runnableDialog)
         }
 
-        handler.postDelayed(runnableDialog, 15000)
-        handler.postDelayed(runnableTest, 21000)
+        // Lab: the text promises a 20 second rest, so the dialog and the resume use the same 20 s.
+        handler.postDelayed(runnableDialog, if (isLab) 20000 else 15000)
+        handler.postDelayed(runnableTest, if (isLab) 20000 else 21000)
     }
 
     private fun showNoneStimulus(func: () -> Unit) {
         setDisplayTimeStamp()
         flashPhotodiode(binding.photodiodeRow.vPhotodiode4)
-        func()
+        openResponseWindow(func)
+    }
+
+    /** Lab: every type opens its 2 s response window after the 100 ms stimulus period, as V and VS do. */
+    private fun openResponseWindow(func: () -> Unit) {
+        if (isLab) uiHandler.postDelayed({ func() }, EEG_FLASH_DURATION_MS) else func()
     }
 
     private fun showVisAndSoma(func: () -> Unit) {
@@ -320,7 +427,7 @@ class TestFragment : BaseFragment() {
         generator.vibrate(100)
         flashPhotodiode(binding.photodiodeRow.vPhotodiode3)
 
-        Handler(Looper.getMainLooper()).postDelayed({
+        uiHandler.postDelayed({
             binding.ivVisStimulusLeft.visibility = View.INVISIBLE
             binding.ivVisStimulusRight.visibility = View.INVISIBLE
             setRemoveDisplayTimeStamp()
@@ -332,7 +439,7 @@ class TestFragment : BaseFragment() {
         generator.vibrate(100)
         setDisplayTimeStamp()
         flashPhotodiode(binding.photodiodeRow.vPhotodiode2)
-        func()
+        openResponseWindow(func)
     }
 
     private fun showVisualStim(func: () -> Unit) {
@@ -341,7 +448,7 @@ class TestFragment : BaseFragment() {
         setDisplayTimeStamp()
         flashPhotodiode(binding.photodiodeRow.vPhotodiode1)
 
-        Handler(Looper.getMainLooper()).postDelayed({
+        uiHandler.postDelayed({
             binding.ivVisStimulusLeft.visibility = View.INVISIBLE
             binding.ivVisStimulusRight.visibility = View.INVISIBLE
             setRemoveDisplayTimeStamp()
@@ -384,6 +491,15 @@ class TestFragment : BaseFragment() {
         return ms.coerceIn(Int.MIN_VALUE.toDouble(), Int.MAX_VALUE.toDouble()).toInt()
     }
 
+    /** Snapshot of the current practice attempt's per-trial reaction times, keyed like the real test's V/S/VS values. */
+    private fun buildPracticeValuesMap(): HashMap<String, Int> {
+        val values = HashMap<String, Int>()
+        for (i in trialAnswersVis.indices) values["V$i"] = reactionMsToPayloadInt(trialAnswersVis[i])
+        for (i in trialAnswersSoma.indices) values["S$i"] = reactionMsToPayloadInt(trialAnswersSoma[i])
+        for (i in trialAnswersVisAndSoma.indices) values["VS$i"] = reactionMsToPayloadInt(trialAnswersVisAndSoma[i])
+        return values
+    }
+
     private fun uploadResultsToServer() {
         val testId = viewModel.testId
         if (testId == null) {
@@ -392,16 +508,24 @@ class TestFragment : BaseFragment() {
         }
 
         val unsortedParams = HashMap<String, Int>()
-        for (i in answersVis.indices) unsortedParams["V$i"] = reactionMsToPayloadInt(answersVis[i])
-        for (i in answersSoma.indices) unsortedParams["S$i"] = reactionMsToPayloadInt(answersSoma[i])
-        for (i in answersVisAndSoma.indices) {
-            unsortedParams["VS$i"] = reactionMsToPayloadInt(answersVisAndSoma[i])
+        val unsortedVis = respondedOnly(answersVis)
+        val unsortedSoma = respondedOnly(answersSoma)
+        val unsortedVisAndSoma = respondedOnly(answersVisAndSoma)
+        val unsortedNone = respondedOnly(answersNone)
+        for (i in unsortedVis.indices) unsortedParams["V$i"] = reactionMsToPayloadInt(unsortedVis[i])
+        for (i in unsortedSoma.indices) unsortedParams["S$i"] = reactionMsToPayloadInt(unsortedSoma[i])
+        for (i in unsortedVisAndSoma.indices) {
+            unsortedParams["VS$i"] = reactionMsToPayloadInt(unsortedVisAndSoma[i])
         }
-        for (i in answersNone.indices) unsortedParams["C$i"] = reactionMsToPayloadInt(answersNone[i])
+        for (i in unsortedNone.indices) unsortedParams["C$i"] = reactionMsToPayloadInt(unsortedNone[i])
 
-        if (practiceRetried) {
+        // failedAttempts == 2 means the patient failed practice twice and never started the
+        // real test; a single retry that was later passed must not wipe real-test data.
+        val practiceFailed = failedAttempts == 2
+
+        if (practiceFailed) {
             unsortedParams.clear()
-            for (i in 0 until 45) {
+            for (i in 0 until valuesPerType) {
                 unsortedParams["C$i"] = 0
                 unsortedParams["V$i"] = 0
                 unsortedParams["VS$i"] = 0
@@ -416,37 +540,46 @@ class TestFragment : BaseFragment() {
         var answerSoma: Double
         val params = HashMap<String, Int>()
 
-        if (practiceRetried) {
-            for (i in 0 until 45) {
+        val sortedNone = respondedOnly(answersNone)
+        val sortedVis = respondedOnly(answersVis)
+        val sortedVisAndSoma = respondedOnly(answersVisAndSoma)
+        val sortedSoma = respondedOnly(answersSoma)
+
+        if (practiceFailed) {
+            for (i in 0 until valuesPerType) {
                 params["C$i"] = 0
                 params["V$i"] = 0
                 params["VS$i"] = 0
                 params["S$i"] = 0
             }
         } else {
-            for (i in 0 until 45) {
-                if (answersNone.indexExists(i)) {
-                    answerNone = answersNone[i]
+            for (i in 0 until valuesPerType) {
+                if (sortedNone.indexExists(i)) {
+                    answerNone = sortedNone[i]
                     params["C$i"] = reactionMsToPayloadInt(answerNone)
                 }
-                if (answersVis.indexExists(i)) {
-                    answerVis = answersVis[i]
+                if (sortedVis.indexExists(i)) {
+                    answerVis = sortedVis[i]
                     params["V$i"] = reactionMsToPayloadInt(answerVis)
                 }
-                if (answersVisAndSoma.indexExists(i)) {
-                    answerVisSoma = answersVisAndSoma[i]
+                if (sortedVisAndSoma.indexExists(i)) {
+                    answerVisSoma = sortedVisAndSoma[i]
                     params["VS$i"] = reactionMsToPayloadInt(answerVisSoma)
                 }
-                if (answersSoma.indexExists(i)) {
-                    answerSoma = answersSoma[i]
+                if (sortedSoma.indexExists(i)) {
+                    answerSoma = sortedSoma[i]
                     params["S$i"] = reactionMsToPayloadInt(answerSoma)
                 }
             }
         }
+        rawMeasurements.practiseTestStatus = if (practiceFailed) "fail" else "pass"
+
         if (practiceRetried) {
-            rawMeasurements.practiseTestStatus = "fail"
+            rawMeasurements.practiseTestValues = practiceAttempt1Values
+            rawMeasurements.practiseTestValues2 = buildPracticeValuesMap()
         } else {
-            rawMeasurements.practiseTestStatus = "pass"
+            rawMeasurements.practiseTestValues = buildPracticeValuesMap()
+            rawMeasurements.practiseTestValues2 = null
         }
 
         rawMeasurements.testValues = params
@@ -459,10 +592,27 @@ class TestFragment : BaseFragment() {
         rawMeasurementModel.test = testId
         rawMeasurementModel.rawMeasurements = rawMeasurements
         rawMeasurementModel.unsortedRawMeasurements = unsortedParams
+        if (isLab) {
+            rawMeasurementModel.labConfig = LabConfig(
+                numBlocks = numBlocks,
+                trialsPerBlock = StimulusSequence.BLOCK_SIZE,
+                perConditionPerBlock = StimulusSequence.PER_TYPE_PER_BLOCK,
+                stimulusMs = EEG_FLASH_DURATION_MS.toInt(),
+                responseWindowMs = 2000,
+                itiMinMs = 1000,
+                itiMaxMs = 3000
+            )
+            rawMeasurementModel.practiceTrials = labPracticeTrials.toList()
+            rawMeasurementModel.trials = if (practiceFailed) emptyList() else labTrials.toList()
+        }
         stateEvent = StateEvent.CreateRawMeasurement(rawMeasurementModel)
         viewModel.resetResponseModel()
         viewModel.setStateEvent(stateEvent as StateEvent.CreateRawMeasurement)
     }
+
+    /** Lab: a miss is stored as 0 in the working lists; the legacy value maps leave misses out. */
+    private fun respondedOnly(list: List<Double>): List<Double> =
+        if (isLab) list.filter { it > 0.0 } else list
 
     private fun sortAnswerArrays() {
         answersNone.sort()
@@ -472,6 +622,11 @@ class TestFragment : BaseFragment() {
     }
 
     private fun generateStimuli() {
+        if (isLab) {
+            stims.addAll(StimulusSequence.practice())
+            StimulusSequence.blocks(numBlocks).forEach { stims.addAll(it) }
+            return
+        }
         for (i in 1..45) {
             stims.add(Stimulus(EStimulusType.VISUAL))
             stims.add(Stimulus(EStimulusType.VIS_AND_SOMA))
@@ -685,6 +840,10 @@ class TestFragment : BaseFragment() {
         }
     }
 
+    private fun isPostTestResearchFlow(): Boolean =
+        viewModel.isResearchPurposeDropdownVisible &&
+            rawMeasurements.researchPurpose.equals("yes", ignoreCase = true)
+
     private fun showCompleteTestScreen() {
         mediaPlayer.stop()
         val dialogListener = object : DialogInterface {
@@ -695,7 +854,10 @@ class TestFragment : BaseFragment() {
                 handleCompleteTest()
             }
         }
-        val dialog = TestCompletedFragment(dialogListener)
+        val dialog = TestCompletedFragment(
+            dialogListener,
+            deferSingleTestFinishForResearchPostFlow = isPostTestResearchFlow()
+        )
         isOnTestCompleteScreen = true
         dialog.show(childFragmentManager, "TestCompletedFragment")
     }
@@ -718,6 +880,9 @@ class TestFragment : BaseFragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        uiHandler.removeCallbacksAndMessages(null)
+        advancePending = false
+        runnable?.let { handler?.removeCallbacks(it) }
         _binding = null
         mediaPlayer.stop()
     }
@@ -726,6 +891,12 @@ class TestFragment : BaseFragment() {
         mainActivity.testInProgress.value = false
         if (BuildConfig.IS_LAB_BUILD) {
             findNavController().navigate(R.id.action_test_to_lab_finalization)
+            return
+        }
+        if (isPostTestResearchFlow()) {
+            findNavController().navigate(
+                TestFragmentDirections.actionTestFragmentToPostTestResearchOptionsFragment()
+            )
             return
         }
         val action = if (batchCompleted) {
